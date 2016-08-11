@@ -1,0 +1,2 @@
+# bulb
+slot signal fire
