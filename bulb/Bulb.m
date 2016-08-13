@@ -22,12 +22,14 @@
 
 + (instancetype)sharedInstance
 {
-    static Bulb* core = nil;
+    static Bulb* bulb = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        core = [[Bulb alloc] init];
+        bulb = [[Bulb alloc] init];
+        bulb.slots = [NSMutableArray array];
+        bulb.history = [[BulbHistory alloc] init];
     });
-    return core;
+    return bulb;
 }
 
 + (void)fire:(NSString *)signalIdentifier data:(id)data
@@ -109,7 +111,7 @@
             }
         }];
     }];
-    if (matchCount == bulb.history.signals.count) {
+    if (matchCount != 0 && matchCount == bulb.history.signals.count) {
         if (block) {
             block(dataTable.allValues.firstObject, dataTable);
         }
@@ -118,9 +120,14 @@
         slot.signals = signals;
         slot.block = block;
         slot.type = kBulbSignalSlotTypeInstant;
+        NSMutableDictionary* fireTableDict = [NSMutableDictionary dictionary];
         [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, BOOL * _Nonnull stop) {
-            [slot.fireDataTable setObject:signal.data forKey:signal.identifier];
+            if (signal.data) {
+                [slot.fireDataTable setObject:signal.data forKey:signal.identifier];
+            }
+            [fireTableDict setObject:kBulbSignalStatusOn forKey:signal.identifier];
         }];
+        slot.fireTable = @[fireTableDict];
         [bulb.slots addObject:slot];
     }
 }

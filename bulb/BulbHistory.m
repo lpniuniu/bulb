@@ -10,4 +10,13 @@
 
 @implementation BulbHistory
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.signals = [NSMutableArray array];
+    }
+    return self;
+}
+
 @end

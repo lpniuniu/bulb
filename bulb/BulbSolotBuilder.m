@@ -14,23 +14,22 @@
 + (BulbSlot *)buildWithSignalsIdentifier:(NSArray *)signalIdentifiers block:(BulbBlock)block type:(BulbSignalSlotType)type
 {
     
-    NSSet* signals = [NSSet set];
+    NSMutableSet* signals = [NSMutableSet set];
     NSMutableDictionary* table = [NSMutableDictionary dictionary];
     [signalIdentifiers enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
         BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:identifier];
-        [signals setByAddingObject:signal];
+        [signals addObject:signal];
         [table setObject:kBulbSignalStatusOn forKey:identifier];
     }];
-    
     return [[BulbSlot alloc] initWithSignals:signals block:block fireTable:@[table] type:type];
 }
 
 + (BulbSlot *)buildWithSignalsIdentifierMap:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block type:(BulbSignalSlotType)type
 {
-    NSSet* signals = [NSSet set];
+    NSMutableSet* signals = [NSMutableSet set];
     [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
         BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:identifier];
-        [signals setByAddingObject:signal];
+        [signals addObject:signal];
     }];
     return [[BulbSlot alloc] initWithSignals:signals block:block fireTable:@[signalIdentifier2status] type:type];
 }

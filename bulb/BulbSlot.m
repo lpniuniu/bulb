@@ -29,6 +29,15 @@
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _fireDataTable = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
 - (void)fireStatusWithSignalIdentifier:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
 {
     [self updateStatusWithSignalIdentifier:signalIdentifier status:status data:data];
