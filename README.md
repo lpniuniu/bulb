@@ -1,2 +1,2 @@
 # bulb
-slot signal fire
+多彩的通知
