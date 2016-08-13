@@ -51,12 +51,13 @@
 {
     BulbSignal* siganl = [self hasSignal:signalIdentifier];
     if (!siganl) {
-        NSAssert(NO, @"signal identifier %@ not in this slot", signalIdentifier);
         return ;
     }
     siganl.status = status;
     siganl.data = data;
-    [self.fireDataTable setObject:data forKey:signalIdentifier];
+    if (data) {
+        [self.fireDataTable setObject:data forKey:signalIdentifier];
+    }
 }
 
 - (BulbSignal *)hasSignal:(NSString *)identifier

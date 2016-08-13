@@ -38,7 +38,6 @@
     NSMutableIndexSet* deleteIndexes = [NSMutableIndexSet indexSet];
     NSMutableArray* appendSlots = [NSMutableArray array];
     [bulb.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
-        [slot.fireDataTable setObject:data forKey:signalIdentifier];
         [slot fireStatusWithSignalIdentifier:signalIdentifier status:kBulbSignalStatusOn data:data];
         [self addSignalIdentifierToHistory:[slot hasSignal:signalIdentifier]];
         if (slot.fireCount > 0) {
