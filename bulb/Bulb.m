@@ -104,7 +104,9 @@
     [bulb.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
         [signalIdentifiers enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([identifier isEqualToString:signal.identifier] && signal.status == kBulbSignalStatusOn) {
-                [dataTable setObject:signal.data forKey:signal.identifier];
+                if (signal.data) {
+                    [dataTable setObject:signal.data forKey:signal.identifier];
+                }
                 [signals addObject:signal];
                 matchCount++;
             }
