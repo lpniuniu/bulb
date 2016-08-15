@@ -54,8 +54,8 @@
 /*!
  *  @brief 如果没有发送过传入信号，就执行，否则不执行
  */
-+ (void)runNoSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
-+ (void)runNoSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
++ (void)runNoSignal:(NSString *)signalIdentifier block:(void(^)())block;
++ (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block;
 
 /*!
  *  @brief 发出信号

@@ -133,12 +133,12 @@
     }
 }
 
-+ (void)runNoSignal:(NSString *)signalIdentifier block:(BulbBlock)block
++ (void)runNoSignal:(NSString *)signalIdentifier block:(void(^)())block
 {
     [self runNoSignals:@[signalIdentifier] block:block];
 }
 
-+ (void)runNoSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block
++ (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block
 {
     Bulb* bulb = [self sharedInstance];
     __block NSInteger matchCount = 0;
@@ -151,7 +151,7 @@
     }];
     if (matchCount == 0 || matchCount != bulb.history.signals.count) {
         if (block) {
-            block(nil, nil);
+            block();
         }
     }
 }
