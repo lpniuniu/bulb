@@ -52,6 +52,12 @@
 + (void)runAfterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
 
 /*!
+ *  @brief 如果没有发送过传入信号，就执行，否则不执行
+ */
++ (void)runNoSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
++ (void)runNoSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
+
+/*!
  *  @brief 发出信号
  */
 + (void)fire:(NSString *)signalIdentifier data:(id)data;
