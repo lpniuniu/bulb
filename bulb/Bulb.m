@@ -213,4 +213,17 @@
     return findSignal;
 }
 
++ (NSString *)getSignalStatusFromHistory:(NSString *)signalIdentifier
+{
+    Bulb* bulb = [self sharedInstance];
+    __block NSString* findStatus = nil;
+    [bulb.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([signal.identifier isEqualToString:signalIdentifier]) {
+            findStatus = signal.status;
+            *stop = YES;
+        }
+    }];
+    return findStatus;
+}
+
 @end
