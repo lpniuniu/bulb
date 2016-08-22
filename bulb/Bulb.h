@@ -58,6 +58,15 @@
 + (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block;
 
 /*!
+ *  @brief 获取某信号最近的状态
+ *
+ *  @param signalIdentifier 信号唯一标识
+ *
+ *  @return 信号状态
+ */
++ (NSString *)getSignalStateRecently:(NSString *)signalIdentifier;
+
+/*!
  *  @brief 发出信号
  */
 + (void)fire:(NSString *)signalIdentifier data:(id)data;

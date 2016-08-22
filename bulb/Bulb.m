@@ -156,4 +156,17 @@
     }
 }
 
++ (NSString *)getSignalStateRecently:(NSString *)signalIdentifier
+{
+    Bulb* bulb = [self sharedInstance];
+    __block NSString* status = nil;
+    [[[bulb.history.signals reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([signal.identifier isEqualToString:signalIdentifier]) {
+            status = signal.status;
+            *stop = YES;
+        }
+    }];
+    return status;
+}
+
 @end
