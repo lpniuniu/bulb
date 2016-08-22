@@ -34,12 +34,34 @@
 
 + (void)fire:(NSString *)signalIdentifier data:(id)data
 {
+    [self fire:signalIdentifier status:kBulbSignalStatusOn data:data save:NO];
+}
+
++ (void)fire:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
+{
+    [self fire:signalIdentifier status:status data:data save:NO];
+}
+
++ (void)fireAndSave:(NSString *)signalIdentifier data:(id)data
+{
+    [self fire:signalIdentifier status:kBulbSignalStatusOn data:data save:YES];
+}
+
++ (void)fireAndSave:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
+{
+    [self fire:signalIdentifier status:status data:data save:YES];
+}
+
++ (void)fire:(NSString *)signalIdentifier status:(NSString *)status data:(id)data save:(BOOL)save
+{
     Bulb* bulb = [self sharedInstance];
     NSMutableIndexSet* deleteIndexes = [NSMutableIndexSet indexSet];
     NSMutableArray* appendSlots = [NSMutableArray array];
     [bulb.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
-        [slot fireStatusWithSignalIdentifier:signalIdentifier status:kBulbSignalStatusOn data:data];
-        [self addSignalIdentifierToHistory:[slot hasSignal:signalIdentifier]];
+        [slot fireStatusWithSignalIdentifier:signalIdentifier status:status data:data];
+        if (save) {
+            [self save:signalIdentifier status:status data:data];
+        }
         if (slot.fireCount > 0) {
             [deleteIndexes addIndex:idx];
             if (slot.type == kBulbSignalSlotTypeReAppend) {
@@ -52,13 +74,23 @@
     [bulb.slots addObjectsFromArray:appendSlots];
 }
 
++ (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
+{
+    BulbSignal* signal = [[BulbSignal alloc] init];
+    signal.status = status;
+    signal.data = data;
+    [self addSignalIdentifierToHistory:signal];
+}
+
 + (void)addSignalIdentifierToHistory:(BulbSignal *)signal
 {
-    if (signal == nil) {
-        return ;
-    }
+    BulbSignal* removeSignal = [self getSignalFromHistory:signal.identifier];
     Bulb* bulb = [self sharedInstance];
-    signal.status = kBulbSignalStatusOn;
+    // 去重
+    [bulb.history.signals removeObject:removeSignal];
+    if (signal.status == nil) {
+        signal.status = kBulbSignalStatusOn;
+    }
     [bulb.history.signals addObject:signal];
 }
 
@@ -156,17 +188,17 @@
     }
 }
 
-+ (NSString *)getSignalStateRecently:(NSString *)signalIdentifier
++ (BulbSignal *)getSignalFromHistory:(NSString *)signalIdentifier
 {
     Bulb* bulb = [self sharedInstance];
-    __block NSString* status = nil;
-    [[[bulb.history.signals reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+    __block BulbSignal* findSignal = nil;
+    [bulb.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([signal.identifier isEqualToString:signalIdentifier]) {
-            status = signal.status;
+            findSignal = signal;
             *stop = YES;
         }
     }];
-    return status;
+    return findSignal;
 }
 
 @end

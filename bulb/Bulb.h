@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BulbConstant.h"
+#import "BulbSignal.h"
 
 @interface Bulb : NSObject
 
@@ -58,17 +59,25 @@
 + (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block;
 
 /*!
- *  @brief 获取某信号最近的状态
+ *  @brief 获取某信号的状态
  *
  *  @param signalIdentifier 信号唯一标识
  *
  *  @return 信号状态
  */
-+ (NSString *)getSignalStateRecently:(NSString *)signalIdentifier;
++ (BulbSignal *)getSignalFromHistory:(NSString *)signalIdentifier;
 
 /*!
  *  @brief 发出信号
  */
 + (void)fire:(NSString *)signalIdentifier data:(id)data;
++ (void)fire:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
++ (void)fireAndSave:(NSString *)signalIdentifier data:(id)data;
++ (void)fireAndSave:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
+
+/**
+ @brief 保存信号, 信号会记录下历史中，方便一些业务逻辑查看使用
+ */
++ (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
 
 @end
