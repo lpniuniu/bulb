@@ -100,6 +100,12 @@
     [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifier:@[signalIdentifier] block:block type:kBulbSignalSlotTypeInstant]];
 }
 
++ (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block
+{
+    Bulb* bulb = [self sharedInstance];
+    [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifierMap:@{signalIdentifier:status} block:block type:kBulbSignalSlotTypeInstant]];
+}
+
 + (void)regiseterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block
 {
     Bulb* bulb = [self sharedInstance];
@@ -110,6 +116,12 @@
 {
     Bulb* bulb = [self sharedInstance];
     [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifier:@[signalIdentifier] block:foreverblock type:kBulbSignalSlotTypeReAppend]];
+}
+
++ (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status foreverblock:(BulbBlock)foreverblock
+{
+    Bulb* bulb = [self sharedInstance];
+    [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifierMap:@{signalIdentifier:status} block:foreverblock type:kBulbSignalSlotTypeReAppend]];
 }
 
 + (void)regiseterSignals:(NSArray *)signalIdentifiers foreverblock:(BulbBlock)foreverblock

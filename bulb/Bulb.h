@@ -23,10 +23,21 @@
 /*!
  *  @brief 注册信号
  *
+ *  @param signalIdentifier 信号唯一标识
+ *  @param status           信号激活的状态
+ *  @param block            信号回调，信号fire只执行一次，如果需要再注册
+ */
++ (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
+
+/*!
+ *  @brief 注册信号
+ *
  *  @param signalIdentifiers 信号唯一标识组，全部fire触发回调
  *  @param block             信号回调，信号fire只执行一次，如果需要再注册
  */
 + (void)regiseterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
+
+// TODO mac regiseter
 
 /*!
  *  @brief 注册信号
@@ -40,9 +51,20 @@
  *  @brief 注册信号
  *
  *  @param signalIdentifier 信号唯一标识
+ *  @param status           信号激活的状态
+ *  @param block            信号回调, 回调保留，信号fire就执行
+ */
++ (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status foreverblock:(BulbBlock)foreverblock;
+
+/*!
+ *  @brief 注册信号
+ *
+ *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
 + (void)regiseterSignals:(NSArray *)signalIdentifiers foreverblock:(BulbBlock)foreverblock;
+
+// TODO mac regiseter
 
 // Todo regiseterSignal 其他触发条件
 
