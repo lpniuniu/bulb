@@ -137,17 +137,33 @@
 
 + (void)runAfterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block
 {
+    NSMutableDictionary* signalIdentifier2status = [NSMutableDictionary dictionary];
+    [signalIdentifiers enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+        [signalIdentifier2status setObject:kBulbSignalStatusOn forKey:signal.identifier];
+    }];
+    [self runAfterSignalsWithStatus:signalIdentifier2status block:block];
+}
+
++ (void)runAfterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block
+{
+    NSMutableDictionary* signalIdentifier2status = [NSMutableDictionary dictionary];
+    [signalIdentifier2status setObject:status forKey:signalIdentifier];
+    [self runAfterSignalsWithStatus:signalIdentifier2status block:block];
+}
+
++ (void)runAfterSignalsWithStatus:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block
+{
     Bulb* bulb = [self sharedInstance];
     __block NSInteger matchCount = 0;
     NSMutableDictionary* dataTable = [NSMutableDictionary dictionary];
     NSMutableSet* signals = [NSMutableSet set];
-    [signalIdentifiers enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
+    [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
         BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:identifier];
         [signals addObject:signal];
     }];
     [bulb.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        [signalIdentifiers enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([identifier isEqualToString:signal.identifier] && signal.status == kBulbSignalStatusOn) {
+        [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([identifier isEqualToString:signal.identifier] && [signalIdentifier2status objectForKey:identifier] == signal.status) {
                 if (signal.data) {
                     [dataTable setObject:signal.data forKey:signal.identifier];
                 }
@@ -170,7 +186,7 @@
             if (signal.data) {
                 [slot.fireDataTable setObject:signal.data forKey:signal.identifier];
             }
-            [fireTableDict setObject:kBulbSignalStatusOn forKey:signal.identifier];
+            [fireTableDict setObject:[signalIdentifier2status objectForKey:signal.identifier] forKey:signal.identifier];
         }];
         slot.fireTable = @[fireTableDict];
         [bulb.slots addObject:slot];

@@ -63,7 +63,7 @@
  */
 + (void)regiseterSignals:(NSArray *)signalIdentifiers foreverblock:(BulbBlock)foreverblock;
 
-// TODO mac regiseter
+// TODO map regiseter
 
 // Todo regiseterSignal 其他触发条件
 
@@ -71,7 +71,9 @@
  *  @brief 在信号发生后执行，如果已发送立即执行，否则延后执行
  */
 + (void)runAfterSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
++ (void)runAfterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
 + (void)runAfterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
++ (void)runAfterSignalsWithStatus:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block;
 
 /*!
  *  @brief 如果没有发送过传入信号，就执行，否则不执行
