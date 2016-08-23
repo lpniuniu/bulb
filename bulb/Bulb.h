@@ -44,7 +44,7 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
-+ (void)regiseterSignal:(NSArray *)signalIdentifier foreverblock:(BulbBlock)foreverblock;
++ (void)regiseterSignal:(NSString *)signalIdentifier foreverblock:(BulbBlock)foreverblock;
 
 /*!
  *  @brief 注册信号

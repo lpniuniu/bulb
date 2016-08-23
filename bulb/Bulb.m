@@ -112,7 +112,7 @@
     [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifier:signalIdentifiers block:block type:kBulbSignalSlotTypeInstant]];
 }
 
-+ (void)regiseterSignal:(NSArray *)signalIdentifier foreverblock:(BulbBlock)foreverblock
++ (void)regiseterSignal:(NSString *)signalIdentifier foreverblock:(BulbBlock)foreverblock
 {
     Bulb* bulb = [self sharedInstance];
     [bulb.slots addObject:[BulbSolotBuilder buildWithSignalsIdentifier:@[signalIdentifier] block:foreverblock type:kBulbSignalSlotTypeReAppend]];
