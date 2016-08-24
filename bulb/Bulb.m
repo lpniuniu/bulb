@@ -138,8 +138,8 @@
 + (void)runAfterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block
 {
     NSMutableDictionary* signalIdentifier2status = [NSMutableDictionary dictionary];
-    [signalIdentifiers enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        [signalIdentifier2status setObject:kBulbSignalStatusOn forKey:signal.identifier];
+    [signalIdentifiers enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
+        [signalIdentifier2status setObject:kBulbSignalStatusOn forKey:identifier];
     }];
     [self runAfterSignalsWithStatus:signalIdentifier2status block:block];
 }
