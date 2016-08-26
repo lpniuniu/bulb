@@ -76,7 +76,7 @@
 
 + (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
 {
-    BulbSignal* signal = [[BulbSignal alloc] init];
+    BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:signalIdentifier];
     signal.status = status;
     signal.data = data;
     [self addSignalIdentifierToHistory:signal];
