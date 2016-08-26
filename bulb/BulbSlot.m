@@ -7,6 +7,7 @@
 //
 
 #import "BulbSlot.h"
+#import "Bulb.h"
 
 @interface BulbSlot ()
 
@@ -102,6 +103,8 @@
 {
     for (BulbSignal* signal in self.signals) {
         [signal reset];
+        // 如果状态槽存在信号状态不重置，赋予最后的状态
+        signal.status = [Bulb getSignalStatusFromHistory:signal.identifier];
     }
 }
 
