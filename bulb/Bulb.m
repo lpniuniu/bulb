@@ -172,7 +172,7 @@
             }
         }];
     }];
-    if (matchCount != 0 && matchCount == bulb.history.signals.count) {
+    if (matchCount != 0 && matchCount == signalIdentifier2status.allKeys.count) {
         if (block) {
             block(dataTable.allValues.firstObject, dataTable);
         }
