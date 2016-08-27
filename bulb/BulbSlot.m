@@ -101,10 +101,6 @@
 
 - (void)resetSignals
 {
-    if (self.signals.count == 2) {
-        NSLog(@"");
-    }
-    
     for (BulbSignal* signal in self.signals) {
         [signal reset];
         // 如果状态槽存在信号状态不重置，赋予最后的状态
@@ -113,6 +109,7 @@
             signal.status = status;
         }
     }
+    self.fireCount = 0;
 }
 
 @end

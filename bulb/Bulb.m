@@ -55,22 +55,25 @@
 + (void)fire:(NSString *)signalIdentifier status:(NSString *)status data:(id)data save:(BOOL)save
 {
     Bulb* bulb = [self sharedInstance];
-    NSMutableIndexSet* deleteIndexes = [NSMutableIndexSet indexSet];
+    if (save) {
+        [self save:signalIdentifier status:status data:data];
+    }
+    NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
     [bulb.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
-        [slot fireStatusWithSignalIdentifier:signalIdentifier status:status data:data];
-        if (save) {
-            [self save:signalIdentifier status:status data:data];
-        }
-        if (slot.fireCount > 0) {
-            [deleteIndexes addIndex:idx];
-            if (slot.type == kBulbSignalSlotTypeReAppend) {
-                [slot resetSignals];
-                [appendSlots addObject:slot];
+        if ([slot hasSignal:signalIdentifier]) {
+            [slot fireStatusWithSignalIdentifier:signalIdentifier status:status data:data];
+            if (slot.fireCount > 0) {
+                [deleteSlots addObject:slot];
+                if (slot.type == kBulbSignalSlotTypeReAppend) {
+                    [slot resetSignals];
+                    [appendSlots addObject:slot];
+                    
+                }
             }
         }
     }];
-    [bulb.slots removeObjectsAtIndexes:deleteIndexes];
+    [bulb.slots removeObjectsInArray:deleteSlots];
     [bulb.slots addObjectsFromArray:appendSlots];
 }
 
