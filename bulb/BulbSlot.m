@@ -25,7 +25,7 @@
         _block = block;
         _fireTable = fireTable;
         _type = type;
-        _fireDataTable = [NSMutableDictionary dictionary];
+        _fireDataTable = [NSMapTable strongToWeakObjectsMapTable];
     }
     return self;
 }
@@ -34,7 +34,7 @@
 {
     self = [super init];
     if (self) {
-        _fireDataTable = [NSMutableDictionary dictionary];
+        _fireDataTable = [NSMapTable strongToWeakObjectsMapTable];
     }
     return self;
 }
@@ -43,7 +43,13 @@
 {
     [self updateStatusWithSignalIdentifier:signalIdentifier status:status data:data];
     if ([self canBeFire] && self.block) {
-        self.block(self.fireDataTable.allValues.firstObject, self.fireDataTable);
+        NSEnumerator *enumerator = [self.fireDataTable objectEnumerator];
+        id firstData = nil;
+        for (id data in enumerator) {
+            firstData = data;
+            break;
+        }
+        self.block(firstData , self.fireDataTable);
         self.fireCount++;
     }
 }

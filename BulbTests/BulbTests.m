@@ -19,11 +19,11 @@
 
 - (void)test {
     NSString* noti = @"noti A";
-    [Bulb regiseterSignals:@[noti] block:^(id data, NSDictionary<NSString *,id> *fireDataTable) {
+    [Bulb regiseterSignals:@[noti] block:^(id data, NSMapTable<NSString *,id> *fireDataTable) {
         NSLog(@"noti exe ! %@", data);
     }];
     
-    [Bulb runAfterSignal:noti block:^(id data, NSDictionary<NSString *,id> *fireDataTable) {
+    [Bulb runAfterSignal:noti block:^(id data, NSMapTable<NSString *,id> *fireDataTable) {
         NSLog(@"noti exe ! %@, after", data);
     }];
     [Bulb fire:noti data:@"data"];
