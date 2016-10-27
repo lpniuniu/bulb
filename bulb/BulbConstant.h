@@ -16,4 +16,4 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotType) {
     kBulbSignalSlotTypeReAppend = 1,// 永久槽, fire后消失，添加到队列的最后面
 };
 
-typedef void(^BulbBlock)(id data, NSMapTable<NSString *, id>* fireDataTable);
+typedef void(^BulbBlock)(id firstData, NSDictionary<NSString *, id>* signalIdentifier2data);

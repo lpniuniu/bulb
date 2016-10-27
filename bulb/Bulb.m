@@ -10,6 +10,7 @@
 #import "BulbSlot.h"
 #import "BulbSolotBuilder.h"
 #import "BulbHistory.h"
+#import "BulbWeakDataWrapper.h"
 
 @interface Bulb ()
 
@@ -159,7 +160,7 @@
     Bulb* bulb = [self sharedInstance];
     __block NSInteger matchCount = 0;
     NSMutableDictionary* dataTable = [NSMutableDictionary dictionary];
-    NSMutableSet* signals = [NSMutableSet set];
+    NSMutableArray* signals = [NSMutableArray array];
     [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
         BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:identifier];
         [signals addObject:signal];
@@ -185,10 +186,7 @@
         slot.block = block;
         slot.type = kBulbSignalSlotTypeInstant;
         NSMutableDictionary* fireTableDict = [NSMutableDictionary dictionary];
-        [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, BOOL * _Nonnull stop) {
-            if (signal.data) {
-                [slot.fireDataTable setObject:signal.data forKey:signal.identifier];
-            }
+        [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
             [fireTableDict setObject:[signalIdentifier2status objectForKey:signal.identifier] forKey:signal.identifier];
         }];
         slot.fireTable = @[fireTableDict];

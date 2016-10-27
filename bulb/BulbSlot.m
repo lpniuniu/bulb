@@ -8,16 +8,18 @@
 
 #import "BulbSlot.h"
 #import "Bulb.h"
+#import "BulbWeakDataWrapper.h"
 
 @interface BulbSlot ()
 
 @property (nonatomic, assign) NSInteger fireCount;
+@property (nonatomic) id firstData;
 
 @end
 
 @implementation BulbSlot
 
-- (instancetype)initWithSignals:(NSSet *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type
+- (instancetype)initWithSignals:(NSArray *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type
 {
     self = [super init];
     if (self) {
@@ -25,16 +27,6 @@
         _block = block;
         _fireTable = fireTable;
         _type = type;
-        _fireDataTable = [NSMapTable strongToWeakObjectsMapTable];
-    }
-    return self;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _fireDataTable = [NSMapTable strongToWeakObjectsMapTable];
     }
     return self;
 }
@@ -43,13 +35,32 @@
 {
     [self updateStatusWithSignalIdentifier:signalIdentifier status:status data:data];
     if ([self canBeFire] && self.block) {
-        NSEnumerator *enumerator = [self.fireDataTable objectEnumerator];
-        id firstData = nil;
-        for (id data in enumerator) {
-            firstData = data;
-            break;
-        }
-        self.block(firstData , self.fireDataTable);
+        NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
+        __block id firstData = nil;
+        [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.data && obj.identifier) {
+                if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
+                    BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
+                    if (weakDataWrapper.internalData) {
+                        [signalIdentifier2data setObject:weakDataWrapper.internalData forKey:obj.identifier];
+                        if (firstData == nil) {
+                            firstData = weakDataWrapper.internalData;
+                        }
+                    } else {
+                        if (firstData == nil) {
+                            firstData = [NSNull null];
+                        }
+                    }
+                } else {
+                    [signalIdentifier2data setObject:obj.data forKey:obj.identifier];
+                    if (firstData == nil) {
+                        firstData = obj.data;
+                    }
+                }
+            }
+
+        }];
+        self.block(firstData != [NSNull null]? firstData:nil, signalIdentifier2data);
         self.fireCount++;
     }
 }
@@ -62,15 +73,15 @@
     }
     siganl.status = status;
     siganl.data = data;
-    if (data) {
-        [self.fireDataTable setObject:data forKey:signalIdentifier];
+    if (data && self.firstData == nil) {
+        self.firstData = data;
     }
 }
 
 - (BulbSignal *)hasSignal:(NSString *)identifier
 {
     __block BulbSignal* resultSignal = nil;
-    [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, BOOL * _Nonnull stop) {
+    [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([signal.identifier isEqualToString:identifier]) {
             resultSignal = signal;
             *stop = YES;
@@ -84,7 +95,7 @@
     __block BOOL isCanBeFire = NO;
     [self.fireTable enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull identifier2status, NSUInteger idx, BOOL * _Nonnull stop) {
         __block NSInteger matchCount = 0;
-        [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, BOOL * _Nonnull stop) {
+        [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([[identifier2status objectForKey:signal.identifier] isEqualToString:signal.status]) {
                 matchCount++;
             };
@@ -109,7 +120,7 @@
 {
     for (BulbSignal* signal in self.signals) {
         [signal reset];
-        // 如果状态槽存在信号状态不重置，赋予最后的状态
+        // 如果状态槽, 存在信号状态不重置，赋予最后的状态
         NSString* status = [Bulb getSignalStatusFromHistory:signal.identifier];
         if (status) {
             signal.status = status;

@@ -16,7 +16,7 @@
 
 @property (nonatomic, copy, readonly) NSString* identifier;
 @property (nonatomic, copy) NSString* status; // 默认 kBulbSignalStatusOff
-@property (weak, nonatomic) id data;
+@property (nonatomic) id data;
 
 - (void)reset;
 

@@ -17,9 +17,9 @@
  */
 @interface BulbSlot : NSObject
 
-- (instancetype)initWithSignals:(NSSet *)signals block:(BulbBlock)block fireTable:(NSArray<NSMapTable<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
+- (instancetype)initWithSignals:(NSArray *)signals block:(BulbBlock)block fireTable:(NSArray<NSMapTable<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
 
-@property (nonatomic) NSSet<BulbSignal *>* signals;
+@property (nonatomic) NSArray<BulbSignal *>* signals;
 
 /*!
  *  @brief 点亮查询表 NSDictionary<signalIdentifier, status>
@@ -27,10 +27,7 @@
 @property (nonatomic) NSArray<NSDictionary<NSString *, NSString *>*>* fireTable;
 
 @property (nonatomic, copy) BulbBlock block;
-/*!
- *  @brief fire 信号对应的数据 NSDictionary<signalIdentifier, data>
- */
-@property (nonatomic) NSMapTable<NSString *, id>* fireDataTable;
+
 @property (nonatomic, assign) BulbSignalSlotType type; // 槽的类型
 
 /*!

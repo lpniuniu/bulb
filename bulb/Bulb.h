@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BulbConstant.h"
+#import "BulbWeakDataWrapper.h"
 
 @interface Bulb : NSObject
 
