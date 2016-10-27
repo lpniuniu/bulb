@@ -169,23 +169,20 @@
     [bulb.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
         [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([identifier isEqualToString:signal.identifier] && [signalIdentifier2status objectForKey:identifier] == signal.status) {
+                if (firstData == nil) {
+                    if (signal.data) {
+                        firstData = signal.data;
+                    } else {
+                        firstData = [NSNull null];
+                    }
+                }
                 if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
                     BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
                     if (weakDataWrapper.internalData) {
                         [dataTable setObject:weakDataWrapper.internalData forKey:signal.identifier];
-                        if (firstData == nil) {
-                            firstData = weakDataWrapper.internalData;
-                        }
-                    } else {
-                        if (firstData == nil) {
-                            firstData = [NSNull null];
-                        }
                     }
                 } else if (signal.data) {
                     [dataTable setObject:signal.data forKey:signal.identifier];
-                    if (firstData == nil) {
-                        firstData = signal.data;
-                    }
                 }
                 [signals addObject:signal];
                 matchCount++;

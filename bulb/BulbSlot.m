@@ -13,7 +13,6 @@
 @interface BulbSlot ()
 
 @property (nonatomic, assign) NSInteger fireCount;
-@property (nonatomic) id firstData;
 
 @end
 
@@ -38,27 +37,23 @@
         NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
         __block id firstData = nil;
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (firstData == nil) {
+                if (obj.data) {
+                    firstData = obj.data;
+                } else {
+                    firstData = [NSNull null];
+                }
+            }
             if (obj.data && obj.identifier) {
                 if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
                     BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
                     if (weakDataWrapper.internalData) {
                         [signalIdentifier2data setObject:weakDataWrapper.internalData forKey:obj.identifier];
-                        if (firstData == nil) {
-                            firstData = weakDataWrapper.internalData;
-                        }
-                    } else {
-                        if (firstData == nil) {
-                            firstData = [NSNull null];
-                        }
                     }
                 } else {
                     [signalIdentifier2data setObject:obj.data forKey:obj.identifier];
-                    if (firstData == nil) {
-                        firstData = obj.data;
-                    }
                 }
             }
-
         }];
         self.block(firstData != [NSNull null]? firstData:nil, signalIdentifier2data);
         self.fireCount++;
@@ -73,9 +68,6 @@
     }
     siganl.status = status;
     siganl.data = data;
-    if (data && self.firstData == nil) {
-        self.firstData = data;
-    }
 }
 
 - (BulbSignal *)hasSignal:(NSString *)identifier
