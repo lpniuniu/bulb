@@ -39,7 +39,16 @@
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (firstData == nil) {
                 if (obj.data) {
-                    firstData = obj.data;
+                    if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
+                        BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
+                        if (weakDataWrapper.internalData) {
+                            firstData = weakDataWrapper.internalData;
+                        } else {
+                            firstData = [NSNull null];
+                        }
+                    } else {
+                        firstData = obj.data;
+                    }
                 } else {
                     firstData = [NSNull null];
                 }

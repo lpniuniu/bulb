@@ -171,7 +171,16 @@
             if ([identifier isEqualToString:signal.identifier] && [signalIdentifier2status objectForKey:identifier] == signal.status) {
                 if (firstData == nil) {
                     if (signal.data) {
-                        firstData = signal.data;
+                        if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
+                            BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
+                            if (weakDataWrapper.internalData) {
+                                firstData = weakDataWrapper.internalData;
+                            } else {
+                                firstData = [NSNull null];
+                            }
+                        } else {
+                            firstData = signal.data;
+                        }
                     } else {
                         firstData = [NSNull null];
                     }
