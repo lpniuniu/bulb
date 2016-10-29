@@ -31,21 +31,21 @@
 
 - (void)test {
     NSString* noti = @"noti A";
-    [Bulb regiseterSignals:@[noti] block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] regiseterSignals:@[noti] block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
         NSLog(@"noti exe ! %@", data);
         XCTAssertNotNil(data);
     }];
     
-    [Bulb runAfterSignal:noti block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] runAfterSignal:noti block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
         NSLog(@"noti exe ! %@, after", data);
         XCTAssertNotNil(data);
     }];
-    [Bulb fire:noti data:@"data"];
+    [[Bulb bulbGlobal] fire:noti data:@"data"];
 }
 
 - (void)testWeakDataWrapper
 {
-    [Bulb regiseterSignals:@[@"A", @"B"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] regiseterSignals:@[@"A", @"B"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
         NSLog(@"noti exe ! %@", firstData);
         XCTAssert(firstData == nil);
         XCTAssert(signalIdentifier2data.count == 1);
@@ -53,9 +53,9 @@
     
     @autoreleasepool {
         A* a = [[A alloc] init];
-        [Bulb fire:@"A" data:[BulbWeakDataWrapper wrap:a]];
+        [[Bulb bulbGlobal] fire:@"A" data:[BulbWeakDataWrapper wrap:a]];
     }
-    [Bulb fire:@"B" data:@"data"];
+    [[Bulb bulbGlobal] fire:@"B" data:@"data"];
 }
 
 @end

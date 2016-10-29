@@ -11,6 +11,12 @@
 #import "BulbConstant.h"
 
 
+@protocol BulbSlotDelegate <NSObject>
+
+// 内部信号被重置
+- (void)bulbSlotInternalSignalRest:(BulbSignal *)signal;
+
+@end
 
 /*!
  *  @brief 信号槽，容纳信号
@@ -20,6 +26,7 @@
 - (instancetype)initWithSignals:(NSArray *)signals block:(BulbBlock)block fireTable:(NSArray<NSMapTable<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
 
 @property (nonatomic) NSArray<BulbSignal *>* signals;
+@property (weak, nonatomic) id<BulbSlotDelegate> delegate;
 
 /*!
  *  @brief 点亮查询表 NSDictionary<signalIdentifier, status>
