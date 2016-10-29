@@ -58,4 +58,10 @@
     [[Bulb bulbGlobal] fire:@"B" data:@"data"];
 }
 
+- (void)testBulbNameEqual
+{
+    XCTAssert([Bulb bulbGlobal] == [Bulb bulbGlobal]);
+    XCTAssert([Bulb bulbWithName:@"new_bulb_name"] == [Bulb bulbWithName:@"new_bulb_name"]);
+}
+
 @end
