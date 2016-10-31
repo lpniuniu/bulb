@@ -15,7 +15,8 @@
 @interface Bulb () <BulbSlotDelegate>
 
 @property (nonatomic) NSMutableArray<BulbSlot*>* slots;
-@property (nonatomic) BulbSaveList* history;
+@property (nonatomic) BulbSaveList* saveList;
+@property (nonatomic) dispatch_queue_t saveListDispatchQueue;
 
 @end
 
@@ -24,6 +25,15 @@ static NSMutableDictionary* bulbName2bulb = nil;
 
 @implementation Bulb
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _saveListDispatchQueue = dispatch_queue_create("saveListDispatchQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    return self;
+}
+
 + (instancetype)bulbGlobal
 {
     static Bulb* bulb = nil;
@@ -31,7 +41,7 @@ static NSMutableDictionary* bulbName2bulb = nil;
     dispatch_once(&onceToken, ^{
         bulb = [[Bulb alloc] init];
         bulb.slots = [NSMutableArray array];
-        bulb.history = [[BulbSaveList alloc] init];
+        bulb.saveList = [[BulbSaveList alloc] init];
         bulb.name = kGlobalBulbName;
     });
     return bulb;
@@ -43,7 +53,7 @@ static NSMutableDictionary* bulbName2bulb = nil;
     if (!bulb) {
         bulb = [[Bulb alloc] init];
         bulb.slots = [NSMutableArray array];
-        bulb.history = [[BulbSaveList alloc] init];
+        bulb.saveList = [[BulbSaveList alloc] init];
         bulb.name = name;
         if (bulbName2bulb == nil) {
             bulbName2bulb = [NSMutableDictionary dictionary];
@@ -107,18 +117,20 @@ static NSMutableDictionary* bulbName2bulb = nil;
     BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:signalIdentifier];
     signal.status = status;
     signal.data = data;
-    [self addSignalIdentifierToHistory:signal];
+    [self addSignalIdentifierTosaveList:signal];
 }
 
-- (void)addSignalIdentifierToHistory:(BulbSignal *)signal
+- (void)addSignalIdentifierTosaveList:(BulbSignal *)signal
 {
-    BulbSignal* removeSignal = [self getSignalFromHistory:signal.identifier];
+    BulbSignal* removeSignal = [self getSignalFromSaveList:signal.identifier];
     // 去重
-    [self.history.signals removeObject:removeSignal];
+    dispatch_sync(self.saveListDispatchQueue, ^{
+        [self.saveList.signals removeObject:removeSignal];
+        [self.saveList.signals addObject:signal];
+    });
     if (signal.status == nil) {
         signal.status = kBulbSignalStatusOn;
     }
-    [self.history.signals addObject:signal];
 }
 
 - (void)registerSignal:(NSString *)signalIdentifier block:(BulbBlock)block
@@ -194,38 +206,41 @@ static NSMutableDictionary* bulbName2bulb = nil;
         [signals addObject:signal];
     }];
     __block id firstData = nil;
-    [self.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([identifier isEqualToString:signal.identifier] && [signalIdentifier2status objectForKey:identifier] == signal.status) {
-                if (firstData == nil) {
-                    if (signal.data) {
-                        if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
-                            BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
-                            if (weakDataWrapper.internalData) {
-                                firstData = weakDataWrapper.internalData;
+    dispatch_sync(self.saveListDispatchQueue, ^{
+        [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+            [signalIdentifier2status.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([identifier isEqualToString:signal.identifier] && [signalIdentifier2status objectForKey:identifier] == signal.status) {
+                    if (firstData == nil) {
+                        if (signal.data) {
+                            if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
+                                BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
+                                if (weakDataWrapper.internalData) {
+                                    firstData = weakDataWrapper.internalData;
+                                } else {
+                                    firstData = [NSNull null];
+                                }
                             } else {
-                                firstData = [NSNull null];
+                                firstData = signal.data;
                             }
                         } else {
-                            firstData = signal.data;
+                            firstData = [NSNull null];
                         }
-                    } else {
-                        firstData = [NSNull null];
                     }
-                }
-                if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
-                    BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
-                    if (weakDataWrapper.internalData) {
-                        [dataTable setObject:weakDataWrapper.internalData forKey:signal.identifier];
+                    if ([signal.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
+                        BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)signal.data;
+                        if (weakDataWrapper.internalData) {
+                            [dataTable setObject:weakDataWrapper.internalData forKey:signal.identifier];
+                        }
+                    } else if (signal.data) {
+                        [dataTable setObject:signal.data forKey:signal.identifier];
                     }
-                } else if (signal.data) {
-                    [dataTable setObject:signal.data forKey:signal.identifier];
+                    [signals addObject:signal];
+                    matchCount++;
                 }
-                [signals addObject:signal];
-                matchCount++;
-            }
+            }];
         }];
-    }];
+    });
+    
     if (matchCount != 0 && matchCount == signalIdentifier2status.allKeys.count) {
         if (block) {
             block(firstData != [NSNull null]? firstData:nil, dataTable);
@@ -244,27 +259,31 @@ static NSMutableDictionary* bulbName2bulb = nil;
     }
 }
 
-- (BulbSignal *)getSignalFromHistory:(NSString *)signalIdentifier
+- (BulbSignal *)getSignalFromSaveList:(NSString *)signalIdentifier
 {
     __block BulbSignal* findSignal = nil;
-    [self.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([signal.identifier isEqualToString:signalIdentifier]) {
-            findSignal = signal;
-            *stop = YES;
-        }
-    }];
+    dispatch_sync(self.saveListDispatchQueue, ^{
+        [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([signal.identifier isEqualToString:signalIdentifier]) {
+                findSignal = signal;
+                *stop = YES;
+            }
+        }];
+    });
     return findSignal;
 }
 
 - (NSString *)getSignalStatusFromSaveList:(NSString *)signalIdentifier
 {
     __block NSString* findStatus = nil;
-    [self.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([signal.identifier isEqualToString:signalIdentifier]) {
-            findStatus = signal.status;
-            *stop = YES;
-        }
-    }];
+    dispatch_sync(self.saveListDispatchQueue, ^{
+        [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([signal.identifier isEqualToString:signalIdentifier]) {
+                findStatus = signal.status;
+                *stop = YES;
+            }
+        }];
+    });
     return findStatus;
 }
 
