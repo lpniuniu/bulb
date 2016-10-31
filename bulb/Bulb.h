@@ -82,12 +82,6 @@
 - (void)registerSignalsIfNotSaveWithStatus:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block;
 
 /*!
- *  @brief 如果没有发送过传入信号，就执行，否则不执行
- */
-- (void)runNoSignal:(NSString *)signalIdentifier block:(void(^)())block;
-- (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block;
-
-/*!
  *  @brief 发出信号
  */
 - (void)fire:(NSString *)signalIdentifier data:(id)data;
@@ -98,6 +92,7 @@
 /**
  @brief 保存信号, 信号会记录下save list，方便一些业务逻辑查看使用
  */
+- (void)save:(NSString *)signalIdentifier data:(id)data;
 - (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
 
 /*!

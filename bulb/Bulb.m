@@ -97,6 +97,11 @@ static NSMutableDictionary* bulbName2bulb = nil;
     [self.slots addObjectsFromArray:appendSlots];
 }
 
+- (void)save:(NSString *)signalIdentifier data:(id)data
+{
+    [self save:signalIdentifier status:kBulbSignalStatusOn data:data];
+}
+
 - (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
 {
     BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:signalIdentifier];
@@ -236,28 +241,6 @@ static NSMutableDictionary* bulbName2bulb = nil;
         }];
         slot.fireTable = @[fireTableDict];
         [self.slots addObject:slot];
-    }
-}
-
-- (void)runNoSignal:(NSString *)signalIdentifier block:(void(^)())block
-{
-    [self runNoSignals:@[signalIdentifier] block:block];
-}
-
-- (void)runNoSignals:(NSArray *)signalIdentifiers block:(void(^)())block
-{
-    __block NSInteger matchCount = 0;
-    [self.history.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        [signalIdentifiers enumerateObjectsUsingBlock:^(id  _Nonnull identifier, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([identifier isEqualToString:signal.identifier] && signal.status == kBulbSignalStatusOn) {
-                matchCount++;
-            }
-        }];
-    }];
-    if (matchCount == 0 || matchCount != self.history.signals.count) {
-        if (block) {
-            block();
-        }
     }
 }
 

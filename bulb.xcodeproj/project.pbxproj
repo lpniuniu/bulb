@@ -17,8 +17,8 @@
 		0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */; };
 		0BB92AD81D5EDF9E0011D2E6 /* libbulb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2B1F1E1D5C5A7A00EA6F5C /* libbulb.a */; };
 		0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */; };
-		0BEE6D4A1DC1C5CD0033D006 /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE6D491DC1C5CD0033D006 /* NSArray+BBDistinct.m */; };
-		0BEE6D4B1DC1C90A0033D006 /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE6D491DC1C5CD0033D006 /* NSArray+BBDistinct.m */; };
+		0BFEC3341DC72F74002509CC /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */; };
+		0BFEC3351DC73258002509CC /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +63,8 @@
 		0BB92AD71D5EDF9E0011D2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BEE6D431DC19CB30033D006 /* BulbWeakDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbWeakDataWrapper.h; sourceTree = "<group>"; };
 		0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbWeakDataWrapper.m; sourceTree = "<group>"; };
-		0BEE6D481DC1C5CD0033D006 /* NSArray+BBDistinct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BBDistinct.h"; sourceTree = "<group>"; };
-		0BEE6D491DC1C5CD0033D006 /* NSArray+BBDistinct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+BBDistinct.m"; sourceTree = "<group>"; };
+		0BFEC3321DC72F74002509CC /* NSArray+BBDistinct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+BBDistinct.h"; path = "base/NSArray+BBDistinct.h"; sourceTree = "<group>"; };
+		0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+BBDistinct.m"; path = "base/NSArray+BBDistinct.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,18 +139,10 @@
 		0BEE6D461DC1C5760033D006 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				0BEE6D471DC1C59B0033D006 /* base */,
+				0BFEC3321DC72F74002509CC /* NSArray+BBDistinct.h */,
+				0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */,
 			);
 			name = base;
-			sourceTree = "<group>";
-		};
-		0BEE6D471DC1C59B0033D006 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				0BEE6D481DC1C5CD0033D006 /* NSArray+BBDistinct.h */,
-				0BEE6D491DC1C5CD0033D006 /* NSArray+BBDistinct.m */,
-			);
-			path = base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,7 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BEE6D4A1DC1C5CD0033D006 /* NSArray+BBDistinct.m in Sources */,
+				0BFEC3341DC72F74002509CC /* NSArray+BBDistinct.m in Sources */,
 				0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */,
 				0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */,
 				0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */,
@@ -256,7 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BEE6D4B1DC1C90A0033D006 /* NSArray+BBDistinct.m in Sources */,
+				0BFEC3351DC73258002509CC /* NSArray+BBDistinct.m in Sources */,
 				0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
