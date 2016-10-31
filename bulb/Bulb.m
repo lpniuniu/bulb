@@ -22,6 +22,7 @@
 
 static NSString* kGlobalBulbName = @"BulbGlobal";
 static NSMutableDictionary* bulbName2bulb = nil;
+static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 @implementation Bulb
 
@@ -30,6 +31,10 @@ static NSMutableDictionary* bulbName2bulb = nil;
     self = [super init];
     if (self) {
         _saveListDispatchQueue = dispatch_queue_create("saveListDispatchQueue", DISPATCH_QUEUE_SERIAL);
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            bulbName2bulbDispatchQueue = dispatch_queue_create("bulbName2bulbDispatchQueue", DISPATCH_QUEUE_SERIAL);
+        });
     }
     return self;
 }
@@ -49,16 +54,21 @@ static NSMutableDictionary* bulbName2bulb = nil;
 
 + (instancetype)bulbWithName:(NSString *)name
 {
-    Bulb* bulb = [bulbName2bulb objectForKey:name];
+    __block Bulb* bulb = nil;
+    dispatch_sync(bulbName2bulbDispatchQueue, ^{
+        bulb = [bulbName2bulb objectForKey:name];
+    });
     if (!bulb) {
         bulb = [[Bulb alloc] init];
         bulb.slots = [NSMutableArray array];
         bulb.saveList = [[BulbSaveList alloc] init];
         bulb.name = name;
-        if (bulbName2bulb == nil) {
-            bulbName2bulb = [NSMutableDictionary dictionary];
-        }
-        [bulbName2bulb setObject:bulb forKey:name];
+        dispatch_sync(bulbName2bulbDispatchQueue, ^{
+            if (bulbName2bulb == nil) {
+                bulbName2bulb = [NSMutableDictionary dictionary];
+            }
+            [bulbName2bulb setObject:bulb forKey:name];
+        });
     }
     return bulb;
 }
