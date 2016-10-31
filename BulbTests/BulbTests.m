@@ -9,11 +9,11 @@
 #import <XCTest/XCTest.h>
 #import "Bulb.h"
 
-@interface A : NSObject
+@interface BulbTextDealloc : NSObject
 
 @end
 
-@implementation A
+@implementation BulbTextDealloc
 
 - (void)dealloc
 {
@@ -29,15 +29,10 @@
 @implementation BulbTests
 
 
-- (void)test {
+- (void)testRegister {
     NSString* noti = @"noti A";
-    [[Bulb bulbGlobal] regiseterSignals:@[noti] block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] registerSignals:@[noti] block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
         NSLog(@"noti exe ! %@", data);
-        XCTAssertNotNil(data);
-    }];
-    
-    [[Bulb bulbGlobal] runAfterSignal:noti block:^(id data, NSDictionary<NSString *,id> *signalIdentifier2data) {
-        NSLog(@"noti exe ! %@, after", data);
         XCTAssertNotNil(data);
     }];
     [[Bulb bulbGlobal] fire:noti data:@"data"];
@@ -45,14 +40,14 @@
 
 - (void)testWeakDataWrapper
 {
-    [[Bulb bulbGlobal] regiseterSignals:@[@"A", @"B"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] registerSignals:@[@"A", @"B"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
         NSLog(@"noti exe ! %@", firstData);
         XCTAssert(firstData == nil);
         XCTAssert(signalIdentifier2data.count == 1);
     }];
     
     @autoreleasepool {
-        A* a = [[A alloc] init];
+        BulbTextDealloc* a = [[BulbTextDealloc alloc] init];
         [[Bulb bulbGlobal] fire:@"A" data:[BulbWeakDataWrapper wrap:a]];
     }
     [[Bulb bulbGlobal] fire:@"B" data:@"data"];

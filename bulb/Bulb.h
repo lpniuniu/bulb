@@ -23,7 +23,7 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param block            信号回调，信号fire只执行一次，如果需要再注册
  */
-- (void)regiseterSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
+- (void)registerSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
 
 /*!
  *  @brief 注册信号
@@ -32,7 +32,7 @@
  *  @param status           信号激活的状态
  *  @param block            信号回调，信号fire只执行一次，如果需要再注册
  */
-- (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
+- (void)registerSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
 
 /*!
  *  @brief 注册信号
@@ -40,9 +40,9 @@
  *  @param signalIdentifiers 信号唯一标识组，全部fire触发回调
  *  @param block             信号回调，信号fire只执行一次，如果需要再注册
  */
-- (void)regiseterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
+- (void)registerSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
 
-// TODO mac regiseter
+// TODO mac register
 
 /*!
  *  @brief 注册信号
@@ -50,7 +50,7 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
-- (void)regiseterSignal:(NSString *)signalIdentifier foreverblock:(BulbBlock)foreverblock;
+- (void)registerSignal:(NSString *)signalIdentifier foreverblock:(BulbBlock)foreverblock;
 
 /*!
  *  @brief 注册信号
@@ -59,7 +59,7 @@
  *  @param status           信号激活的状态
  *  @param block            信号回调, 回调保留，信号fire就执行
  */
-- (void)regiseterSignal:(NSString *)signalIdentifier status:(NSString *)status foreverblock:(BulbBlock)foreverblock;
+- (void)registerSignal:(NSString *)signalIdentifier status:(NSString *)status foreverblock:(BulbBlock)foreverblock;
 
 /*!
  *  @brief 注册信号
@@ -67,19 +67,19 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
-- (void)regiseterSignals:(NSArray *)signalIdentifiers foreverblock:(BulbBlock)foreverblock;
+- (void)registerSignals:(NSArray *)signalIdentifiers foreverblock:(BulbBlock)foreverblock;
 
-// TODO map regiseter
+// TODO map register
 
-// Todo regiseterSignal 其他触发条件
+// Todo registerSignal 其他触发条件
 
 /*!
- *  @brief 在信号发生后执行，如果已发送立即执行，否则延后执行
+ *  @brief 如果save list中存在立即执行，否则registerSignal, 在未来触发时执行，执行一次
  */
-- (void)runAfterSignal:(NSString *)signalIdentifier block:(BulbBlock)block;
-- (void)runAfterSignal:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
-- (void)runAfterSignals:(NSArray *)signalIdentifiers block:(BulbBlock)block;
-- (void)runAfterSignalsWithStatus:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block;
+- (void)registerSignalIfNotSave:(NSString *)signalIdentifier block:(BulbBlock)block;
+- (void)registerSignalIfNotSave:(NSString *)signalIdentifier status:(NSString *)status block:(BulbBlock)block;
+- (void)registerSignalsIfNotSave:(NSArray *)signalIdentifiers block:(BulbBlock)block;
+- (void)registerSignalsIfNotSaveWithStatus:(NSDictionary *)signalIdentifier2status block:(BulbBlock)block;
 
 /*!
  *  @brief 如果没有发送过传入信号，就执行，否则不执行
@@ -96,7 +96,7 @@
 - (void)fireAndSave:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
 
 /**
- @brief 保存信号, 信号会记录下历史中，方便一些业务逻辑查看使用
+ @brief 保存信号, 信号会记录下save list，方便一些业务逻辑查看使用
  */
 - (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
 
@@ -107,6 +107,6 @@
  *
  *  @return 信号状态
  */
-- (NSString *)getSignalStatusFromHistory:(NSString *)signalIdentifier;
+- (NSString *)getSignalStatusFromSaveList:(NSString *)signalIdentifier;
 
 @end

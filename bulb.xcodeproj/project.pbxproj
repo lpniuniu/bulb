@@ -12,7 +12,7 @@
 		0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */; };
 		0B2B1F2F1D5C5B1F00EA6F5C /* BulbSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */; };
 		0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */; };
-		0BB92AC51D5DA2230011D2E6 /* BulbHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC41D5DA2230011D2E6 /* BulbHistory.m */; };
+		0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */; };
 		0BB92AC81D5DB8680011D2E6 /* BulbSolotBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */; };
 		0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */; };
 		0BB92AD81D5EDF9E0011D2E6 /* libbulb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2B1F1E1D5C5A7A00EA6F5C /* libbulb.a */; };
@@ -54,8 +54,8 @@
 		0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSignal.m; sourceTree = "<group>"; };
 		0B2B1F301D5C5D7200EA6F5C /* BulbConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbConstant.h; sourceTree = "<group>"; };
 		0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbConstant.m; sourceTree = "<group>"; };
-		0BB92AC31D5DA2230011D2E6 /* BulbHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbHistory.h; sourceTree = "<group>"; };
-		0BB92AC41D5DA2230011D2E6 /* BulbHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbHistory.m; sourceTree = "<group>"; };
+		0BB92AC31D5DA2230011D2E6 /* BulbSaveList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSaveList.h; sourceTree = "<group>"; };
+		0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSaveList.m; sourceTree = "<group>"; };
 		0BB92AC61D5DB8680011D2E6 /* BulbSolotBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSolotBuilder.h; sourceTree = "<group>"; };
 		0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSolotBuilder.m; sourceTree = "<group>"; };
 		0BB92AD31D5EDF9E0011D2E6 /* BulbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,8 +116,8 @@
 				0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */,
 				0B2B1F301D5C5D7200EA6F5C /* BulbConstant.h */,
 				0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */,
-				0BB92AC31D5DA2230011D2E6 /* BulbHistory.h */,
-				0BB92AC41D5DA2230011D2E6 /* BulbHistory.m */,
+				0BB92AC31D5DA2230011D2E6 /* BulbSaveList.h */,
+				0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */,
 				0BB92AC61D5DB8680011D2E6 /* BulbSolotBuilder.h */,
 				0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */,
 				0BEE6D431DC19CB30033D006 /* BulbWeakDataWrapper.h */,
@@ -244,7 +244,7 @@
 				0BEE6D4A1DC1C5CD0033D006 /* NSArray+BBDistinct.m in Sources */,
 				0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */,
 				0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */,
-				0BB92AC51D5DA2230011D2E6 /* BulbHistory.m in Sources */,
+				0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */,
 				0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */,
 				0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */,
 				0B2B1F2F1D5C5B1F00EA6F5C /* BulbSignal.m in Sources */,

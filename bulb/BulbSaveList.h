@@ -1,5 +1,5 @@
 //
-//  BulbHistory.h
+//  BulbSaveList.h
 //  bulb
 //
 //  Created by FanFamily on 16/8/12.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BulbSignal.h"
 
-@interface BulbHistory : NSObject
+@interface BulbSaveList : NSObject
 
 @property (nonatomic) NSMutableArray<BulbSignal *>* signals;
 
