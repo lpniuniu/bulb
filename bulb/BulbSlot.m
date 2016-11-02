@@ -18,7 +18,7 @@
 
 @implementation BulbSlot
 
-- (instancetype)initWithSignals:(NSArray *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type
+- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type
 {
     self = [super init];
     if (self) {
@@ -30,9 +30,9 @@
     return self;
 }
 
-- (void)fireStatusWithSignalIdentifier:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
+- (void)fireSignal:(BulbSignal *)signal data:(id)data
 {
-    [self updateStatusWithSignalIdentifier:signalIdentifier status:status data:data];
+    [self updateSignal:signal data:data];
     if ([self canBeFire] && self.block) {
         NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
         __block id firstData = nil;
@@ -53,14 +53,14 @@
                     firstData = [NSNull null];
                 }
             }
-            if (obj.data && obj.identifier) {
+            if (obj.data) {
                 if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
                     BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
                     if (weakDataWrapper.internalData) {
-                        [signalIdentifier2data setObject:weakDataWrapper.internalData forKey:obj.identifier];
+                        [signalIdentifier2data setObject:weakDataWrapper.internalData forKey:[obj.class identifier]];
                     }
                 } else {
-                    [signalIdentifier2data setObject:obj.data forKey:obj.identifier];
+                    [signalIdentifier2data setObject:obj.data forKey:[obj.class identifier]];
                 }
             }
         }];
@@ -69,21 +69,21 @@
     }
 }
 
-- (void)updateStatusWithSignalIdentifier:(NSString *)signalIdentifier status:(NSString *)status data:(id)data
+- (void)updateSignal:(BulbSignal *)newSignal data:(id)data
 {
-    BulbSignal* siganl = [self hasSignal:signalIdentifier];
-    if (!siganl) {
+    BulbSignal* signal = [self hasSignal:[newSignal.class identifier]];
+    if (!signal) {
         return ;
     }
-    siganl.status = status;
-    siganl.data = data;
+    signal.status = newSignal.status;
+    signal.data = data;
 }
 
 - (BulbSignal *)hasSignal:(NSString *)identifier
 {
     __block BulbSignal* resultSignal = nil;
     [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([signal.identifier isEqualToString:identifier]) {
+        if ([[signal.class identifier] isEqualToString:identifier]) {
             resultSignal = signal;
             *stop = YES;
         }
@@ -97,7 +97,7 @@
     [self.fireTable enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull identifier2status, NSUInteger idx, BOOL * _Nonnull stop) {
         __block NSInteger matchCount = 0;
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([[identifier2status objectForKey:signal.identifier] isEqualToString:signal.status]) {
+            if ([[identifier2status objectForKey:[signal.class identifier]] isEqualToString:signal.status]) {
                 matchCount++;
             };
         }];

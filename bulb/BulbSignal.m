@@ -2,28 +2,27 @@
 //  BulbSignal.m
 //  bulb
 //
-//  Created by FanFamily on 16/8/11.
+//  Created by FanFamily on 2016/11/1.
 //  Copyright © 2016年 niuniu. All rights reserved.
 //
 
 #import "BulbSignal.h"
-#import "BulbConstant.h"
 
 @implementation BulbSignal
 
-- (instancetype)initWithSignalIdentifier:(NSString *)identifier
++ (NSString *)identifier
 {
-    self = [super init];
-    if (self) {
-        _identifier = identifier;
-        _status = kBulbSignalStatusOff;
-    }
-    return self;
+    return [NSString stringWithFormat:@"Bulb_%@", self.class];
+}
+
+- (void)reset
+{
+    [self doesNotRecognizeSelector:_cmd];
 }
 
 -(NSUInteger)hash
 {
-    return [_identifier hash];
+    return [[self.class identifier] hash];
 }
 
 - (BOOL)isEqual:(BulbSignal *)object {
@@ -31,16 +30,12 @@
         return YES;
     }
     
-    if (![object isKindOfClass:[BulbSignal class]]) {
+    if (![[object.class identifier] isEqualToString:[self.class identifier]]) {
         return NO;
     }
     
-    return [self.identifier isEqualToString:object.identifier] && [self.status isEqualToString:object.status];
-}
-
-- (void)reset
-{
-    _status = kBulbSignalStatusOff;
+    return [self.status isEqualToString:object.status];
 }
 
 @end
+

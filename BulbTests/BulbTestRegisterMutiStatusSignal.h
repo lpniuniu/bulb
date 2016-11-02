@@ -1,0 +1,13 @@
+//
+//  BulbTestRegisterMutiStatusSignal.h
+//  bulb
+//
+//  Created by FanFamily on 2016/11/3.
+//  Copyright © 2016年 niuniu. All rights reserved.
+//
+
+#import "BulbMutiStatusSignal.h"
+
+@interface BulbTestRegisterMutiStatusSignal : BulbMutiStatusSignal
+
+@end

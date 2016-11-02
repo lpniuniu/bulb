@@ -23,7 +23,7 @@
  */
 @interface BulbSlot : NSObject
 
-- (instancetype)initWithSignals:(NSArray *)signals block:(BulbBlock)block fireTable:(NSArray<NSMapTable<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
+- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
 
 @property (nonatomic) NSArray<BulbSignal *>* signals;
 @property (weak, nonatomic) id<BulbSlotDelegate> delegate;
@@ -43,7 +43,7 @@
  *  @param signalIdentifier 信号
  *  @param status           信号状态
  */
-- (void)fireStatusWithSignalIdentifier:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
+- (void)fireSignal:(BulbSignal *)signal data:(id)data;
 
 /*!
  *  @brief 改变信号状态， 不fire
@@ -51,7 +51,7 @@
  *  @param signalIdentifier 信号
  *  @param status           信号状态
  */
-- (void)updateStatusWithSignalIdentifier:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
+- (void)updateSignal:(BulbSignal *)signal data:(id)data;
 
 /*!
  *  @brief 是否存在某种信号

@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1A69F51DCB80F70027A8BD /* BulbTestRegisterSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A69F41DCB80F70027A8BD /* BulbTestRegisterSignal.m */; };
 		0B2B1F221D5C5A7A00EA6F5C /* Bulb.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0B2B1F211D5C5A7A00EA6F5C /* Bulb.h */; };
 		0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F231D5C5A7A00EA6F5C /* Bulb.m */; };
 		0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */; };
-		0B2B1F2F1D5C5B1F00EA6F5C /* BulbSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */; };
 		0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */; };
+		0BA0D5731DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */; };
+		0BB5E2951DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */; };
 		0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */; };
-		0BB92AC81D5DB8680011D2E6 /* BulbSolotBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */; };
+		0BB92AC81D5DB8680011D2E6 /* BulbSlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC71D5DB8680011D2E6 /* BulbSlotFactory.m */; };
 		0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */; };
 		0BB92AD81D5EDF9E0011D2E6 /* libbulb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2B1F1E1D5C5A7A00EA6F5C /* libbulb.a */; };
+		0BC43A0B1DC8977C00E5EEBF /* BulbSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A0A1DC8977C00E5EEBF /* BulbSignal.m */; };
+		0BC43A0E1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A0D1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m */; };
+		0BC43A111DCA3F9800E5EEBF /* BulbBoolSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A101DCA3F9800E5EEBF /* BulbBoolSignal.m */; };
 		0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */; };
-		0BFEC3341DC72F74002509CC /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */; };
-		0BFEC3351DC73258002509CC /* NSArray+BBDistinct.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,26 +48,34 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B1A69F31DCB80F70027A8BD /* BulbTestRegisterSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterSignal.h; sourceTree = "<group>"; };
+		0B1A69F41DCB80F70027A8BD /* BulbTestRegisterSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterSignal.m; sourceTree = "<group>"; };
 		0B2B1F1E1D5C5A7A00EA6F5C /* libbulb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbulb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B2B1F211D5C5A7A00EA6F5C /* Bulb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bulb.h; sourceTree = "<group>"; };
 		0B2B1F231D5C5A7A00EA6F5C /* Bulb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bulb.m; sourceTree = "<group>"; };
 		0B2B1F2A1D5C5AFB00EA6F5C /* BulbSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSlot.h; sourceTree = "<group>"; };
 		0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSlot.m; sourceTree = "<group>"; };
-		0B2B1F2D1D5C5B1F00EA6F5C /* BulbSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSignal.h; sourceTree = "<group>"; };
-		0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSignal.m; sourceTree = "<group>"; };
 		0B2B1F301D5C5D7200EA6F5C /* BulbConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbConstant.h; sourceTree = "<group>"; };
 		0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbConstant.m; sourceTree = "<group>"; };
+		0BA0D5711DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal1.h; sourceTree = "<group>"; };
+		0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal1.m; sourceTree = "<group>"; };
+		0BB5E2931DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal.h; sourceTree = "<group>"; };
+		0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal.m; sourceTree = "<group>"; };
 		0BB92AC31D5DA2230011D2E6 /* BulbSaveList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSaveList.h; sourceTree = "<group>"; };
 		0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSaveList.m; sourceTree = "<group>"; };
-		0BB92AC61D5DB8680011D2E6 /* BulbSolotBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSolotBuilder.h; sourceTree = "<group>"; };
-		0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSolotBuilder.m; sourceTree = "<group>"; };
+		0BB92AC61D5DB8680011D2E6 /* BulbSlotFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSlotFactory.h; sourceTree = "<group>"; };
+		0BB92AC71D5DB8680011D2E6 /* BulbSlotFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSlotFactory.m; sourceTree = "<group>"; };
 		0BB92AD31D5EDF9E0011D2E6 /* BulbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BulbTests.m; sourceTree = "<group>"; };
 		0BB92AD71D5EDF9E0011D2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BC43A091DC8977C00E5EEBF /* BulbSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSignal.h; sourceTree = "<group>"; };
+		0BC43A0A1DC8977C00E5EEBF /* BulbSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSignal.m; sourceTree = "<group>"; };
+		0BC43A0C1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbMutiStatusSignal.h; sourceTree = "<group>"; };
+		0BC43A0D1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbMutiStatusSignal.m; sourceTree = "<group>"; };
+		0BC43A0F1DCA3F9800E5EEBF /* BulbBoolSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbBoolSignal.h; sourceTree = "<group>"; };
+		0BC43A101DCA3F9800E5EEBF /* BulbBoolSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbBoolSignal.m; sourceTree = "<group>"; };
 		0BEE6D431DC19CB30033D006 /* BulbWeakDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbWeakDataWrapper.h; sourceTree = "<group>"; };
 		0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbWeakDataWrapper.m; sourceTree = "<group>"; };
-		0BFEC3321DC72F74002509CC /* NSArray+BBDistinct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+BBDistinct.h"; path = "base/NSArray+BBDistinct.h"; sourceTree = "<group>"; };
-		0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+BBDistinct.m"; path = "base/NSArray+BBDistinct.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,19 +118,22 @@
 		0B2B1F201D5C5A7A00EA6F5C /* bulb */ = {
 			isa = PBXGroup;
 			children = (
-				0BEE6D461DC1C5760033D006 /* base */,
 				0B2B1F211D5C5A7A00EA6F5C /* Bulb.h */,
 				0B2B1F231D5C5A7A00EA6F5C /* Bulb.m */,
 				0B2B1F2A1D5C5AFB00EA6F5C /* BulbSlot.h */,
 				0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */,
-				0B2B1F2D1D5C5B1F00EA6F5C /* BulbSignal.h */,
-				0B2B1F2E1D5C5B1F00EA6F5C /* BulbSignal.m */,
+				0BB92AC61D5DB8680011D2E6 /* BulbSlotFactory.h */,
+				0BB92AC71D5DB8680011D2E6 /* BulbSlotFactory.m */,
+				0BC43A091DC8977C00E5EEBF /* BulbSignal.h */,
+				0BC43A0A1DC8977C00E5EEBF /* BulbSignal.m */,
+				0BC43A0F1DCA3F9800E5EEBF /* BulbBoolSignal.h */,
+				0BC43A101DCA3F9800E5EEBF /* BulbBoolSignal.m */,
+				0BC43A0C1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.h */,
+				0BC43A0D1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m */,
 				0B2B1F301D5C5D7200EA6F5C /* BulbConstant.h */,
 				0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */,
 				0BB92AC31D5DA2230011D2E6 /* BulbSaveList.h */,
 				0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */,
-				0BB92AC61D5DB8680011D2E6 /* BulbSolotBuilder.h */,
-				0BB92AC71D5DB8680011D2E6 /* BulbSolotBuilder.m */,
 				0BEE6D431DC19CB30033D006 /* BulbWeakDataWrapper.h */,
 				0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */,
 			);
@@ -131,18 +145,15 @@
 			children = (
 				0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */,
 				0BB92AD71D5EDF9E0011D2E6 /* Info.plist */,
+				0B1A69F31DCB80F70027A8BD /* BulbTestRegisterSignal.h */,
+				0B1A69F41DCB80F70027A8BD /* BulbTestRegisterSignal.m */,
+				0BB5E2931DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.h */,
+				0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */,
+				0BA0D5711DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.h */,
+				0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */,
 			);
 			name = bulbTests;
 			path = BulbTests;
-			sourceTree = "<group>";
-		};
-		0BEE6D461DC1C5760033D006 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				0BFEC3321DC72F74002509CC /* NSArray+BBDistinct.h */,
-				0BFEC3331DC72F74002509CC /* NSArray+BBDistinct.m */,
-			);
-			name = base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,14 +244,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BFEC3341DC72F74002509CC /* NSArray+BBDistinct.m in Sources */,
 				0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */,
+				0BC43A111DCA3F9800E5EEBF /* BulbBoolSignal.m in Sources */,
 				0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */,
+				0B1A69F51DCB80F70027A8BD /* BulbTestRegisterSignal.m in Sources */,
+				0BB5E2951DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m in Sources */,
 				0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */,
+				0BA0D5731DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m in Sources */,
 				0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */,
+				0BC43A0B1DC8977C00E5EEBF /* BulbSignal.m in Sources */,
 				0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */,
-				0B2B1F2F1D5C5B1F00EA6F5C /* BulbSignal.m in Sources */,
-				0BB92AC81D5DB8680011D2E6 /* BulbSolotBuilder.m in Sources */,
+				0BB92AC81D5DB8680011D2E6 /* BulbSlotFactory.m in Sources */,
+				0BC43A0E1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +263,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BFEC3351DC73258002509CC /* NSArray+BBDistinct.m in Sources */,
 				0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
