@@ -63,6 +63,10 @@
 - (void)registerSignalIfNotSave:(BulbSignal *)signal block:(BulbBlock)block;
 - (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block;
 
+- (void)registerSignalIfNotSave:(BulbSignal *)signal foreverblock:(BulbBlock)block;
+- (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals foereverblock:(BulbBlock)block;
+
+
 /*!
  *  @brief 发出信号
  */

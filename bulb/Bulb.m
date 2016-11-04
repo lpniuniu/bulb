@@ -171,7 +171,12 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)registerSignalIfNotSave:(BulbSignal *)signal block:(BulbBlock)block
 {
-    [self registerSignalsIfNotSave:@[signal] block:block];
+    [self registerSignalsIfNotSave:@[signal] block:block forever:NO];
+}
+
+- (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
+{
+    [self registerSignalsIfNotSave:signals block:block forever:NO];
 }
 
 - (id)unwrapperData:(id)origindata
@@ -192,7 +197,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     return data;
 }
 
-- (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
+- (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block forever:(BOOL)forever
 {
     if ([self hasSameIdentifierSignal:signals]) {
         return ;
@@ -234,9 +239,19 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
                 [signal reset];
             }
         }];
-        BulbSlot* slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block type:kBulbSignalSlotTypeInstant];
+        BulbSlot* slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block type:forever?kBulbSignalSlotTypeReAppend:kBulbSignalSlotTypeInstant];
         [self.slots addObject:slot];
     }
+}
+
+- (void)registerSignalIfNotSave:(BulbSignal *)signal foreverblock:(BulbBlock)block
+{
+    [self registerSignalsIfNotSave:@[signal] block:block forever:YES];
+}
+
+- (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals foereverblock:(BulbBlock)block
+{
+    [self registerSignalsIfNotSave:signals block:block forever:YES];
 }
 
 - (BulbSignal *)getSignalFromSaveList:(NSString *)signalIdentifier
