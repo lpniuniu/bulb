@@ -12,6 +12,7 @@
 @interface BulbSignal : NSObject
 
 + (NSString *)identifier;
+- (NSString *)identifier;
 
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic) id data;

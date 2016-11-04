@@ -15,6 +15,11 @@
     return [NSString stringWithFormat:@"Bulb_%@", self.class];
 }
 
+- (NSString *)identifier
+{
+    return [self.class identifier];
+}
+
 - (void)reset
 {
     [self doesNotRecognizeSelector:_cmd];

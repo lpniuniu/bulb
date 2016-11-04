@@ -138,8 +138,27 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [self registerSignals:@[signal] foreverblock:foreverblock];
 }
 
+- (BOOL)hasSameIdentifierSignal:(NSArray<BulbSignal *> *)signals
+{
+    __block BOOL result = NO;
+    NSMutableArray* identifiers = [NSMutableArray array];
+    [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([identifiers containsObject:[signal identifier]]) {
+            NSLog(@"you can not register same identifier signals, register is no effective");
+            NSAssert(NO, @"you can not register same identifier signals, register is no effective");
+            result = YES;
+            *stop = YES;
+        }
+        [identifiers addObject:signal.identifier];
+    }];
+    return result;
+}
+
 - (void)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbBlock)foreverblock
 {
+    if ([self hasSameIdentifierSignal:signals]) {
+        return ;
+    }
     NSMutableDictionary* fireTable = [NSMutableDictionary dictionary];
     [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [fireTable setObject:obj.status forKey:[obj.class identifier]];
@@ -175,6 +194,10 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
 {
+    if ([self hasSameIdentifierSignal:signals]) {
+        return ;
+    }
+    
     __block NSInteger matchCount = 0;
     NSMutableDictionary* dataTable = [NSMutableDictionary dictionary];
     NSMutableArray* matchSignals = [NSMutableArray array];
