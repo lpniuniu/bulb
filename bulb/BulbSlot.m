@@ -36,35 +36,18 @@
     if ([self canBeFire] && self.block) {
         NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
         __block id firstData = nil;
+        __block BOOL firstDataFind = NO;
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (firstData == nil) {
-                if (obj.data) {
-                    if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
-                        BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
-                        if (weakDataWrapper.internalData) {
-                            firstData = weakDataWrapper.internalData;
-                        } else {
-                            firstData = [NSNull null];
-                        }
-                    } else {
-                        firstData = obj.data;
-                    }
-                } else {
-                    firstData = [NSNull null];
-                }
+            id unwrapperData = [BulbWeakDataWrapper unwrapperData:obj.data];
+            if (firstDataFind == NO) {
+                firstDataFind = YES;
+                firstData = unwrapperData;
             }
-            if (obj.data) {
-                if ([obj.data isMemberOfClass:[BulbWeakDataWrapper class]]) {
-                    BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)obj.data;
-                    if (weakDataWrapper.internalData) {
-                        [signalIdentifier2data setObject:weakDataWrapper.internalData forKey:[obj.class identifier]];
-                    }
-                } else {
-                    [signalIdentifier2data setObject:obj.data forKey:[obj.class identifier]];
-                }
+            if (unwrapperData) {
+                [signalIdentifier2data setObject:unwrapperData forKey:[obj.class identifier]];
             }
         }];
-        self.block(firstData != [NSNull null]? firstData:nil, signalIdentifier2data);
+        self.block(firstData, signalIdentifier2data);
         self.fireCount++;
     }
 }

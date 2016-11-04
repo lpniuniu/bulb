@@ -179,24 +179,6 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [self registerSignalsIfNotSave:signals block:block forever:NO];
 }
 
-- (id)unwrapperData:(id)origindata
-{
-    id data = nil;
-    if (origindata) {
-        if ([data isMemberOfClass:[BulbWeakDataWrapper class]]) {
-            BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)origindata;
-            if (weakDataWrapper.internalData) {
-                data = weakDataWrapper.internalData;
-            } else {
-                data = [NSNull null];
-            }
-        } else {
-            data = origindata;
-        }
-    }
-    return data;
-}
-
 - (void)registerSignalsIfNotSave:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block forever:(BOOL)forever
 {
     if ([self hasSameIdentifierSignal:signals]) {
@@ -212,7 +194,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
         [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull saveSignal, NSUInteger idx, BOOL * _Nonnull stop) {
             [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([saveSignal isEqual:signal]) {
-                    id unwrapperData = [self unwrapperData:saveSignal.data];
+                    id unwrapperData = [BulbWeakDataWrapper unwrapperData:saveSignal.data];
                     if (firstDataFind == NO) {
                         firstDataFind = YES;
                         firstData = unwrapperData;

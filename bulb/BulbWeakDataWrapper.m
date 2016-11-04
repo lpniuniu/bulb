@@ -24,4 +24,23 @@
     return [[BulbWeakDataWrapper alloc] initWithData:data];
 }
 
++ (id)unwrapperData:(id)origindata
+{
+    id data = nil;
+    if (origindata) {
+        if ([origindata isKindOfClass:[BulbWeakDataWrapper class]]) {
+            BulbWeakDataWrapper* weakDataWrapper = (BulbWeakDataWrapper *)origindata;
+            if (weakDataWrapper.internalData) {
+                data = weakDataWrapper.internalData;
+            } else {
+                data = nil;
+            }
+        } else {
+            data = origindata;
+        }
+    }
+    return data;
+}
+
+
 @end

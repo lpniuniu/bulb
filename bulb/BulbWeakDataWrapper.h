@@ -11,6 +11,7 @@
 @interface BulbWeakDataWrapper : NSObject
 
 + (id)wrap:(id)data;
++ (id)unwrapperData:(id)origindata;
 
 @property (nonatomic, weak) id internalData;
 

@@ -36,8 +36,6 @@
  */
 - (void)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block;
 
-// TODO mac register
-
 /*!
  *  @brief 注册信号
  *
@@ -54,8 +52,6 @@
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
 - (void)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbBlock)foreverblock;
-
-// Todo registerSignal 其他触发条件
 
 /*!
  *  @brief 如果save list中存在立即执行，否则registerSignal, 在未来触发时执行，执行一次
