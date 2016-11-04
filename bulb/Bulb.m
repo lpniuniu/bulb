@@ -123,6 +123,10 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
 {
+    if ([self hasSameIdentifierSignal:signals]) {
+        return ;
+    }
+    
     NSMutableDictionary* fireTable = [NSMutableDictionary dictionary];
     [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [fireTable setObject:obj.status forKey:[obj.class identifier]];
