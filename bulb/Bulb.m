@@ -257,6 +257,9 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 #pragma bulb slot delegate
 - (void)bulbSlotInternalSignalRest:(BulbSignal *)signal
 {
+    if (signal.initialStatusFromSave == NO) {
+        return ;
+    }
     BulbSignal* saveSignal = [self getSignalFromSaveList:[signal.class identifier]];
     if (saveSignal) {
         signal.status = saveSignal.status;

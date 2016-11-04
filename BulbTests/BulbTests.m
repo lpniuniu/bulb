@@ -111,6 +111,8 @@
 
 - (void)testSaveList
 {
+    [BulbTestRegisterSignal signal];
+    
     [[Bulb bulbGlobal] fireAndSave:[BulbTestRegisterSignal signal] data:@"data1"];
     
     BulbSignal* signal = [[Bulb bulbGlobal] getSignalFromSaveList:[BulbTestRegisterSignal identifier]];

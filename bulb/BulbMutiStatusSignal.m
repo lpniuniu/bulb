@@ -10,17 +10,19 @@
 
 @implementation BulbMutiStatusSignal
 
-+ (instancetype)signal
-{
-    BulbMutiStatusSignal* signal = [[self alloc] init];
-    [signal off];
-    return signal;
-}
-
 + (instancetype)signalWithStatus:(NSString *)status
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
-    signal.status = status;
+    [signal setStatus:status];
+    signal.initialStatusFromSave = NO;
+    return signal;
+}
+
++ (instancetype)signalWithStatus:(NSString *)status initFromSave:(BOOL)fromSave
+{
+    BulbMutiStatusSignal* signal = [[self alloc] init];
+    [signal setStatus:status];
+    signal.initialStatusFromSave = fromSave;
     return signal;
 }
 

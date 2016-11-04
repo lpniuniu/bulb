@@ -14,8 +14,9 @@
 @interface BulbBoolSignal : BulbSignal
 
 + (instancetype)signal;
-
++ (instancetype)signalWithInitFromSave:(BOOL)fromSave;
 + (instancetype)signalWithOn:(BOOL)on;
++ (instancetype)signalWithOn:(BOOL)on initFromSave:(BOOL)fromSave;
 
 - (void)on;
 - (void)off;
