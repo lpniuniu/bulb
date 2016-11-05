@@ -75,9 +75,14 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)fire:(BulbSignal *)signal data:(id)data
 {
+    [self fire:signal data:data toSlots:self.slots];
+}
+
+- (void)fire:(BulbSignal *)signal data:(id)data toSlots:(NSArray<BulbSlot *> *)slots
+{
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
-    [self.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
+    [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([slot hasSignal:[signal identifier]]) {
             [slot fireSignal:signal data:data];
             if (slot.fireCount > 0) {
@@ -85,7 +90,6 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
                 if (slot.type == kBulbSignalSlotTypeReAppend) {
                     [slot resetSignals];
                     [appendSlots addObject:slot];
-                    
                 }
             }
         }
@@ -104,6 +108,13 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 {
     signal.data = data;
     [self addSignalIdentifierToSaveList:signal];
+}
+
+- (void)remove:(BulbSignal *)signal
+{
+    dispatch_sync(self.saveListDispatchQueue, ^{
+        [self.saveList.signals removeObject:signal];
+    });
 }
 
 - (void)addSignalIdentifierToSaveList:(BulbSignal *)signal
@@ -153,7 +164,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     if ([slot canBeFire]) {
         BulbSignal* signal = slot.signals.firstObject;
         if (signal) {
-            [slot fireSignal:signal data:signal.data];
+            [self fire:signal data:signal.data toSlots:@[slot]];
         }
     }
     return slot;

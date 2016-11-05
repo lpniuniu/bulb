@@ -18,11 +18,11 @@
     return signal;
 }
 
-+ (instancetype)signalWithInitFromSave:(BOOL)fromSave
++ (instancetype)signalInitFromSave
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
-    signal.initialStatusFromSave = fromSave;
+    signal.initialStatusFromSave = YES;
     return signal;
 }
 
@@ -34,11 +34,11 @@
     return signal;
 }
 
-+ (instancetype)signalWithOn:(BOOL)on initFromSave:(BOOL)fromSave
++ (instancetype)signalInitFromSaveWithOn:(BOOL)on
 {
     BulbBoolSignal* signal = [[self alloc] init];
     on?[signal on]:[signal off];
-    signal.initialStatusFromSave = fromSave;
+    signal.initialStatusFromSave = YES;
     return signal;
 }
 

@@ -11,7 +11,7 @@
 @interface BulbMutiStatusSignal : BulbSignal
 
 + (instancetype)signalWithStatus:(NSString *)status;
-+ (instancetype)signalWithStatus:(NSString *)status initFromSave:(BOOL)fromSave;
++ (instancetype)signalInitFromSaveWithStatus:(NSString *)status;
 
 - (void)setStatus:(NSString *)status;
 

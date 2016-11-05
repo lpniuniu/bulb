@@ -18,11 +18,11 @@
     return signal;
 }
 
-+ (instancetype)signalWithStatus:(NSString *)status initFromSave:(BOOL)fromSave
++ (instancetype)signalInitFromSaveWithStatus:(NSString *)status
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
-    signal.initialStatusFromSave = fromSave;
+    signal.initialStatusFromSave = YES;
     return signal;
 }
 

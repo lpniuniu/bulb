@@ -64,6 +64,7 @@
  @brief 保存信号, 信号会记录下save list，方便一些业务逻辑查看使用
  */
 - (void)save:(BulbSignal *)signal data:(id)data;
+- (void)remove:(BulbSignal *)signal;
 
 /*!
  *  @brief 获取某信号的状态

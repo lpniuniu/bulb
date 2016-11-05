@@ -105,8 +105,37 @@
 - (void)testInitFromSave
 {
     [[Bulb bulbGlobal] save:[BulbTestRegisterSignal signal] data:nil];
+    __block id testRegister_init_from_save = nil;
+    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalInitFromSave] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_init_from_save = @"not null";
+    }];
+    BulbSignal* signal = slot.signals.firstObject;
+    XCTAssert(signal != nil);
+    XCTAssert(signal.status == kBulbSignalStatusOn);
+    XCTAssert(testRegister_init_from_save != nil);
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
+    XCTAssert(testRegister_init_from_save == nil);
     
+    // forever
+    slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalInitFromSave] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_init_from_save = @"not null";
+    }];
+    XCTAssert(signal != nil);
+    XCTAssert(signal.status == kBulbSignalStatusOn);
+    XCTAssert(testRegister_init_from_save != nil);
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
+    XCTAssert(testRegister_init_from_save != nil);
     
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] remove:[BulbTestRegisterSignal signalInitFromSave]];
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalInitFromSave] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_init_from_save = @"not null";
+    }];
+    XCTAssert(testRegister_init_from_save == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
+    XCTAssert(testRegister_init_from_save != nil);
 }
 
 - (void)testWeakDataWrapper
