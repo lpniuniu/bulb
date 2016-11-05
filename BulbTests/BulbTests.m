@@ -75,6 +75,21 @@
     XCTAssert(testRegister_signal1_and_signal2_fire == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"] data:@"data2"];
     XCTAssert(testRegister_signal1_and_signal2_fire != nil);
+    
+    // three 信号
+    testRegister_signal1_and_signal2_fire = nil;
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"],[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_signal1_and_signal2_fire = @"signal1 and signal2 fire";
+        NSLog(@"testRegister signal1 and signal2 fire, %@", signalIdentifier2data);
+        XCTAssert(signalIdentifier2data.count == 3);
+        XCTAssert([firstData isEqualToString:@"data"]);
+    }];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    XCTAssert(testRegister_signal1_and_signal2_fire == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:@"data1"];
+    XCTAssert(testRegister_signal1_and_signal2_fire == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"] data:@"data2"];
+    XCTAssert(testRegister_signal1_and_signal2_fire != nil);
 }
 
 - (void)testRegisterForeverBlock
@@ -135,6 +150,22 @@
     }];
     XCTAssert(testRegister_init_from_save == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
+    XCTAssert(testRegister_init_from_save != nil);
+    
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] save:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status"] data:nil];
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalInitFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_init_from_save = @"not null";
+    }];
+    XCTAssert(testRegister_init_from_save == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalInitFromSaveWithStatus:@"status1"] data:nil];
+    XCTAssert(testRegister_init_from_save != nil);
+    
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] save:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"] data:nil];
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalInitFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalInitFromSaveWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_init_from_save = @"not null";
+    }];
     XCTAssert(testRegister_init_from_save != nil);
 }
 
