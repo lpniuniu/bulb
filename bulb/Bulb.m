@@ -16,7 +16,8 @@
 
 @property (nonatomic) NSMutableArray<BulbSlot*>* slots;
 @property (nonatomic) BulbSaveList* saveList;
-@property (nonatomic) dispatch_queue_t saveListDispatchQueue;
+@property (nonatomic) dispatch_queue_t bulbDispatchQueue;
+@property (nonatomic) dispatch_semaphore_t bulbSemaphore;
 
 @end
 
@@ -30,7 +31,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 {
     self = [super init];
     if (self) {
-        _saveListDispatchQueue = dispatch_queue_create("saveListDispatchQueue", DISPATCH_QUEUE_SERIAL);
+        _bulbDispatchQueue = dispatch_queue_create("bulbDispatchQueue", DISPATCH_QUEUE_SERIAL);
+        _bulbSemaphore = dispatch_semaphore_create(1);
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             bulbName2bulbDispatchQueue = dispatch_queue_create("bulbName2bulbDispatchQueue", DISPATCH_QUEUE_SERIAL);
@@ -82,6 +84,9 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 {
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
+    
+    dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
+    
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([slot hasSignal:[signal identifier]]) {
             [slot fireSignal:signal data:data];
@@ -96,6 +101,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     }];
     [self.slots removeObjectsInArray:deleteSlots];
     [self.slots addObjectsFromArray:appendSlots];
+    
+    dispatch_semaphore_signal(self.bulbSemaphore);
 }
 
 - (void)fireAndSave:(BulbSignal *)signal data:(id)data
@@ -112,7 +119,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)remove:(BulbSignal *)signal
 {
-    dispatch_sync(self.saveListDispatchQueue, ^{
+    dispatch_sync(self.bulbDispatchQueue, ^{
         [self.saveList.signals removeObject:signal];
     });
 }
@@ -121,7 +128,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 {
     BulbSignal* removeSignal = [self getSignalFromSaveList:[signal.class identifier]];
     // 去重
-    dispatch_sync(self.saveListDispatchQueue, ^{
+    dispatch_sync(self.bulbDispatchQueue, ^{
         [self.saveList.signals removeObject:removeSignal];
         [self.saveList.signals addObject:signal];
     });
@@ -159,7 +166,12 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     BulbSlot* slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block type:forever?kBulbSignalSlotTypeReAppend:kBulbSignalSlotTypeInstant];
     slot.delegate = self;
     [slot resetSignals];
+    
+    dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
+    
     [self.slots addObject:slot];
+    
+    dispatch_semaphore_signal(self.bulbSemaphore);
     
     if ([slot canBeFire]) {
         BulbSignal* signal = slot.signals.firstObject;
@@ -189,7 +201,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 - (BulbSignal *)getSignalFromSaveList:(NSString *)signalIdentifier
 {
     __block BulbSignal* findSignal = nil;
-    dispatch_sync(self.saveListDispatchQueue, ^{
+    dispatch_sync(self.bulbDispatchQueue, ^{
         [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([[signal.class identifier] isEqualToString:signalIdentifier]) {
                 findSignal = signal;
