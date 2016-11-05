@@ -10,6 +10,4 @@
 
 @interface BulbTestRegisterSignal : BulbBoolSignal
 
-+ (instancetype)signal;
-
 @end

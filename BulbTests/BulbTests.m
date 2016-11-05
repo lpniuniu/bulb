@@ -89,30 +89,8 @@
     XCTAssert(testRegister_signal_forever_fire_times == 3);
 }
 
-- (void)testRegisterIfNotSave
-{
-    [[Bulb bulbGlobal] save:[BulbTestRegisterSignal signal] data:@"testRegisterIfNotSave_signal_data"];
-    __block id testRegisterIfNotSave_signal_forever_fire;
-    [[Bulb bulbGlobal] registerSignalIfNotSave:[BulbTestRegisterSignal signal] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
-        XCTAssert([firstData isEqualToString:@"testRegisterIfNotSave_signal_data"]);
-        testRegisterIfNotSave_signal_forever_fire = @"testRegisterIfNotSave_signal_forever_fire";
-    }];
-    XCTAssert([testRegisterIfNotSave_signal_forever_fire isEqualToString:@"testRegisterIfNotSave_signal_forever_fire"]);
-    
-    //  change sort
-    testRegisterIfNotSave_signal_forever_fire = nil;
-    [[Bulb bulbGlobal] registerSignalIfNotSave:[BulbTestRegisterSignal signal] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
-        XCTAssert([firstData isEqualToString:@"testRegisterIfNotSave_signal_data"]);
-        testRegisterIfNotSave_signal_forever_fire = @"testRegisterIfNotSave_signal_forever_fire";
-    }];
-    [[Bulb bulbGlobal] fireAndSave:[BulbTestRegisterSignal signal] data:@"testRegisterIfNotSave_signal_data"];
-    XCTAssert([testRegisterIfNotSave_signal_forever_fire isEqualToString:@"testRegisterIfNotSave_signal_forever_fire"]);
-}
-
 - (void)testSaveList
 {
-    [BulbTestRegisterSignal signal];
-    
     [[Bulb bulbGlobal] fireAndSave:[BulbTestRegisterSignal signal] data:@"data1"];
     
     BulbSignal* signal = [[Bulb bulbGlobal] getSignalFromSaveList:[BulbTestRegisterSignal identifier]];
@@ -122,6 +100,13 @@
     
     signal = [[Bulb bulbGlobal] getSignalFromSaveList:[BulbTestRegisterSignal identifier]];
     XCTAssert([signal.status isEqualToString:kBulbSignalStatusOff]);
+}
+
+- (void)testInitFromSave
+{
+    [[Bulb bulbGlobal] save:[BulbTestRegisterSignal signal] data:nil];
+    
+    
 }
 
 - (void)testWeakDataWrapper
