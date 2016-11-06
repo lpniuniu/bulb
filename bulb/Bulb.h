@@ -43,7 +43,7 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
-- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbBlock)foreverblock;
+- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock;
 
 
 /*!
@@ -52,7 +52,7 @@
  *  @param signalIdentifier 信号唯一标识
  *  @param foreverblock     信号回调, 回调保留，信号fire就执行
  */
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbBlock)foreverblock;
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock;
 
 /*!
  *  @brief 发出信号

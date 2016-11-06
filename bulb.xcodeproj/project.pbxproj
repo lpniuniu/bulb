@@ -12,6 +12,7 @@
 		0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F231D5C5A7A00EA6F5C /* Bulb.m */; };
 		0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */; };
 		0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */; };
+		0B50F69D1DCF14990044739C /* BulbOnceSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B50F69C1DCF14990044739C /* BulbOnceSlot.m */; };
 		0BA0D5731DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */; };
 		0BB5E2951DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */; };
 		0BB92AC51D5DA2230011D2E6 /* BulbSaveList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC41D5DA2230011D2E6 /* BulbSaveList.m */; };
@@ -57,6 +58,8 @@
 		0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbSlot.m; sourceTree = "<group>"; };
 		0B2B1F301D5C5D7200EA6F5C /* BulbConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbConstant.h; sourceTree = "<group>"; };
 		0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbConstant.m; sourceTree = "<group>"; };
+		0B50F69B1DCF14990044739C /* BulbOnceSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbOnceSlot.h; sourceTree = "<group>"; };
+		0B50F69C1DCF14990044739C /* BulbOnceSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbOnceSlot.m; sourceTree = "<group>"; };
 		0BA0D5711DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal1.h; sourceTree = "<group>"; };
 		0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal1.m; sourceTree = "<group>"; };
 		0BB5E2931DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				0B2B1F231D5C5A7A00EA6F5C /* Bulb.m */,
 				0B2B1F2A1D5C5AFB00EA6F5C /* BulbSlot.h */,
 				0B2B1F2B1D5C5AFB00EA6F5C /* BulbSlot.m */,
+				0B50F69B1DCF14990044739C /* BulbOnceSlot.h */,
+				0B50F69C1DCF14990044739C /* BulbOnceSlot.m */,
 				0BB92AC61D5DB8680011D2E6 /* BulbSlotFactory.h */,
 				0BB92AC71D5DB8680011D2E6 /* BulbSlotFactory.m */,
 				0BC43A091DC8977C00E5EEBF /* BulbSignal.h */,
@@ -255,6 +260,7 @@
 				0BC43A0B1DC8977C00E5EEBF /* BulbSignal.m in Sources */,
 				0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */,
 				0BB92AC81D5DB8680011D2E6 /* BulbSlotFactory.m in Sources */,
+				0B50F69D1DCF14990044739C /* BulbOnceSlot.m in Sources */,
 				0BC43A0E1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

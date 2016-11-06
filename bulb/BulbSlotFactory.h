@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BulbSlot.h"
+#import "BulbOnceSlot.h"
 #import "BulbSignal.h"
 
 /*!
@@ -18,8 +19,8 @@
 /*
  *  构造全明槽，只有一个fireTable，信号全部匹配fireTable，block调用
  */
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block type:(BulbSignalSlotType)type;
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block;
 
-// Todo other slots
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status foreverBlock:(BulbHasResultBlock)foreverBlock;
 
 @end

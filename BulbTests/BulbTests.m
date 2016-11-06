@@ -95,14 +95,32 @@
 - (void)testRegisterForeverBlock
 {
     __block NSInteger testRegister_signal_forever_fire_times = 0;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
         testRegister_signal_forever_fire_times++;
+        return YES;
     }];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     XCTAssert(testRegister_signal_forever_fire_times == 3);
 }
+
+- (void)testRegisterForeverBlockCancel
+{
+    __block NSInteger testRegister_signal_forever_fire_times = 0;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_signal_forever_fire_times++;
+        if (testRegister_signal_forever_fire_times == 2) {
+            return NO;
+        }
+        return YES;
+    }];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    XCTAssert(testRegister_signal_forever_fire_times == 2);
+}
+
 
 - (void)testSaveList
 {
@@ -133,8 +151,9 @@
     XCTAssert(testRegister_init_from_save == nil);
     
     // forever
-    slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalInitFromSave] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalInitFromSave] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
         testRegister_init_from_save = @"not null";
+        return YES;
     }];
     XCTAssert(signal != nil);
     XCTAssert(signal.status == kBulbSignalStatusOn);

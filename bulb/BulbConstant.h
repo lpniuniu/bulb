@@ -11,9 +11,5 @@
 extern NSString* const kBulbSignalStatusOff;
 extern NSString* const kBulbSignalStatusOn;
 
-typedef NS_ENUM(NSUInteger, BulbSignalSlotType) {
-    kBulbSignalSlotTypeInstant = 0, // 瞬时槽, fire后消失
-    kBulbSignalSlotTypeReAppend = 1,// 永久槽, fire后消失，添加到队列的最后面
-};
-
 typedef void(^BulbBlock)(id firstData, NSDictionary<NSString *, id>* signalIdentifier2data);
+typedef BOOL(^BulbHasResultBlock)(id firstData, NSDictionary<NSString *, id>* signalIdentifier2data);

@@ -11,6 +11,13 @@
 #import "BulbConstant.h"
 
 
+typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
+    kBulbSignalSlotNotFired = 0,    // 槽未响应
+    kBulbSignalSlotFiredResultYes,  // 槽被fire, 返回值yes
+    kBulbSignalSlotFiredResultNo    // 槽被fire, 返回值no
+};
+
+
 @protocol BulbSlotDelegate <NSObject>
 
 // 内部信号被重置
@@ -23,7 +30,7 @@
  */
 @interface BulbSlot : NSObject
 
-- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type;
+- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbHasResultBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable;
 
 @property (nonatomic) NSArray<BulbSignal *>* signals;
 @property (weak, nonatomic) id<BulbSlotDelegate> delegate;
@@ -33,9 +40,7 @@
  */
 @property (nonatomic) NSArray<NSDictionary<NSString *, NSString *>*>* fireTable;
 
-@property (nonatomic, copy) BulbBlock block;
-
-@property (nonatomic, assign) BulbSignalSlotType type; // 槽的类型
+@property (nonatomic, copy) BulbHasResultBlock block;
 
 /*!
  *  @brief 改变信号状态, 并fire
@@ -43,7 +48,7 @@
  *  @param signalIdentifier 信号
  *  @param status           信号状态
  */
-- (void)fireSignal:(BulbSignal *)signal data:(id)data;
+- (BulbSignalSlotFireType)fireSignal:(BulbSignal *)signal data:(id)data;
 
 /*!
  *  @brief 改变信号状态， 不fire

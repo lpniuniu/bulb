@@ -11,9 +11,14 @@
 
 @implementation BulbSlotFactory
 
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block type:(BulbSignalSlotType)type
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block
 {
-    return [[BulbSlot alloc] initWithSignals:signals block:block fireTable:@[identifier2status] type:type];
+    return [[BulbOnceSlot alloc] initWithSignals:signals block:block fireTable:@[identifier2status]];
+}
+
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status foreverBlock:(BulbHasResultBlock)foreverBlock
+{
+    return [[BulbSlot alloc] initWithSignals:signals block:foreverBlock fireTable:@[identifier2status]];
 }
 
 @end

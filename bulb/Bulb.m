@@ -7,7 +7,7 @@
 //
 
 #import "Bulb.h"
-#import "BulbSlot.h"
+#import "BulbOnceSlot.h"
 #import "BulbSlotFactory.h"
 #import "BulbSaveList.h"
 #import "BulbWeakDataWrapper.h"
@@ -89,10 +89,10 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([slot hasSignal:[signal identifier]]) {
-            [slot fireSignal:signal data:data];
+            BulbSignalSlotFireType fireType = [slot fireSignal:signal data:data];
             if (slot.fireCount > 0) {
                 [deleteSlots addObject:slot];
-                if (slot.type == kBulbSignalSlotTypeReAppend) {
+                if (fireType == kBulbSignalSlotFiredResultYes) {
                     [slot resetSignals];
                     [appendSlots addObject:slot];
                 }
@@ -141,20 +141,20 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
 {
-    return [self registerSignals:signals block:block forever:NO];
+    return [self registerSignals:signals block:block foreverblock:nil];
 }
 
-- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbBlock)foreverblock
+- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock
 {
-    return [self registerSignals:@[signal] block:foreverblock forever:YES];
+    return [self registerSignals:@[signal] foreverblock:foreverblock];
 }
 
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbBlock)foreverblock
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock
 {
-    return [self registerSignals:signals block:foreverblock forever:YES];
+    return [self registerSignals:signals block:nil foreverblock:foreverblock];
 }
 
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block forever:(BOOL)forever
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block foreverblock:(BulbHasResultBlock)foreverblock
 {
     if ([self hasSameIdentifierSignal:signals]) {
         return nil;
@@ -163,7 +163,13 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [fireTable setObject:obj.status forKey:[obj identifier]];
     }];
-    BulbSlot* slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block type:forever?kBulbSignalSlotTypeReAppend:kBulbSignalSlotTypeInstant];
+    
+    BulbSlot* slot = nil;
+    if (foreverblock) {
+        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable foreverBlock:foreverblock];
+    } else {
+        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block];
+    }
     slot.delegate = self;
     [slot resetSignals];
     

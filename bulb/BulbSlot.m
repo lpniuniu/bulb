@@ -18,22 +18,21 @@
 
 @implementation BulbSlot
 
-- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable type:(BulbSignalSlotType)type
+- (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbHasResultBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable
 {
     self = [super init];
     if (self) {
         _signals = signals;
         _block = block;
         _fireTable = fireTable;
-        _type = type;
     }
     return self;
 }
 
-- (void)fireSignal:(BulbSignal *)signal data:(id)data
+- (BulbSignalSlotFireType)fireSignal:(BulbSignal *)signal data:(id)data
 {
     [self updateSignal:signal data:data];
-    if ([self canBeFire] && self.block) {
+    if ([self canBeFire]) {
         NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
         __block id firstData = nil;
         __block BOOL firstDataFind = NO;
@@ -47,8 +46,16 @@
                 [signalIdentifier2data setObject:unwrapperData forKey:[obj.class identifier]];
             }
         }];
-        self.block(firstData, signalIdentifier2data);
+        BulbSignalSlotFireType fireType = kBulbSignalSlotFiredResultNo;
+        if (self.block) {
+            if (self.block(firstData, signalIdentifier2data)) {
+                fireType = kBulbSignalSlotFiredResultYes;
+            }
+        }
         self.fireCount++;
+        return fireType;
+    } else {
+        return kBulbSignalSlotNotFired;
     }
 }
 
