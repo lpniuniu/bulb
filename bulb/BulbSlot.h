@@ -17,14 +17,6 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
     kBulbSignalSlotFiredResultNo    // 槽被fire, 返回值no
 };
 
-
-@protocol BulbSlotDelegate <NSObject>
-
-// 内部信号被重置
-- (void)bulbSlotInternalSignalRest:(BulbSignal *)signal;
-
-@end
-
 /*!
  *  @brief 信号槽，容纳信号
  */
@@ -33,7 +25,6 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
 - (instancetype)initWithSignals:(NSArray<BulbSignal *> *)signals block:(BulbHasResultBlock)block fireTable:(NSArray<NSDictionary<NSString *, NSString *>*>* )fireTable;
 
 @property (nonatomic) NSArray<BulbSignal *>* signals;
-@property (weak, nonatomic) id<BulbSlotDelegate> delegate;
 
 /*!
  *  @brief 点亮查询表 NSDictionary<signalIdentifier, status>

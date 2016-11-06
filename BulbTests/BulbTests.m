@@ -182,10 +182,16 @@
     
     testRegister_init_from_save = nil;
     [[Bulb bulbGlobal] save:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"] data:nil];
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalInitFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalInitFromSaveWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalInitFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalInitFromSaveWithStatus:@"status1"]] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
         testRegister_init_from_save = @"not null";
+        return YES;
     }];
     XCTAssert(testRegister_init_from_save != nil);
+    
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] remove:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalInitFromSaveWithStatus:@"status"] data:nil];
+    XCTAssert(testRegister_init_from_save == nil);
 }
 
 - (void)testWeakDataWrapper

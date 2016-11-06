@@ -111,10 +111,6 @@
 {
     for (BulbSignal* signal in self.signals) {
         [signal reset];
-        // 如果状态槽, 存在信号状态不重置，赋予最后的状态
-        if ([self.delegate respondsToSelector:@selector(bulbSlotInternalSignalRest:)]) {
-            [self.delegate bulbSlotInternalSignalRest:signal];
-        }
     }
     self.fireCount = 0;
 }

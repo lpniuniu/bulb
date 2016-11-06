@@ -12,7 +12,7 @@
 #import "BulbSaveList.h"
 #import "BulbWeakDataWrapper.h"
 
-@interface Bulb () <BulbSlotDelegate>
+@interface Bulb ()
 
 @property (nonatomic) NSMutableArray<BulbSlot*>* slots;
 @property (nonatomic) BulbSaveList* saveList;
@@ -80,20 +80,36 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [self fire:signal data:data toSlots:self.slots];
 }
 
+- (void)recoverSlotFromSaveList:(BulbSlot *)slot
+{
+    [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (signal.initialStatusFromSave) {
+            [signal reset];
+            BulbSignal* saveSignal = [self getSignalFromSaveList:[signal identifier]];
+            if (saveSignal) {
+                signal.status = saveSignal.status;
+                signal.data = saveSignal.data;
+            }
+        }
+    }];
+}
+
 - (void)fire:(BulbSignal *)signal data:(id)data toSlots:(NSArray<BulbSlot *> *)slots
 {
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
     
     dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
-    
+
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self recoverSlotFromSaveList:slot];
         if ([slot hasSignal:[signal identifier]]) {
             BulbSignalSlotFireType fireType = [slot fireSignal:signal data:data];
             if (slot.fireCount > 0) {
                 [deleteSlots addObject:slot];
                 if (fireType == kBulbSignalSlotFiredResultYes) {
                     [slot resetSignals];
+                    [self recoverSlotFromSaveList:slot];
                     [appendSlots addObject:slot];
                 }
             }
@@ -170,8 +186,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     } else {
         slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block];
     }
-    slot.delegate = self;
     [slot resetSignals];
+    [self recoverSlotFromSaveList:slot];
     
     dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -216,19 +232,6 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
         }];
     });
     return findSignal;
-}
-
-#pragma bulb slot delegate
-- (void)bulbSlotInternalSignalRest:(BulbSignal *)signal
-{
-    if (signal.initialStatusFromSave == NO) {
-        return ;
-    }
-    BulbSignal* saveSignal = [self getSignalFromSaveList:[signal.class identifier]];
-    if (saveSignal) {
-        signal.status = saveSignal.status;
-        signal.data = saveSignal.data;
-    }
 }
 
 @end
