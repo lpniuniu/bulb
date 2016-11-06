@@ -54,6 +54,12 @@
  */
 - (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock;
 
+// filter interface
+- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock;
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock;
+- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock;
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock;
+
 /*!
  *  @brief 发出信号
  */

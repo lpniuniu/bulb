@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
 @property (nonatomic) NSArray<NSDictionary<NSString *, NSString *>*>* fireTable;
 
 @property (nonatomic, copy) BulbHasResultBlock block;
-
+@property (nonatomic, copy) BulbFilterBlock filterBlock;
 /*!
  *  @brief 改变信号状态, 并fire
  *
@@ -56,7 +56,10 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
  *
  *  @return 找到的信号，没找到返回nil
  */
-- (BulbSignal *)hasSignal:(NSString *)identifier;
+- (BulbSignal *)hasSignal:(BulbSignal *)signal;
+
+
+- (BOOL)isFiltered:(BulbSignal *)signal;
 
 /*!
  *  @brief 判断内部信号状态是否可以激活

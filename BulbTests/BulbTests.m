@@ -215,4 +215,22 @@
     XCTAssert([Bulb bulbWithName:@"new_bulb_name"] == [Bulb bulbWithName:@"new_bulb_name"]);
 }
 
+- (void)testFilter
+{
+    __block id testRegister_signal_fire = nil;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+        testRegister_signal_fire = @"testRegister_signal_fire";
+        NSLog(@"testRegister_signal data %@", firstData);
+    } filterBlock:^BOOL(BulbSignal *signal) {
+        if ([signal.data isEqualToString:@"data"]) {
+            return YES;
+        }
+        return NO;
+    }];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    XCTAssert(![testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data1"];
+    XCTAssert([testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
+}
+
 @end

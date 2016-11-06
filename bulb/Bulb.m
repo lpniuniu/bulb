@@ -103,7 +103,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         [self recoverSlotFromSaveList:slot];
-        if ([slot hasSignal:[signal identifier]]) {
+        signal.data = data;
+        if ([slot hasSignal:signal] && ![slot isFiltered:signal]) {
             BulbSignalSlotFireType fireType = [slot fireSignal:signal data:data];
             if (slot.fireCount > 0) {
                 [deleteSlots addObject:slot];
@@ -157,7 +158,17 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
 {
-    return [self registerSignals:signals block:block foreverblock:nil];
+    return [self registerSignals:signals block:block foreverblock:nil filterBlock:nil];
+}
+
+- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock
+{
+    return [self registerSignals:@[signal] block:block filterBlock:filterBlock];
+}
+
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock
+{
+    return [self registerSignals:signals block:block foreverblock:nil filterBlock:filterBlock];
 }
 
 - (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock
@@ -167,10 +178,20 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock
 {
-    return [self registerSignals:signals block:nil foreverblock:foreverblock];
+    return [self registerSignals:signals block:nil foreverblock:foreverblock filterBlock:nil];
 }
 
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block foreverblock:(BulbHasResultBlock)foreverblock
+- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
+{
+    return [self registerSignals:@[signal] foreverblock:foreverblock filterBlock:filterBlock];
+}
+
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
+{
+    return [self registerSignals:signals block:nil foreverblock:foreverblock filterBlock:filterBlock];
+}
+
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
 {
     if ([self hasSameIdentifierSignal:signals]) {
         return nil;
@@ -182,9 +203,9 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     
     BulbSlot* slot = nil;
     if (foreverblock) {
-        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable foreverBlock:foreverblock];
+        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable foreverBlock:foreverblock filterBlock:filterBlock];
     } else {
-        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block];
+        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block filterBlock:filterBlock];
     }
     [slot resetSignals];
     [self recoverSlotFromSaveList:slot];

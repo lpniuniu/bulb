@@ -61,7 +61,7 @@
 
 - (void)updateSignal:(BulbSignal *)newSignal data:(id)data
 {
-    BulbSignal* signal = [self hasSignal:[newSignal.class identifier]];
+    BulbSignal* signal = [self hasSignal:newSignal];
     if (!signal) {
         return ;
     }
@@ -69,11 +69,11 @@
     signal.data = data;
 }
 
-- (BulbSignal *)hasSignal:(NSString *)identifier
+- (BulbSignal *)hasSignal:(BulbSignal *)firedSignal
 {
     __block BulbSignal* resultSignal = nil;
     [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([[signal.class identifier] isEqualToString:identifier]) {
+        if ([[firedSignal identifier] isEqualToString:signal.identifier]) {
             resultSignal = signal;
             *stop = YES;
         }
@@ -113,6 +113,16 @@
         [signal reset];
     }
     self.fireCount = 0;
+}
+
+- (BOOL)isFiltered:(BulbSignal *)signal
+{
+    if (self.filterBlock) {
+        if (self.filterBlock(signal)) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
