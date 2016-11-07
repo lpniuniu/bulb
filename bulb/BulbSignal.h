@@ -11,12 +11,19 @@
 
 @interface BulbSignal : NSObject
 
+/*!
+ *  @brief 信号唯一标识
+ */
 + (NSString *)identifier;
 - (NSString *)identifier;
 
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic) id data;
-@property (nonatomic, assign) BOOL resetStatusFromSave;
+
+/*!
+ *  @brief YES:信号使用save list中保存的状态和数据
+ */
+@property (nonatomic, assign) BOOL recoverStatusFromSave;
 
 - (void)reset;
 

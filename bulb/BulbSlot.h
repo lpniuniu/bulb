@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
 };
 
 /*!
- *  @brief 信号槽，容纳信号
+ *  @brief 信号槽，容纳信号，当满足条件被fire，从队列中移除，并重新添加到队尾
  */
 @interface BulbSlot : NSObject
 
@@ -33,32 +33,33 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
 
 @property (nonatomic, copy) BulbHasResultBlock block;
 @property (nonatomic, copy) BulbFilterBlock filterBlock;
+
 /*!
  *  @brief 改变信号状态, 并fire
  *
- *  @param signalIdentifier 信号
- *  @param status           信号状态
+ *  @param signal           信号对象
  */
 - (BulbSignalSlotFireType)fireSignal:(BulbSignal *)signal data:(id)data;
 
 /*!
  *  @brief 改变信号状态， 不fire
  *
- *  @param signalIdentifier 信号
- *  @param status           信号状态
+ *  @param signal           信号对象
  */
 - (void)updateSignal:(BulbSignal *)signal data:(id)data;
 
 /*!
  *  @brief 是否存在某种信号
  *
- *  @param identifier 信号唯一标识
+ *  @param signal           信号对象
  *
  *  @return 找到的信号，没找到返回nil
  */
 - (BulbSignal *)hasSignal:(BulbSignal *)signal;
 
-
+/*!
+ *  @brief 信号是否被过滤
+ */
 - (BOOL)isFiltered:(BulbSignal *)signal;
 
 /*!
@@ -69,12 +70,12 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
 - (BOOL)canBeFire;
 
 /*!
- *  @brief fire count
+ *  @brief fire 次数
  */
 - (NSInteger)fireCount;
 
 /*!
- *  @brief reset
+ *  @brief 重置信号为初始状态
  */
 - (void)resetSignals;
 

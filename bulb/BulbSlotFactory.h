@@ -12,15 +12,18 @@
 #import "BulbSignal.h"
 
 /*!
- *  @brief 注册信号，填充槽
+ *  @brief 信号槽构建工厂
  */
 @interface BulbSlotFactory : NSObject
 
 /*
- *  构造全明槽，只有一个fireTable，信号全部匹配fireTable，block调用
+ *  构造BulbOnceSlot
  */
 + (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock;
 
+/*
+ *  构造标准的BulbSlot
+ */
 + (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status foreverBlock:(BulbHasResultBlock)foreverBlock filterBlock:(BulbFilterBlock)filterBlock;
 
 @end

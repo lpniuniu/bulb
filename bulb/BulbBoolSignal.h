@@ -14,9 +14,9 @@
 @interface BulbBoolSignal : BulbSignal
 
 + (instancetype)signal;
-+ (instancetype)signalResetFromSave;
++ (instancetype)signalRecoverFromSave;
 + (instancetype)signalWithOn:(BOOL)on;
-+ (instancetype)signalResetFromSaveWithOn:(BOOL)on;
++ (instancetype)signalRecoverFromSaveWithOn:(BOOL)on;
 
 - (void)on;
 - (void)off;

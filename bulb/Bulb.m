@@ -84,7 +84,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 - (void)recoverSlotFromSaveList:(BulbSlot *)slot
 {
     [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (signal.resetStatusFromSave) {
+        if (signal.recoverStatusFromSave) {
             [signal reset];
             BulbSignal* saveSignal = [self getSignalFromSaveList:[signal identifier]];
             if (saveSignal) {
@@ -146,7 +146,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)addSignalIdentifierToSaveList:(BulbSignal *)signal
 {
-    BulbSignal* removeSignal = [self getSignalFromSaveList:[signal.class identifier]];
+    BulbSignal* removeSignal = [self getSignalFromSaveList:[signal identifier]];
     // 去重
     dispatch_sync(self.bulbDispatchQueue, ^{
         [self.saveList.signals removeObject:removeSignal];
@@ -251,7 +251,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     __block BulbSignal* findSignal = nil;
     dispatch_sync(self.bulbDispatchQueue, ^{
         [self.saveList.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([[signal.class identifier] isEqualToString:signalIdentifier]) {
+            if ([[signal identifier] isEqualToString:signalIdentifier]) {
                 findSignal = signal;
                 *stop = YES;
             }

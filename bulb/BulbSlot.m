@@ -87,7 +87,7 @@
     [self.fireTable enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull identifier2status, NSUInteger idx, BOOL * _Nonnull stop) {
         __block NSInteger matchCount = 0;
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([[identifier2status objectForKey:[signal.class identifier]] isEqualToString:signal.status]) {
+            if ([[identifier2status objectForKey:[signal identifier]] isEqualToString:signal.status]) {
                 matchCount++;
             };
         }];
