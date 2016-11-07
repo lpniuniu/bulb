@@ -236,6 +236,7 @@
 
 - (void)testRecorder
 {
+#ifdef BULB_RECORDER
     [BulbTestRegisterSignal signal];
     [BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"];
     [BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"];
@@ -243,6 +244,7 @@
     NSString* allSignals = [[BulbRecorder sharedInstance] allSignals];
     NSLog(@"%@", allSignals);
     XCTAssert(allSignals != nil);
+#endif
 }
 
 @end

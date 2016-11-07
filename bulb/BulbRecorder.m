@@ -24,6 +24,7 @@
 
 + (instancetype)sharedInstance
 {
+#ifdef BULB_RECORDER
     static BulbRecorder* recorder = nil;
     static dispatch_once_t oncetoken;
     dispatch_once(&oncetoken, ^{
@@ -34,6 +35,9 @@
         recorder.signalsFireRecord = [NSMutableArray array];
     });
     return recorder;
+#else
+    return nil;
+#endif
 }
 
 - (instancetype)init
