@@ -84,7 +84,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 - (void)recoverSlotFromSaveList:(BulbSlot *)slot
 {
     [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (signal.initialStatusFromSave) {
+        if (signal.resetStatusFromSave) {
             [signal reset];
             BulbSignal* saveSignal = [self getSignalFromSaveList:[signal identifier]];
             if (saveSignal) {

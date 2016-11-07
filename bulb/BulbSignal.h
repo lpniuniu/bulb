@@ -16,7 +16,7 @@
 
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic) id data;
-@property (nonatomic, assign) BOOL initialStatusFromSave;
+@property (nonatomic, assign) BOOL resetStatusFromSave;
 
 - (void)reset;
 
