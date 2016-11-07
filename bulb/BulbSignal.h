@@ -18,6 +18,7 @@
 - (NSString *)identifier;
 
 @property (nonatomic, copy) NSString* status;
+@property (nonatomic, copy) NSString* originStatus;
 @property (nonatomic) id data;
 
 /*!

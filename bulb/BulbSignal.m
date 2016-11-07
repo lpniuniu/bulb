@@ -47,5 +47,15 @@
     return [self.class description];
 }
 
+-(void)setStatus:(NSString *)status
+{
+    if(self.originStatus == nil) {
+        self.originStatus = status;
+    } else {
+        self.originStatus = _status;
+    }
+    _status = status;
+}
+
 @end
 
