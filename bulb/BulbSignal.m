@@ -12,7 +12,7 @@
 
 + (NSString *)identifier
 {
-    return [NSString stringWithFormat:@"Bulb_%@", self.class];
+    return [NSString stringWithFormat:@"Bulb_%@", NSStringFromClass(self.class)];
 }
 
 - (NSString *)identifier
@@ -22,7 +22,9 @@
 
 - (void)reset
 {
-    [self doesNotRecognizeSelector:_cmd];
+    self.data = nil;
+    self.originData = nil;
+    self.originStatus = nil;
 }
 
 -(NSUInteger)hash
@@ -51,10 +53,20 @@
 {
     if(self.originStatus == nil) {
         self.originStatus = status;
-    } else {
-        self.originStatus = _status;
+    } else if (self.status) {
+        self.originStatus = self.status;
     }
     _status = status;
+}
+
+-(void)setData:(id)data
+{
+    if (self.originData == nil) {
+        self.originData = data;
+    } else if (self.data) {
+        self.originData = self.data;
+    }
+    _data = data;
 }
 
 @end

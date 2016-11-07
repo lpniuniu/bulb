@@ -247,4 +247,15 @@
 #endif
 }
 
+- (void)testOrigin
+{
+    __block id testRegister_signal_origin_status = nil;
+    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] block:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        testRegister_signal_origin_status = [signalIdentifier2Signal objectForKey:[BulbTestRegisterMutiStatusSignal identifier]].originStatus;
+    }];
+    [slot updateSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] data:nil];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:nil];
+    XCTAssert([testRegister_signal_origin_status isEqualToString:@"status2"]);
+}
+
 @end

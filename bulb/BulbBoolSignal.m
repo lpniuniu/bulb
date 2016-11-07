@@ -77,6 +77,7 @@
 - (void)reset
 {
     [self off];
+    [super reset];
 }
 
 @end

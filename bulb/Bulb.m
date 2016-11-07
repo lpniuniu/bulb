@@ -112,7 +112,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
             if (slot.fireCount > 0) {
                 [deleteSlots addObject:slot];
                 if (fireType == kBulbSignalSlotFiredResultYes) {
-                    [slot resetSignals];
+                    [slot resetForeverSignals];
                     [self recoverSlotFromSaveList:slot];
                     [appendSlots addObject:slot];
                 }

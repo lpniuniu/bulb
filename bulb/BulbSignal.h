@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic, copy) NSString* originStatus;
 @property (nonatomic) id data;
+@property (nonatomic) id originData;
 
 /*!
  *  @brief YES:信号使用save list中保存的状态和数据

@@ -33,22 +33,26 @@
 {
     [self updateSignal:signal data:data];
     if ([self canBeFire]) {
-        NSMutableDictionary* signalIdentifier2data = [NSMutableDictionary dictionary];
+        NSMutableDictionary* signalIdentifier2Signal = [NSMutableDictionary dictionary];
         __block id firstData = nil;
         __block BOOL firstDataFind = NO;
-        [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            id unwrapperData = [BulbWeakDataWrapper unwrapperData:obj.data];
+        [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
+            id unwrapperData = [BulbWeakDataWrapper unwrapperData:signal.data];
             if (firstDataFind == NO) {
                 firstDataFind = YES;
                 firstData = unwrapperData;
             }
-            if (unwrapperData) {
-                [signalIdentifier2data setObject:unwrapperData forKey:[obj.class identifier]];
-            }
+            // 创建新信号给外部，不影响内部信号
+            BulbSignal* outSignal = [BulbBoolSignal signal];
+            outSignal.status = signal.status;
+            outSignal.originStatus = signal.originStatus;
+            outSignal.data =  unwrapperData;
+            outSignal.originData = signal.originData;
+            [signalIdentifier2Signal setObject:outSignal forKey:[signal identifier]];
         }];
         BulbSignalSlotFireType fireType = kBulbSignalSlotFiredResultNo;
         if (self.block) {
-            if (self.block(firstData, signalIdentifier2data)) {
+            if (self.block(firstData, signalIdentifier2Signal)) {
                 fireType = kBulbSignalSlotFiredResultYes;
             }
         }
@@ -105,6 +109,18 @@
 - (NSInteger)fireCount
 {
     return _fireCount;
+}
+
+- (void)resetForeverSignals
+{
+    for (BulbSignal* signal in self.signals) {
+        id originStatus = signal.status;
+        id originData = signal.data;
+        [signal reset];
+        signal.originStatus = originStatus;
+        signal.originData = originData;
+    }
+    self.fireCount = 0;
 }
 
 - (void)resetSignals

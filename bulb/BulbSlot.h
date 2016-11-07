@@ -79,4 +79,9 @@ typedef NS_ENUM(NSUInteger, BulbSignalSlotFireType) {
  */
 - (void)resetSignals;
 
+/*!
+ *  @brief 重置信号, 并保留origin数据，到下一个触发
+ */
+- (void)resetForeverSignals;
+
 @end
