@@ -65,6 +65,7 @@
         result = [result stringByAppendingString:[NSString stringWithFormat:@", call stack %@", callStack]];
         [self.signalsRegisterRecord addObject:result];
         [self.signalsRecordHistory addObject:result];
+        NSLog(@"%@", result);
     });
 }
 
@@ -77,6 +78,7 @@
         result = [result stringByAppendingString:[NSString stringWithFormat:@", call stack %@", callStack]];
         [self.signalsFireRecord addObject:result];
         [self.signalsRecordHistory addObject:result];
+        NSLog(@"%@", result);
     });
 }
 
