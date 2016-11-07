@@ -11,6 +11,7 @@
 #import "BulbTestRegisterSignal.h"
 #import "BulbTestRegisterMutiStatusSignal.h"
 #import "BulbTestRegisterMutiStatusSignal1.h"
+#import "BulbRecorder.h"
 
 @interface BulbTextDealloc : NSObject
 
@@ -231,6 +232,17 @@
     XCTAssert(![testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data1"];
     XCTAssert([testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
+}
+
+- (void)testRecorder
+{
+    [BulbTestRegisterSignal signal];
+    [BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"];
+    [BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"];
+    
+    NSString* allSignals = [[BulbRecorder sharedInstance] allSignals];
+    NSLog(@"%@", allSignals);
+    XCTAssert(allSignals != nil);
 }
 
 @end

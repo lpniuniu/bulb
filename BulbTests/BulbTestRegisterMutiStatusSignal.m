@@ -10,4 +10,9 @@
 
 @implementation BulbTestRegisterMutiStatusSignal
 
++ (NSString *)description
+{
+    return @"BulbTestRegisterMutiStatusSignal using for test";
+}
+
 @end

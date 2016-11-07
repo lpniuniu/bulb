@@ -7,8 +7,16 @@
 //
 
 #import "BulbMutiStatusSignal.h"
+#import "BulbRecorder+Private.h"
 
 @implementation BulbMutiStatusSignal
+
++(void)initialize
+{
+    if ([self class] != [BulbMutiStatusSignal class]) {
+        [[BulbRecorder sharedInstance] addSignalsRecord:[self description]];
+    }
+}
 
 + (instancetype)signalWithStatus:(NSString *)status
 {

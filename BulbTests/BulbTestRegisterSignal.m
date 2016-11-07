@@ -10,4 +10,9 @@
 
 @implementation BulbTestRegisterSignal
 
++ (NSString *)description
+{
+    return @"BulbTestRegisterSignal is a bool signal";
+}
+
 @end

@@ -7,8 +7,16 @@
 //
 
 #import "BulbBoolSignal.h"
+#import "BulbRecorder+Private.h"
 
 @implementation BulbBoolSignal
+
++(void)initialize
+{
+    if ([self class] != [BulbBoolSignal class]) {
+        [[BulbRecorder sharedInstance] addSignalsRecord:[self description]];
+    }
+}
 
 + (instancetype)signal
 {
