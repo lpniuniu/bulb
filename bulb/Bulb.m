@@ -11,6 +11,7 @@
 #import "BulbSlotFactory.h"
 #import "BulbSaveList.h"
 #import "BulbWeakDataWrapper.h"
+#import "BulbRecorder+Private.h"
 
 @interface Bulb ()
 
@@ -96,6 +97,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)fire:(BulbSignal *)signal data:(id)data toSlots:(NSArray<BulbSlot *> *)slots
 {
+    [[BulbRecorder sharedInstance] addSignalFireRecord:self signal:signal];
+    
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
     
@@ -193,6 +196,8 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
 {
+    [[BulbRecorder sharedInstance] addSignalsRegisterRecord:self signals:signals];
+    
     if ([self hasSameIdentifierSignal:signals]) {
         return nil;
     }

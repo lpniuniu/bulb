@@ -42,5 +42,10 @@
     return [self.status isEqualToString:object.status];
 }
 
+- (NSString *)description
+{
+    return [self.class description];
+}
+
 @end
 

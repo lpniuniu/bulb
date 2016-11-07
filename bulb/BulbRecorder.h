@@ -13,5 +13,7 @@
 + (instancetype)sharedInstance;
 
 - (NSString *)allSignals;
+- (NSString *)allSignalsRegister;
+- (NSString *)allSignalsFire;
 
 @end
