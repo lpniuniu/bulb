@@ -11,6 +11,6 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.9'
   s.watchos.deployment_target = '2.0'
   
-  s.source_files = 'bulbs/*'
+  s.source_files = 'bulb/*'
   s.requires_arc = true
 end
