@@ -88,4 +88,9 @@
  */
 - (BulbSignal *)getSignalFromSaveList:(NSString *)signalIdentifier;
 
+/*!
+ *  @brief save list description
+ */
+- (NSString *)saveListDescription;
+
 @end

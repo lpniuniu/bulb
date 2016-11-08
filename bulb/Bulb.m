@@ -260,4 +260,9 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     return findSignal;
 }
 
+- (NSString *)saveListDescription
+{
+    return self.saveList.description;
+}
+
 @end
