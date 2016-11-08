@@ -26,7 +26,7 @@ If you use CocoaPods to manage your dependencies, simply add
 Bulb to your `Podfile`:
 
 ```ruby
-pod 'Bulb', :git => 'https://github.com/lpniuniu/bulb.git'
+pod 'Bulb', '~> 1.0.0'
 ```
 
 ## Quick start
