@@ -25,7 +25,7 @@ Richer, more powerful notification framework
 If you use CocoaPods to manage your dependencies, simply add
 Bulb to your `Podfile`:
 
-```
+```objc
 pod 'Bulb', :git => 'https://github.com/lpniuniu/bulb.git'
 ```
 
@@ -37,7 +37,7 @@ two step
 - subclass 
 - add a description
 
-```swift
+```objc
 // BulbConnectToWifiSignal.h
 #import "BulbBoolSignal.h"
 
@@ -59,7 +59,7 @@ two step
 ```
 register a signal, can be fired once
 
-```swift
+```objc
 [[Bulb bulbGlobal] registerSignal:[BulbConnectToWifiSignal signal] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
 	// do wifi work 
 }];
@@ -67,12 +67,12 @@ register a signal, can be fired once
 
 fire a signal
 
-```swift
+```objc
 [[Bulb bulbGlobal] fire:[BulbConnectToWifiSignal signal] data:@"firstData"];
 ```
 register muti signals
 
-```swift
+```objc
 [[Bulb bulbGlobal] registerSignals:@[[BulbConnectToWifiSignal signal], [BulbDataPrepareCompleteSignal signal]] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
 	// wifi and data prepare compelete do something
 }];
@@ -80,7 +80,7 @@ register muti signals
 
 register forever signal, can be fired many times
 
-```swift
+```objc
 [[Bulb bulbGlobal] registerSignal:[BulbConnectToWifiSignal signal] foreverblock:^BOOL(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
 	// do wifi work
 	return YES; // return yes if you want to continue
@@ -91,7 +91,7 @@ register forever signal, can be fired many times
 ####filter support
 You can choose to filter the signal in some cases, the signal is equivalent to not happen
 
-```swift
+```objc
 [[Bulb bulbGlobal] registerSignal:[BulbConnectToWifiSignal signal] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
       	// do wifi work
  } filterBlock:^BOOL(BulbSignal *signal) {
@@ -107,7 +107,7 @@ You can choose to filter the signal in some cases, the signal is equivalent to n
 
 You can view the signal to its original state to deal with some change logic
 
-```swift
+```objc
 [[Bulb bulbGlobal] registerSignal:[BulbNetReachableSignal signalWithStatus:@"wifi"] foreverblock:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
    if ([[signalIdentifier2Signal objectForKey:[BulbNetReachableSignal identifier]].originStatus isEqualToString:@"wwlan"]) {
             // do work when wwlan -> wifi
@@ -128,7 +128,7 @@ You can view the signal to its original state to deal with some change logic
 
 The following will print all defined signals, as well as the history of signal registration and occurrence
 
-```swift
+```objc
 NSString* allSignals = [[BulbRecorder sharedInstance] allSignals];
 NSLog(@"%@", allSignals);
 ```
