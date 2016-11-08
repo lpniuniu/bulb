@@ -42,5 +42,12 @@
     return data;
 }
 
+-(NSString *)description
+{
+    NSString* result = [self.class description];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" internalData:%@", self.internalData]];
+    return result;
+}
+
 
 @end

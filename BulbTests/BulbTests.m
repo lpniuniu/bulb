@@ -197,10 +197,9 @@
 
 - (void)testWeakDataWrapper
 {
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2data) {
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
         NSLog(@"noti exe ! %@", firstData);
         XCTAssert(firstData == nil);
-        XCTAssert(signalIdentifier2data.count == 1);
     }];
     
     @autoreleasepool {
@@ -256,6 +255,23 @@
     [slot updateSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] data:nil];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:nil];
     XCTAssert([testRegister_signal_origin_status isEqualToString:@"status2"]);
+    
+    testRegister_signal_origin_status = nil;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status3"] foreverblock:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        if ([[signalIdentifier2Signal objectForKey:[BulbTestRegisterMutiStatusSignal identifier]].originStatus isEqualToString:@"status2"]) {
+            testRegister_signal_origin_status = @"status2 -> status3";
+            XCTAssert([[signalIdentifier2Signal objectForKey:[BulbTestRegisterMutiStatusSignal identifier]].originData isEqualToString:@"data2"]);
+            XCTAssert([[signalIdentifier2Signal objectForKey:[BulbTestRegisterMutiStatusSignal identifier]].data isEqualToString:@"data3"]);
+        }
+        return YES;
+    }];
+    
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:nil];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status3"] data:nil];
+    XCTAssert(testRegister_signal_origin_status == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] data:@"data2"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status3"] data:@"data3"];
+    XCTAssert([testRegister_signal_origin_status isEqualToString:@"status2 -> status3"]);
 }
 
 @end

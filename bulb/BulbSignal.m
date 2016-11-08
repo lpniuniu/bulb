@@ -46,7 +46,12 @@
 
 - (NSString *)description
 {
-    return [self.class description];
+    NSString* result = [self.class description];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" status:%@", self.status]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" origin_status:%@", self.originStatus]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" data:%@", self.data]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" origin_data:%@", self.originData]];
+    return result;
 }
 
 -(void)setStatus:(NSString *)status
