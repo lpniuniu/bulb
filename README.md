@@ -25,7 +25,7 @@ Richer, more powerful notification framework
 If you use CocoaPods to manage your dependencies, simply add
 Bulb to your `Podfile`:
 
-```objc
+```ruby
 pod 'Bulb', :git => 'https://github.com/lpniuniu/bulb.git'
 ```
 
