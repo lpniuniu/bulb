@@ -117,7 +117,7 @@
         result = [result stringByAppendingString:@"\n"];
     }];
     result = [result stringByAppendingString:@"| "];
-    result = [result stringByAppendingString:[NSString stringWithFormat:@"All signals count %lu", self.signalsRecord.count]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@"All signals count %lu", (unsigned long)self.signalsRecord.count]];
     result = [result stringByAppendingString:@"\n"];
     result = [result stringByAppendingString:@"====== 信号发生列表 =====\n"];
     [self.signalsRecordHistory enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
