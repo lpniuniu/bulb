@@ -136,7 +136,7 @@ BULB_RECORDER need add to pre macro
 ## Communication
 
 - If you **found a bug**, open an issue or submit a fix via a pull request.
-- If you **have a feature request**, open an issue or submit a implementation via a pull request or hit me up on email [@lpniuniu](lpniuniu@gmail.com)
+- If you **have a feature request**, open an issue or submit a implementation via a pull request or hit me up on email <lpniuniu@gmail.com>
 - If you **want to contribute**, submit a pull request onto the master branch.
 
 ## License
