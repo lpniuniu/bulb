@@ -141,4 +141,4 @@ BULB_RECORDER need add to pre macro
 
 ## License
 
-Signals is released under an MIT license. See the LICENSE file for more information
+Bulb is released under an MIT license. See the LICENSE file for more information
