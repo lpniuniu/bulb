@@ -49,18 +49,24 @@
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     XCTAssert(testRegister_signal_fire == nil);
     
+    // nest register
+    __block NSInteger testRegister_signal_fire_count = 0;
     [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         NSLog(@"testRegister_signal status1 data %@", firstData);
+        testRegister_signal_fire_count++;
         XCTAssert([firstData isEqualToString:@"data1"]);
+        
+        [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+            NSLog(@"testRegister_signal status2 data %@", firstData);
+            testRegister_signal_fire_count++;
+            XCTAssert([firstData isEqualToString:@"data2"]);
+        }];
     }];
     
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        NSLog(@"testRegister_signal status2 data %@", firstData);
-        XCTAssert([firstData isEqualToString:@"data2"]);
-    }];
-
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:@"data1"];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status2"] data:@"data2"];
+    
+    XCTAssert(testRegister_signal_fire_count == 2);
 }
 
 - (void)testRegisterJoinSignals

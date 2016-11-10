@@ -18,7 +18,6 @@
 @property (nonatomic) NSMutableArray<BulbSlot*>* slots;
 @property (nonatomic) BulbSaveList* saveList;
 @property (nonatomic) dispatch_queue_t bulbDispatchQueue;
-@property (nonatomic) dispatch_semaphore_t bulbSemaphore;
 
 @end
 
@@ -33,7 +32,6 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     self = [super init];
     if (self) {
         _bulbDispatchQueue = dispatch_queue_create("bulbDispatchQueue", DISPATCH_QUEUE_SERIAL);
-        _bulbSemaphore = dispatch_semaphore_create(1);
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             bulbName2bulbDispatchQueue = dispatch_queue_create("bulbName2bulbDispatchQueue", DISPATCH_QUEUE_SERIAL);
@@ -78,7 +76,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 - (void)fire:(BulbSignal *)signal data:(id)data
 {
-    [self fire:signal data:data toSlots:self.slots];
+    [self fire:signal data:data toSlots:[self.slots copy]];
 }
 
 - (void)recoverSlotFromSaveList:(BulbSlot *)slot
@@ -102,8 +100,6 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
     
-    dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
-
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         [self recoverSlotFromSaveList:slot];
         signal.data = data;
@@ -119,10 +115,11 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
             }
         }
     }];
-    [self.slots removeObjectsInArray:deleteSlots];
-    [self.slots addObjectsFromArray:appendSlots];
     
-    dispatch_semaphore_signal(self.bulbSemaphore);
+    dispatch_sync(self.bulbDispatchQueue, ^{
+        [self.slots removeObjectsInArray:deleteSlots];
+        [self.slots addObjectsFromArray:appendSlots];
+    });
 }
 
 - (void)fireAndSave:(BulbSignal *)signal data:(id)data
@@ -215,11 +212,9 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [slot resetSignals];
     [self recoverSlotFromSaveList:slot];
     
-    dispatch_semaphore_wait(self.bulbSemaphore, DISPATCH_TIME_FOREVER);
-    
-    [self.slots addObject:slot];
-    
-    dispatch_semaphore_signal(self.bulbSemaphore);
+    dispatch_sync(self.bulbDispatchQueue, ^{
+        [self.slots addObject:slot];
+    });
     
     if ([slot canBeFire]) {
         BulbSignal* signal = slot.signals.firstObject;
