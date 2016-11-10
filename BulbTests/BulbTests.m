@@ -110,6 +110,29 @@
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
     XCTAssert(testRegister_signal_forever_fire_times == 3);
+    
+    __block NSInteger testRegister_signal1_and_signal2_fire_count = 0;
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"],[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"]] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_signal1_and_signal2_fire_count++;
+        NSLog(@"testRegister signal1 and signal2 fire, %@", signalIdentifier2Signal);
+        XCTAssert(signalIdentifier2Signal.count == 2);
+        XCTAssert([firstData isEqualToString:@"data1"]);
+        return YES;
+    }];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:@"data1"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 0);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"] data:@"data2"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 1);
+    
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:@"data1"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 1);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"] data:@"data2"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 2);
+    
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status1"] data:@"data1"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 2);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status2"] data:@"data2"];
+    XCTAssert(testRegister_signal1_and_signal2_fire_count == 3);
 }
 
 - (void)testRegisterForeverBlockCancel
