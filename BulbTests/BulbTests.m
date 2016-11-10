@@ -177,23 +177,34 @@
     XCTAssert(signal.status == kBulbSignalStatusOn);
     XCTAssert(testRegister_init_from_save != nil);
     testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
-    XCTAssert(testRegister_init_from_save == nil);
+    
     
     // forever
-    slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromSave] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    slot = [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalRecoverFromSave], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"]] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_init_from_save = @"not null";
         return YES;
     }];
+    signal = slot.signals.firstObject;
     XCTAssert(signal != nil);
     XCTAssert(signal.status == kBulbSignalStatusOn);
+    signal = slot.signals.lastObject;
+    XCTAssert(signal != nil);
+    XCTAssert(signal.status == kBulbSignalStatusOff);
+    
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
     XCTAssert(testRegister_init_from_save != nil);
     testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
+    XCTAssert(testRegister_init_from_save != nil);
+    [[Bulb bulbGlobal] remove:[BulbTestRegisterSignal signalRecoverFromSave]];
+    testRegister_init_from_save = nil;
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
+    XCTAssert(testRegister_init_from_save == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
     XCTAssert(testRegister_init_from_save != nil);
     
     testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] remove:[BulbTestRegisterSignal signalRecoverFromSave]];
     [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromSave] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_init_from_save = @"not null";
     }];
