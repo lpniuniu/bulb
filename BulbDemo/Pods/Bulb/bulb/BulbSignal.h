@@ -23,9 +23,9 @@
 @property (nonatomic) id originData;
 
 /*!
- *  @brief YES:信号使用hungUp list中保存的状态和数据
+ *  @brief YES:信号使用save list中保存的状态和数据
  */
-@property (nonatomic, assign) BOOL recoverStatusFromHungUp;
+@property (nonatomic, assign) BOOL recoverStatusFromSave;
 
 - (void)reset;
 

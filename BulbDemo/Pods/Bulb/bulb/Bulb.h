@@ -67,21 +67,17 @@
  *  @brief 发出信号
  */
 - (void)fire:(BulbSignal *)signal data:(id)data;
+- (void)fireAndSave:(BulbSignal *)signal data:(id)data;
 
-/*!
- * @brief 挂起信号并发出信号
+/**
+ @brief 保存信号, 信号会记录下save list，方便一些业务逻辑查看使用
  */
-- (void)hungUpAndFire:(BulbSignal *)signal data:(id)data;
+- (void)save:(BulbSignal *)signal data:(id)data;
 
-/*!
- * @brief 挂起信号, 信号会记录在相对于某个Bulb对象内持久存在的hungUp list中, 相同identifier的信号会被替换，方便一些业务逻辑查看使用
+/**
+ @brief 从save list中移除信号
  */
-- (void)hungUp:(BulbSignal *)signal data:(id)data;
-
-/*!
- * @brief 从hungUp list中摘除信号
- */
-- (void)pickOff:(BulbSignal *)signal;
+- (void)remove:(BulbSignal *)signal;
 
 /*!
  *  @brief 获取某信号的状态
@@ -90,11 +86,11 @@
  *
  *  @return 信号状态
  */
-- (BulbSignal *)getSignalFromHungUpList:(NSString *)signalIdentifier;
+- (BulbSignal *)getSignalFromSaveList:(NSString *)signalIdentifier;
 
 /*!
- *  @brief hungUp list description
+ *  @brief save list description
  */
-- (NSString *)hungUpListDescription;
+- (NSString *)saveListDescription;
 
 @end

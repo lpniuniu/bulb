@@ -1,0 +1,12 @@
+PODS:
+  - Bulb (1.0.0)
+
+DEPENDENCIES:
+  - Bulb (~> 1.0.0)
+
+SPEC CHECKSUMS:
+  Bulb: ee92cba45e2747c5fe3c8bcbfa5bc556bfadfc35
+
+PODFILE CHECKSUM: 57147d4e26c5d4fe50e13072225acc714474d0eb
+
+COCOAPODS: 1.1.1

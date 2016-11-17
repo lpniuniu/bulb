@@ -22,15 +22,15 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
-    signal.recoverStatusFromHungUp = NO;
+    signal.recoverStatusFromSave = NO;
     return signal;
 }
 
-+ (instancetype)signalRecoverFromHungUp
++ (instancetype)signalRecoverFromSave
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
-    signal.recoverStatusFromHungUp = YES;
+    signal.recoverStatusFromSave = YES;
     return signal;
 }
 
@@ -38,15 +38,15 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     on?[signal on]:[signal off];
-    signal.recoverStatusFromHungUp = NO;
+    signal.recoverStatusFromSave = NO;
     return signal;
 }
 
-+ (instancetype)signalRecoverFromHungUpWithOn:(BOOL)on
++ (instancetype)signalRecoverFromSaveWithOn:(BOOL)on
 {
     BulbBoolSignal* signal = [[self alloc] init];
     on?[signal on]:[signal off];
-    signal.recoverStatusFromHungUp = YES;
+    signal.recoverStatusFromSave = YES;
     return signal;
 }
 

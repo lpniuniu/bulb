@@ -22,15 +22,15 @@
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
-    signal.recoverStatusFromHungUp = NO;
+    signal.recoverStatusFromSave = NO;
     return signal;
 }
 
-+ (instancetype)signalRecoverFromHungUpWithStatus:(NSString *)status
++ (instancetype)signalRecoverFromSaveWithStatus:(NSString *)status
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
-    signal.recoverStatusFromHungUp = YES;
+    signal.recoverStatusFromSave = YES;
     return signal;
 }
 

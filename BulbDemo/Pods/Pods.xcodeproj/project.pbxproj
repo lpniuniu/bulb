@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E20D0C5F59B540FC4333B6BF29FC619 /* BulbSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = CC831E6CB6C13130B0FF5751160CF62B /* BulbSlot.m */; };
+		1F5CAFB9ED5FAC04D071204320561E43 /* BulbSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F49FED7EF57575859D7D37822679BB0 /* BulbSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22471BA777C143B7F3210AF1E67A129E /* BulbRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4EBB2C27BB981E4090A69ABBEF14C9 /* BulbRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		277FC7110E5FB862CDE6355D3B2BBF8A /* BulbWeakDataWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FC58C6B0790CF2C6D1355F751192BC1D /* BulbWeakDataWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC625D8198A51FFB6E100DD97C93CC0 /* BulbMutiStatusSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F18376601ED87EE72903571DB2F25E /* BulbMutiStatusSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30D6A329D589B779A56FD7F51F818C70 /* BulbSlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C62AB8FDF6965BE8FE9E6195A63C50E6 /* BulbSlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		33C50EC2BD182DE04A3198225F73403C /* BulbSaveList.h in Headers */ = {isa = PBXBuildFile; fileRef = 145740751EE5B1537B6B382BA0304BF6 /* BulbSaveList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		489A31E38BDB315B7DDD6C80B960F288 /* BulbBoolSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B37037774E6D0D51A4429D25DCC2956 /* BulbBoolSignal.m */; };
+		4DAD75811102C0A6E56D5E41F159E84F /* Pods-BulbDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F41F0B811E784324E273A605EB165B /* Pods-BulbDemo-dummy.m */; };
+		66DFF0B304B905FF5498CEE25EA4BD12 /* BulbSlotFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AE587FE33BD02E0936B7433F23EE003 /* BulbSlotFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		671A5E431CF128496111EFD20886EB64 /* BulbMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = B113AE49CFEB8EB0EFD80D8960E8CD5D /* BulbMutiStatusSignal.m */; };
+		8DAF9154A4546E2E16DC7FB7462ABF6E /* Bulb.h in Headers */ = {isa = PBXBuildFile; fileRef = 437B6C4042E17D9C7A477AD07490F60F /* Bulb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FFB32C73971FF5E52530A3D3E0D62A1 /* BulbSlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3806EA52E775630680388923AF0023F3 /* BulbSlotFactory.m */; };
+		969987C7BCC9174FC4EBFEC19FFDCA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		9F469ED4077A215487ED6F85CBA9A778 /* BulbOnceSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 479FEABDB8AD30C101BEDB773C004257 /* BulbOnceSlot.m */; };
+		A01703178F0DE3B9711FD52ADD86145F /* BulbWeakDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF84FF96C2B11B426AEFC53965EBA0 /* BulbWeakDataWrapper.m */; };
+		A570ECD05A0B9F3CDB45C1E559CDBFEB /* BulbConstant.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CDB973F2E12DD95A5736B480946449C /* BulbConstant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE8BB974FCBEEB93FE29BF1BF965C78E /* BulbSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 346BF4E097B168303698C9B53D1A0B5D /* BulbSignal.m */; };
+		B139C63256CA2BAB363C1B653A7C39F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		BE098177D0221D24D362D5E2FAE74E7C /* BulbBoolSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = FA65B9BA24420A144ECCDB54BA0442A3 /* BulbBoolSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C57F86A505F2613233C114B641E5E79E /* BulbRecorder+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F79B17AC3710856E667F789A1A1167C0 /* BulbRecorder+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C8CDA15939BD3A45EC49279D0C722B08 /* BulbRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C34763D6A7393EA4CD15D86C376A39 /* BulbRecorder.m */; };
+		D3751C59C3D583D0DC9E9E0EFECB5FC3 /* BulbOnceSlot.h in Headers */ = {isa = PBXBuildFile; fileRef = A668FE008F196A62B499C4675B991AF5 /* BulbOnceSlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D80AB1D0B13B51F2C59001FC8BB21370 /* BulbConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = BA284AD7A3CE1BEE89EFD12AE52A96FD /* BulbConstant.m */; };
+		D890D57CE5D4AFCE3A74532BC6D7E553 /* Bulb.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7F82C189311663DB28A45B538E48A /* Bulb.m */; };
+		EF8329C17ABFAAD66C37A36CFBC99BDF /* BulbSaveList.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C83992DD21043B59139A1E9CD07686 /* BulbSaveList.m */; };
+		F6AFA7686FE5C1941A14D14155CA2C0C /* Bulb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99ABB5C35B7C3367390509834B46D9F2 /* Bulb-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AEBEE1B67F3D0247258C2D33495FF9D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3A94C0600DAFFBE83FBDD2E5F229308;
+			remoteInfo = Bulb;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0AE587FE33BD02E0936B7433F23EE003 /* BulbSlotFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbSlotFactory.h; path = bulb/BulbSlotFactory.h; sourceTree = "<group>"; };
+		10C34763D6A7393EA4CD15D86C376A39 /* BulbRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbRecorder.m; path = bulb/BulbRecorder.m; sourceTree = "<group>"; };
+		145740751EE5B1537B6B382BA0304BF6 /* BulbSaveList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbSaveList.h; path = bulb/BulbSaveList.h; sourceTree = "<group>"; };
+		346BF4E097B168303698C9B53D1A0B5D /* BulbSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbSignal.m; path = bulb/BulbSignal.m; sourceTree = "<group>"; };
+		3806EA52E775630680388923AF0023F3 /* BulbSlotFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbSlotFactory.m; path = bulb/BulbSlotFactory.m; sourceTree = "<group>"; };
+		3BD7F82C189311663DB28A45B538E48A /* Bulb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Bulb.m; path = bulb/Bulb.m; sourceTree = "<group>"; };
+		3CDB973F2E12DD95A5736B480946449C /* BulbConstant.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbConstant.h; path = bulb/BulbConstant.h; sourceTree = "<group>"; };
+		437B6C4042E17D9C7A477AD07490F60F /* Bulb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bulb.h; path = bulb/Bulb.h; sourceTree = "<group>"; };
+		479FEABDB8AD30C101BEDB773C004257 /* BulbOnceSlot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbOnceSlot.m; path = bulb/BulbOnceSlot.m; sourceTree = "<group>"; };
+		4B4EBB2C27BB981E4090A69ABBEF14C9 /* BulbRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbRecorder.h; path = bulb/BulbRecorder.h; sourceTree = "<group>"; };
+		55C83992DD21043B59139A1E9CD07686 /* BulbSaveList.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbSaveList.m; path = bulb/BulbSaveList.m; sourceTree = "<group>"; };
+		58AC098EFE71B9C93F0638A4BF86B590 /* Pods-BulbDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BulbDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		5AD6C5AD84B257A969361249286E5740 /* libBulb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBulb.a; path = libBulb.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B37037774E6D0D51A4429D25DCC2956 /* BulbBoolSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbBoolSignal.m; path = bulb/BulbBoolSignal.m; sourceTree = "<group>"; };
+		74F41F0B811E784324E273A605EB165B /* Pods-BulbDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BulbDemo-dummy.m"; sourceTree = "<group>"; };
+		82F18376601ED87EE72903571DB2F25E /* BulbMutiStatusSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbMutiStatusSignal.h; path = bulb/BulbMutiStatusSignal.h; sourceTree = "<group>"; };
+		863963B215B9A3FCD48517CD34213CAC /* Pods-BulbDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BulbDemo-frameworks.sh"; sourceTree = "<group>"; };
+		8BDF84FF96C2B11B426AEFC53965EBA0 /* BulbWeakDataWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbWeakDataWrapper.m; path = bulb/BulbWeakDataWrapper.m; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		99ABB5C35B7C3367390509834B46D9F2 /* Bulb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Bulb-dummy.m"; sourceTree = "<group>"; };
+		9DC6E1A6A1E37FD76C69EC7B01A7D7D9 /* Pods-BulbDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BulbDemo-resources.sh"; sourceTree = "<group>"; };
+		9E987FCCB692F521BDF332B7E90B3053 /* Pods-BulbDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BulbDemo.release.xcconfig"; sourceTree = "<group>"; };
+		9F49FED7EF57575859D7D37822679BB0 /* BulbSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbSignal.h; path = bulb/BulbSignal.h; sourceTree = "<group>"; };
+		A668FE008F196A62B499C4675B991AF5 /* BulbOnceSlot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbOnceSlot.h; path = bulb/BulbOnceSlot.h; sourceTree = "<group>"; };
+		B113AE49CFEB8EB0EFD80D8960E8CD5D /* BulbMutiStatusSignal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbMutiStatusSignal.m; path = bulb/BulbMutiStatusSignal.m; sourceTree = "<group>"; };
+		B5EEFFE6C112E6718894C3192396ACBB /* Pods-BulbDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BulbDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		BA284AD7A3CE1BEE89EFD12AE52A96FD /* BulbConstant.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbConstant.m; path = bulb/BulbConstant.m; sourceTree = "<group>"; };
+		C2482B517B4EC739E5F23947AE2D9547 /* Bulb-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bulb-prefix.pch"; sourceTree = "<group>"; };
+		C62AB8FDF6965BE8FE9E6195A63C50E6 /* BulbSlot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbSlot.h; path = bulb/BulbSlot.h; sourceTree = "<group>"; };
+		C9D3CD5C92776383D120FB1BE582C8CA /* Bulb.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Bulb.xcconfig; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CC831E6CB6C13130B0FF5751160CF62B /* BulbSlot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BulbSlot.m; path = bulb/BulbSlot.m; sourceTree = "<group>"; };
+		EBD7002B2AEE30160CDD2A88AE3BF373 /* Pods-BulbDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BulbDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F79B17AC3710856E667F789A1A1167C0 /* BulbRecorder+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BulbRecorder+Private.h"; path = "bulb/BulbRecorder+Private.h"; sourceTree = "<group>"; };
+		FA65B9BA24420A144ECCDB54BA0442A3 /* BulbBoolSignal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbBoolSignal.h; path = bulb/BulbBoolSignal.h; sourceTree = "<group>"; };
+		FC58C6B0790CF2C6D1355F751192BC1D /* BulbWeakDataWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BulbWeakDataWrapper.h; path = bulb/BulbWeakDataWrapper.h; sourceTree = "<group>"; };
+		FCEC41AB567C57FE91638CE182B364FE /* libPods-BulbDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BulbDemo.a"; path = "libPods-BulbDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48086B28EB1BC06FA9E87C87936F5D29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				969987C7BCC9174FC4EBFEC19FFDCA33 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EA4CFBFFEC8B43328BF1F46A02A094D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B139C63256CA2BAB363C1B653A7C39F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5F21BED16A2A7B195C46FC196FE1EB22 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9D3CD5C92776383D120FB1BE582C8CA /* Bulb.xcconfig */,
+				99ABB5C35B7C3367390509834B46D9F2 /* Bulb-dummy.m */,
+				C2482B517B4EC739E5F23947AE2D9547 /* Bulb-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Bulb";
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				F9873429704AC19F579D59E93BB99DD9 /* Pods */,
+				FAB82DF7F432C0A7F5EC35368E8E8B32 /* Products */,
+				DB13B51A7D3D0B90B29BB6A2577D3227 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		92D28389E12453CB77CD53FB121B1D56 /* Bulb */ = {
+			isa = PBXGroup;
+			children = (
+				437B6C4042E17D9C7A477AD07490F60F /* Bulb.h */,
+				3BD7F82C189311663DB28A45B538E48A /* Bulb.m */,
+				FA65B9BA24420A144ECCDB54BA0442A3 /* BulbBoolSignal.h */,
+				6B37037774E6D0D51A4429D25DCC2956 /* BulbBoolSignal.m */,
+				3CDB973F2E12DD95A5736B480946449C /* BulbConstant.h */,
+				BA284AD7A3CE1BEE89EFD12AE52A96FD /* BulbConstant.m */,
+				82F18376601ED87EE72903571DB2F25E /* BulbMutiStatusSignal.h */,
+				B113AE49CFEB8EB0EFD80D8960E8CD5D /* BulbMutiStatusSignal.m */,
+				A668FE008F196A62B499C4675B991AF5 /* BulbOnceSlot.h */,
+				479FEABDB8AD30C101BEDB773C004257 /* BulbOnceSlot.m */,
+				4B4EBB2C27BB981E4090A69ABBEF14C9 /* BulbRecorder.h */,
+				10C34763D6A7393EA4CD15D86C376A39 /* BulbRecorder.m */,
+				F79B17AC3710856E667F789A1A1167C0 /* BulbRecorder+Private.h */,
+				145740751EE5B1537B6B382BA0304BF6 /* BulbSaveList.h */,
+				55C83992DD21043B59139A1E9CD07686 /* BulbSaveList.m */,
+				9F49FED7EF57575859D7D37822679BB0 /* BulbSignal.h */,
+				346BF4E097B168303698C9B53D1A0B5D /* BulbSignal.m */,
+				C62AB8FDF6965BE8FE9E6195A63C50E6 /* BulbSlot.h */,
+				CC831E6CB6C13130B0FF5751160CF62B /* BulbSlot.m */,
+				0AE587FE33BD02E0936B7433F23EE003 /* BulbSlotFactory.h */,
+				3806EA52E775630680388923AF0023F3 /* BulbSlotFactory.m */,
+				FC58C6B0790CF2C6D1355F751192BC1D /* BulbWeakDataWrapper.h */,
+				8BDF84FF96C2B11B426AEFC53965EBA0 /* BulbWeakDataWrapper.m */,
+				5F21BED16A2A7B195C46FC196FE1EB22 /* Support Files */,
+			);
+			name = Bulb;
+			path = Bulb;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB13B51A7D3D0B90B29BB6A2577D3227 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E0F541C5CE382AE404DC9872C520EF52 /* Pods-BulbDemo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		E0F541C5CE382AE404DC9872C520EF52 /* Pods-BulbDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EBD7002B2AEE30160CDD2A88AE3BF373 /* Pods-BulbDemo-acknowledgements.markdown */,
+				B5EEFFE6C112E6718894C3192396ACBB /* Pods-BulbDemo-acknowledgements.plist */,
+				74F41F0B811E784324E273A605EB165B /* Pods-BulbDemo-dummy.m */,
+				863963B215B9A3FCD48517CD34213CAC /* Pods-BulbDemo-frameworks.sh */,
+				9DC6E1A6A1E37FD76C69EC7B01A7D7D9 /* Pods-BulbDemo-resources.sh */,
+				58AC098EFE71B9C93F0638A4BF86B590 /* Pods-BulbDemo.debug.xcconfig */,
+				9E987FCCB692F521BDF332B7E90B3053 /* Pods-BulbDemo.release.xcconfig */,
+			);
+			name = "Pods-BulbDemo";
+			path = "Target Support Files/Pods-BulbDemo";
+			sourceTree = "<group>";
+		};
+		F9873429704AC19F579D59E93BB99DD9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				92D28389E12453CB77CD53FB121B1D56 /* Bulb */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FAB82DF7F432C0A7F5EC35368E8E8B32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AD6C5AD84B257A969361249286E5740 /* libBulb.a */,
+				FCEC41AB567C57FE91638CE182B364FE /* libPods-BulbDemo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		995392E5C2B4390416478314EE79CED8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DAF9154A4546E2E16DC7FB7462ABF6E /* Bulb.h in Headers */,
+				BE098177D0221D24D362D5E2FAE74E7C /* BulbBoolSignal.h in Headers */,
+				A570ECD05A0B9F3CDB45C1E559CDBFEB /* BulbConstant.h in Headers */,
+				2DC625D8198A51FFB6E100DD97C93CC0 /* BulbMutiStatusSignal.h in Headers */,
+				D3751C59C3D583D0DC9E9E0EFECB5FC3 /* BulbOnceSlot.h in Headers */,
+				C57F86A505F2613233C114B641E5E79E /* BulbRecorder+Private.h in Headers */,
+				22471BA777C143B7F3210AF1E67A129E /* BulbRecorder.h in Headers */,
+				33C50EC2BD182DE04A3198225F73403C /* BulbSaveList.h in Headers */,
+				1F5CAFB9ED5FAC04D071204320561E43 /* BulbSignal.h in Headers */,
+				30D6A329D589B779A56FD7F51F818C70 /* BulbSlot.h in Headers */,
+				66DFF0B304B905FF5498CEE25EA4BD12 /* BulbSlotFactory.h in Headers */,
+				277FC7110E5FB862CDE6355D3B2BBF8A /* BulbWeakDataWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8C4736A2A613DB7E9FF6085E9ED9E24D /* Pods-BulbDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4641F4173684DF6D3D14F007BC88F2AC /* Build configuration list for PBXNativeTarget "Pods-BulbDemo" */;
+			buildPhases = (
+				FE22BF845D2998D8A8CA37BED2D568F8 /* Sources */,
+				7EA4CFBFFEC8B43328BF1F46A02A094D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2F629D9370EC1FE108A39B2F2DB6B6E /* PBXTargetDependency */,
+			);
+			name = "Pods-BulbDemo";
+			productName = "Pods-BulbDemo";
+			productReference = FCEC41AB567C57FE91638CE182B364FE /* libPods-BulbDemo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C3A94C0600DAFFBE83FBDD2E5F229308 /* Bulb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E51286766EEE750BFC94649B83E399D9 /* Build configuration list for PBXNativeTarget "Bulb" */;
+			buildPhases = (
+				F609655019608058AB43D333ED8CE3CB /* Sources */,
+				48086B28EB1BC06FA9E87C87936F5D29 /* Frameworks */,
+				995392E5C2B4390416478314EE79CED8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bulb;
+			productName = Bulb;
+			productReference = 5AD6C5AD84B257A969361249286E5740 /* libBulb.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = FAB82DF7F432C0A7F5EC35368E8E8B32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C3A94C0600DAFFBE83FBDD2E5F229308 /* Bulb */,
+				8C4736A2A613DB7E9FF6085E9ED9E24D /* Pods-BulbDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F609655019608058AB43D333ED8CE3CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6AFA7686FE5C1941A14D14155CA2C0C /* Bulb-dummy.m in Sources */,
+				D890D57CE5D4AFCE3A74532BC6D7E553 /* Bulb.m in Sources */,
+				489A31E38BDB315B7DDD6C80B960F288 /* BulbBoolSignal.m in Sources */,
+				D80AB1D0B13B51F2C59001FC8BB21370 /* BulbConstant.m in Sources */,
+				671A5E431CF128496111EFD20886EB64 /* BulbMutiStatusSignal.m in Sources */,
+				9F469ED4077A215487ED6F85CBA9A778 /* BulbOnceSlot.m in Sources */,
+				C8CDA15939BD3A45EC49279D0C722B08 /* BulbRecorder.m in Sources */,
+				EF8329C17ABFAAD66C37A36CFBC99BDF /* BulbSaveList.m in Sources */,
+				AE8BB974FCBEEB93FE29BF1BF965C78E /* BulbSignal.m in Sources */,
+				0E20D0C5F59B540FC4333B6BF29FC619 /* BulbSlot.m in Sources */,
+				8FFB32C73971FF5E52530A3D3E0D62A1 /* BulbSlotFactory.m in Sources */,
+				A01703178F0DE3B9711FD52ADD86145F /* BulbWeakDataWrapper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE22BF845D2998D8A8CA37BED2D568F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DAD75811102C0A6E56D5E41F159E84F /* Pods-BulbDemo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A2F629D9370EC1FE108A39B2F2DB6B6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Bulb;
+			target = C3A94C0600DAFFBE83FBDD2E5F229308 /* Bulb */;
+			targetProxy = AEBEE1B67F3D0247258C2D33495FF9D1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		010CF1B58BC9FF82AD436F7B1886503B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58AC098EFE71B9C93F0638A4BF86B590 /* Pods-BulbDemo.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		12914D756594D15C6F2CA12FE5F89F1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		1F7B97E8FD23FEF3C7D0A49B1FFE8415 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E987FCCB692F521BDF332B7E90B3053 /* Pods-BulbDemo.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		DB29CF593325749AF2B4C0858255E733 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9D3CD5C92776383D120FB1BE582C8CA /* Bulb.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Bulb/Bulb-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E4C444BA1811FC0A1375ED9D7F7CD429 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9D3CD5C92776383D120FB1BE582C8CA /* Bulb.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Bulb/Bulb-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E72E7977875C2D251FC62736BBDDC389 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12914D756594D15C6F2CA12FE5F89F1B /* Debug */,
+				E72E7977875C2D251FC62736BBDDC389 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4641F4173684DF6D3D14F007BC88F2AC /* Build configuration list for PBXNativeTarget "Pods-BulbDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				010CF1B58BC9FF82AD436F7B1886503B /* Debug */,
+				1F7B97E8FD23FEF3C7D0A49B1FFE8415 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E51286766EEE750BFC94649B83E399D9 /* Build configuration list for PBXNativeTarget "Bulb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB29CF593325749AF2B4C0858255E733 /* Debug */,
+				E4C444BA1811FC0A1375ED9D7F7CD429 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

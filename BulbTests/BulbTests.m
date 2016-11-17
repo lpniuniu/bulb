@@ -152,36 +152,36 @@
 }
 
 
-- (void)testSaveList
+- (void)testHungUpList
 {
-    [[Bulb bulbGlobal] fireAndSave:[BulbTestRegisterSignal signal] data:@"data1"];
+    [[Bulb bulbGlobal] hungUpAndFire:[BulbTestRegisterSignal signal] data:@"data1"];
     
-    BulbSignal* signal = [[Bulb bulbGlobal] getSignalFromSaveList:[BulbTestRegisterSignal identifier]];
+    BulbSignal* signal = [[Bulb bulbGlobal] getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert([signal.status isEqualToString:kBulbSignalStatusOn]);
     
-    [[Bulb bulbGlobal] save:[BulbTestRegisterSignal signalWithOn:NO] data:nil];
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signalWithOn:NO] data:nil];
     
-    signal = [[Bulb bulbGlobal] getSignalFromSaveList:[BulbTestRegisterSignal identifier]];
+    signal = [[Bulb bulbGlobal] getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert([signal.status isEqualToString:kBulbSignalStatusOff]);
 }
 
-- (void)testRecoverFromSave
+- (void)testRecoverFromHungUp
 {
-    [[Bulb bulbGlobal] save:[BulbTestRegisterSignal signal] data:nil];
-    __block id testRegister_init_from_save = nil;
-    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromSave] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        testRegister_init_from_save = @"not null";
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signal] data:nil];
+    __block id testRegister_init_from_hungUp = nil;
+    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromHungUp] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
     }];
     BulbSignal* signal = slot.signals.firstObject;
     XCTAssert(signal != nil);
     XCTAssert(signal.status == kBulbSignalStatusOn);
-    XCTAssert(testRegister_init_from_save != nil);
-    testRegister_init_from_save = nil;
+    XCTAssert(testRegister_init_from_hungUp != nil);
+    testRegister_init_from_hungUp = nil;
     
     
     // forever
-    slot = [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalRecoverFromSave], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"]] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        testRegister_init_from_save = @"not null";
+    slot = [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalRecoverFromHungUp], [BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"]] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
         return YES;
     }];
     signal = slot.signals.firstObject;
@@ -191,48 +191,48 @@
     XCTAssert(signal != nil);
     XCTAssert(signal.status == kBulbSignalStatusOff);
     
-    testRegister_init_from_save = nil;
+    testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
-    XCTAssert(testRegister_init_from_save != nil);
-    testRegister_init_from_save = nil;
+    XCTAssert(testRegister_init_from_hungUp != nil);
+    testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
-    XCTAssert(testRegister_init_from_save != nil);
-    [[Bulb bulbGlobal] remove:[BulbTestRegisterSignal signalRecoverFromSave]];
-    testRegister_init_from_save = nil;
+    XCTAssert(testRegister_init_from_hungUp != nil);
+    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterSignal signalRecoverFromHungUp]];
+    testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
-    XCTAssert(testRegister_init_from_save == nil);
+    XCTAssert(testRegister_init_from_hungUp == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
-    XCTAssert(testRegister_init_from_save != nil);
+    XCTAssert(testRegister_init_from_hungUp != nil);
     
-    testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromSave] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        testRegister_init_from_save = @"not null";
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalRecoverFromHungUp] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
     }];
-    XCTAssert(testRegister_init_from_save == nil);
+    XCTAssert(testRegister_init_from_hungUp == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
-    XCTAssert(testRegister_init_from_save != nil);
+    XCTAssert(testRegister_init_from_hungUp != nil);
     
-    testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] save:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status"] data:nil];
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalRecoverFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        testRegister_init_from_save = @"not null";
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"status"] data:nil];
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalRecoverFromHungUpWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
     }];
-    XCTAssert(testRegister_init_from_save == nil);
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalRecoverFromSaveWithStatus:@"status1"] data:nil];
-    XCTAssert(testRegister_init_from_save != nil);
+    XCTAssert(testRegister_init_from_hungUp == nil);
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal1 signalRecoverFromHungUpWithStatus:@"status1"] data:nil];
+    XCTAssert(testRegister_init_from_hungUp != nil);
     
-    testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] save:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"] data:nil];
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalRecoverFromSaveWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalRecoverFromSaveWithStatus:@"status1"]] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
-        testRegister_init_from_save = @"not null";
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"] data:nil];
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterMutiStatusSignal signalRecoverFromHungUpWithStatus:@"status"], [BulbTestRegisterMutiStatusSignal1 signalRecoverFromHungUpWithStatus:@"status1"]] foreverblock:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
         return YES;
     }];
-    XCTAssert(testRegister_init_from_save != nil);
+    XCTAssert(testRegister_init_from_hungUp != nil);
     
-    testRegister_init_from_save = nil;
-    [[Bulb bulbGlobal] remove:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalRecoverFromSaveWithStatus:@"status"] data:nil];
-    XCTAssert(testRegister_init_from_save == nil);
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalRecoverFromHungUpWithStatus:@"status"] data:nil];
+    XCTAssert(testRegister_init_from_hungUp == nil);
 }
 
 - (void)testWeakDataWrapper
