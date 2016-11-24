@@ -6,7 +6,6 @@ Richer, more powerful notification framework
 - Signal objectification, self-test is repeated to create a signal
 - Multi trigger signal combination
 - Signal tracking
-- Single and multiple trigger signals
 - Cancel signal
 - Multi-state signal
 - weak data wrapper, so bulb will not strong references
