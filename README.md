@@ -8,7 +8,7 @@ Richer, more powerful notification framework
 - Signal tracking
 - Cancel signal
 - Multi-state signal
-- weak data wrapper, so bulb will not strong references
+- Weak data wrapper, so bulb will not strong references
 - Signal Filter
 - You can view the original value of the signal
 - Has a signal state memory list, you decide whether to allow your signal at the time of fire, recover the data stored on the list
