@@ -22,7 +22,7 @@
 @end
 
 static NSString* kGlobalBulbName = @"BulbGlobal";
-static NSMutableDictionary* bulbName2bulb = nil;
+static NSMapTable* bulbName2bulb = nil;
 static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 
 @implementation Bulb
@@ -66,7 +66,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
         bulb.name = name;
         dispatch_sync(bulbName2bulbDispatchQueue, ^{
             if (bulbName2bulb == nil) {
-                bulbName2bulb = [NSMutableDictionary dictionary];
+                bulbName2bulb = [NSMapTable strongToWeakObjectsMapTable];
             }
             [bulbName2bulb setObject:bulb forKey:name];
         });
