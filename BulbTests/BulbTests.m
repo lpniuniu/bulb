@@ -154,14 +154,15 @@
 
 - (void)testHungUpList
 {
-    [[Bulb bulbGlobal] hungUpAndFire:[BulbTestRegisterSignal signal] data:@"data1"];
+    Bulb* bulb = [Bulb bulbWithName:@"testHungUpList"];
+    [bulb hungUpAndFire:[BulbTestRegisterSignal signal] data:@"data1"];
     
-    BulbSignal* signal = [[Bulb bulbGlobal] getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
+    BulbSignal* signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert([signal.status isEqualToString:kBulbSignalStatusOn]);
     
-    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signalWithOn:NO] data:nil];
+    [bulb hungUp:[BulbTestRegisterSignal signalWithOn:NO] data:nil];
     
-    signal = [[Bulb bulbGlobal] getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
+    signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert([signal.status isEqualToString:kBulbSignalStatusOff]);
 }
 
@@ -197,7 +198,7 @@
     testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
     XCTAssert(testRegister_init_from_hungUp != nil);
-    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterSignal signalRecoverFromHungUp]];
+    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterSignal signal]];
     testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:@"statu1"] data:nil];
     XCTAssert(testRegister_init_from_hungUp == nil);
@@ -232,6 +233,30 @@
     testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] pickOff:[BulbTestRegisterMutiStatusSignal1 signalWithStatus:@"status1"]];
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalRecoverFromHungUpWithStatus:@"status"] data:nil];
+    XCTAssert(testRegister_init_from_hungUp == nil);
+}
+
+- (void)testPickOffSignal
+{
+    __block id testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signal] data:nil];
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalPickOffFromHungUpWithOn:YES] block:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
+    }];
+    XCTAssert(testRegister_init_from_hungUp != nil);
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalPickOffFromHungUpWithOn:YES] block:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
+    }];
+    XCTAssert(testRegister_init_from_hungUp == nil);
+    
+    [[Bulb bulbGlobal] hungUpAndFire:[BulbTestRegisterSignal signal] data:nil];
+    
+    XCTAssert(testRegister_init_from_hungUp != nil);
+    testRegister_init_from_hungUp = nil;
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalPickOffFromHungUpWithOn:YES] block:^(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        testRegister_init_from_hungUp = @"not null";
+    }];
     XCTAssert(testRegister_init_from_hungUp == nil);
 }
 

@@ -16,7 +16,8 @@
 + (instancetype)signal;
 + (instancetype)signalRecoverFromHungUp;
 + (instancetype)signalWithOn:(BOOL)on;
-+ (instancetype)signalRecoverFromHungUpWithOn:(BOOL)on;
++ (instancetype)signalRecoverFromHungUpWithOn:(BOOL)on; // 含义见 HungUpType
++ (instancetype)signalPickOffFromHungUpWithOn:(BOOL)on; // 含义见 HungUpType
 
 - (void)on;
 - (void)off;

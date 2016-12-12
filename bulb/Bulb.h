@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString* name;
 
 + (instancetype)bulbGlobal;
-+ (instancetype)bulbWithName:(NSString *)name;
++ (instancetype)bulbWithName:(NSString *)name; // 使用者需自己持有
 
 /*!
  *  @brief 注册信号

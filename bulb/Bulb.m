@@ -56,9 +56,12 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 + (instancetype)bulbWithName:(NSString *)name
 {
     __block Bulb* bulb = nil;
-    dispatch_sync(bulbName2bulbDispatchQueue, ^{
-        bulb = [bulbName2bulb objectForKey:name];
-    });
+    if (bulbName2bulbDispatchQueue) {
+        dispatch_sync(bulbName2bulbDispatchQueue, ^{
+            bulb = [bulbName2bulb objectForKey:name];
+        });
+    }
+    
     if (!bulb) {
         bulb = [[Bulb alloc] init];
         bulb.slots = [NSMutableArray array];
@@ -79,16 +82,22 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     [self fire:signal data:data toSlots:[self.slots copy]];
 }
 
-- (void)recoverSlotFromHungUpList:(BulbSlot *)slot
+- (void)handleFromHungUpList:(BulbSlot *)slot
 {
     [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (signal.recoverStatusFromHungUp) {
-            [signal reset];
+        if (signal.hungUpBehavior == kHungUpTypeRecover) {
             BulbSignal* hungUpSignal = [self getSignalFromHungUpList:[signal identifier]];
             if (hungUpSignal) {
                 signal.status = hungUpSignal.status;
                 signal.data = hungUpSignal.data;
             }
+        } else if (signal.hungUpBehavior == kHungUpTypePickOff) {
+            BulbSignal* hungUpSignal = [self getSignalFromHungUpList:[signal identifier]];
+            if (hungUpSignal) {
+                signal.status = hungUpSignal.status;
+                signal.data = hungUpSignal.data;
+            }
+            [self pickOff:hungUpSignal];
         }
     }];
 }
@@ -97,19 +106,25 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
 {
     [[BulbRecorder sharedInstance] addSignalFireRecord:self signal:signal];
     
+    // 刷新hungUpList
+    if ([self getSignalFromHungUpList:signal.identifier]) {
+        [self hungUp:signal data:data];
+    }
+    
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
     
     [slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self recoverSlotFromHungUpList:slot];
+        [self handleFromHungUpList:slot];
         signal.data = data;
         if ([slot hasSignal:signal] && ![slot isFiltered:signal]) {
             BulbSignalSlotFireType fireType = [slot fireSignal:signal data:data];
             if (slot.fireCount > 0) {
                 [deleteSlots addObject:slot];
+                // 如果返回true，代表循环添加
                 if (fireType == kBulbSignalSlotFiredResultYes) {
                     [slot resetForeverSignals];
-                    [self recoverSlotFromHungUpList:slot];
+                    [self handleFromHungUpList:slot];
                     [appendSlots addObject:slot];
                 }
             }
@@ -139,6 +154,16 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     dispatch_sync(self.bulbDispatchQueue, ^{
         [self.hungUpList.signals removeObject:signal];
     });
+    
+    // 当观察灯移掉后，将观察信号重置状态
+    [self.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
+        [slot.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull internalSignal, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (internalSignal.hungUpBehavior == kHungUpTypeRecover
+                && [signal.identifier isEqualToString:internalSignal.identifier]) {
+                [internalSignal reset];
+            }
+        }];
+    }];
 }
 
 - (void)addSignalIdentifierToHungUpList:(BulbSignal *)signal
@@ -210,7 +235,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
         slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block filterBlock:filterBlock];
     }
     [slot resetSignals];
-    [self recoverSlotFromHungUpList:slot];
+    [self handleFromHungUpList:slot];
     
     dispatch_sync(self.bulbDispatchQueue, ^{
         [self.slots addObject:slot];

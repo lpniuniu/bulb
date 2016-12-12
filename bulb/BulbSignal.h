@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "BulbConstant.h"
 
+typedef enum : NSUInteger {
+    kHungUpTypeNone,
+    kHungUpTypeRecover, // 在slot形成和fire两个时刻，将恢复为挂灯上的状态
+    kHungUpTypePickOff  // 在slot形成和fire两个时刻，将恢复为挂灯上的状态，并将挂灯移除
+} HungUpType;
+
 @interface BulbSignal : NSObject
 
 /*!
@@ -25,7 +31,7 @@
 /*!
  *  @brief YES:信号使用hungUp list中保存的状态和数据
  */
-@property (nonatomic, assign) BOOL recoverStatusFromHungUp;
+@property (nonatomic, assign) HungUpType hungUpBehavior;
 
 - (void)reset;
 

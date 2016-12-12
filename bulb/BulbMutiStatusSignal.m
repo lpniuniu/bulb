@@ -22,7 +22,7 @@
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
-    signal.recoverStatusFromHungUp = NO;
+    signal.hungUpBehavior = kHungUpTypeNone;
     return signal;
 }
 
@@ -30,7 +30,15 @@
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
-    signal.recoverStatusFromHungUp = YES;
+    signal.hungUpBehavior = kHungUpTypeRecover;
+    return signal;
+}
+
++ (instancetype)signalPickOffFromHungUpWithStatus:(NSString *)status
+{
+    BulbMutiStatusSignal* signal = [[self alloc] init];
+    [signal setStatus:status];
+    signal.hungUpBehavior = kHungUpTypePickOff;
     return signal;
 }
 

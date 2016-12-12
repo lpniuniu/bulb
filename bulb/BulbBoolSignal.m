@@ -22,7 +22,7 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
-    signal.recoverStatusFromHungUp = NO;
+    signal.hungUpBehavior = kHungUpTypeNone;
     return signal;
 }
 
@@ -30,7 +30,7 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
-    signal.recoverStatusFromHungUp = YES;
+    signal.hungUpBehavior = kHungUpTypeRecover;
     return signal;
 }
 
@@ -38,7 +38,7 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     on?[signal on]:[signal off];
-    signal.recoverStatusFromHungUp = NO;
+    signal.hungUpBehavior = kHungUpTypeNone;
     return signal;
 }
 
@@ -46,7 +46,15 @@
 {
     BulbBoolSignal* signal = [[self alloc] init];
     on?[signal on]:[signal off];
-    signal.recoverStatusFromHungUp = YES;
+    signal.hungUpBehavior = kHungUpTypeRecover;
+    return signal;
+}
+
++ (instancetype)signalPickOffFromHungUpWithOn:(BOOL)on
+{
+    BulbBoolSignal* signal = [[self alloc] init];
+    on?[signal on]:[signal off];
+    signal.hungUpBehavior = kHungUpTypePickOff;
     return signal;
 }
 
