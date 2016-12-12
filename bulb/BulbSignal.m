@@ -15,9 +15,18 @@
     return [NSString stringWithFormat:@"Bulb_%@", NSStringFromClass(self.class)];
 }
 
++ (NSString *)identifierWithClassify:(NSString *)classify
+{
+    return [NSString stringWithFormat:@"%@_%@", [self.class identifier], classify];
+}
+
 - (NSString *)identifier
 {
-    return [self.class identifier];
+    if (self.identifierClassify.length > 0) {
+        return [NSString stringWithFormat:@"%@_%@", [self.class identifier], self.identifierClassify];
+    } else {
+        return [self.class identifier];
+    }
 }
 
 - (void)reset
@@ -37,7 +46,7 @@
         return YES;
     }
     
-    if (![[object.class identifier] isEqualToString:[self.class identifier]]) {
+    if (![[object identifier] isEqualToString:[self identifier]]) {
         return NO;
     }
     

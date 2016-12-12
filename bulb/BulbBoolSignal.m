@@ -26,36 +26,29 @@
     return signal;
 }
 
-+ (instancetype)signalRecoverFromHungUp
++ (instancetype)signalWithClassify:(NSString *)classify
 {
-    BulbBoolSignal* signal = [[self alloc] init];
-    [signal on];
-    signal.hungUpBehavior = kHungUpTypeRecover;
+    BulbBoolSignal* signal = [BulbBoolSignal signal];
+    signal.identifierClassify = classify;
     return signal;
 }
 
-+ (instancetype)signalWithOn:(BOOL)on
+- (instancetype)recoverFromHungUp
 {
-    BulbBoolSignal* signal = [[self alloc] init];
-    on?[signal on]:[signal off];
-    signal.hungUpBehavior = kHungUpTypeNone;
-    return signal;
+    self.hungUpBehavior = kHungUpTypeRecover;
+    return self;
 }
 
-+ (instancetype)signalRecoverFromHungUpWithOn:(BOOL)on
+- (instancetype)pickOffFromHungUp
 {
-    BulbBoolSignal* signal = [[self alloc] init];
-    on?[signal on]:[signal off];
-    signal.hungUpBehavior = kHungUpTypeRecover;
-    return signal;
+    self.hungUpBehavior = kHungUpTypePickOff;
+    return self;
 }
 
-+ (instancetype)signalPickOffFromHungUpWithOn:(BOOL)on
+- (instancetype)classify:(NSString *)classify
 {
-    BulbBoolSignal* signal = [[self alloc] init];
-    on?[signal on]:[signal off];
-    signal.hungUpBehavior = kHungUpTypePickOff;
-    return signal;
+    self.identifierClassify = classify;
+    return self;
 }
 
 - (instancetype)init
@@ -67,14 +60,16 @@
     return self;
 }
 
-- (void)on;
+- (instancetype)on;
 {
     self.status = kBulbSignalStatusOn;
+    return self;
 }
 
-- (void)off
+- (instancetype)off
 {
     self.status = kBulbSignalStatusOff;
+    return self;
 }
 
 - (BOOL)isOn

@@ -21,7 +21,11 @@ typedef enum : NSUInteger {
  *  @brief 信号唯一标识
  */
 + (NSString *)identifier;
-- (NSString *)identifier;
++ (NSString *)identifierWithClassify:(NSString *)classify;
+
+- (NSString *)identifier; // 会出现带分类的细分identifier
+
+@property (nonatomic, copy) NSString* identifierClassify; // 用于将子类型号细分，可以多次注册同一类信号
 
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic, copy) NSString* originStatus;

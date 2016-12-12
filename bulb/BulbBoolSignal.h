@@ -14,13 +14,12 @@
 @interface BulbBoolSignal : BulbSignal
 
 + (instancetype)signal;
-+ (instancetype)signalRecoverFromHungUp;
-+ (instancetype)signalWithOn:(BOOL)on;
-+ (instancetype)signalRecoverFromHungUpWithOn:(BOOL)on; // 含义见 HungUpType
-+ (instancetype)signalPickOffFromHungUpWithOn:(BOOL)on; // 含义见 HungUpType
-
-- (void)on;
-- (void)off;
++ (instancetype)signalWithClassify:(NSString *)classify;
+// 链式初始化
+- (instancetype)on;
+- (instancetype)off;
+- (instancetype)recoverFromHungUp; // 含义见 HungUpType
+- (instancetype)pickOffFromHungUp; // 含义见 HungUpType
 
 - (BOOL)isOn;
 

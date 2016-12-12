@@ -11,13 +11,13 @@
 @interface BulbMutiStatusSignal : BulbSignal
 
 + (instancetype)signalWithStatus:(NSString *)status;
-+ (instancetype)signalRecoverFromHungUpWithStatus:(NSString *)status; // 含义见 HungUpType
-+ (instancetype)signalPickOffFromHungUpWithStatus:(NSString *)status; // 含义见 HungUpType
++ (instancetype)signalWithStatus:(NSString *)status classify:(NSString *)classify;
+// 链式初始化
+- (instancetype)recoverFromHungUp; // 含义见 HungUpType
+- (instancetype)pickOffFromHungUp; // 含义见 HungUpType
 
 - (void)setStatus:(NSString *)status;
-
 - (NSString *)status;
-
 - (void)off;
 
 @end

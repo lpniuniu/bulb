@@ -26,20 +26,23 @@
     return signal;
 }
 
-+ (instancetype)signalRecoverFromHungUpWithStatus:(NSString *)status
++ (instancetype)signalWithStatus:(NSString *)status classify:(NSString *)classify
 {
-    BulbMutiStatusSignal* signal = [[self alloc] init];
-    [signal setStatus:status];
-    signal.hungUpBehavior = kHungUpTypeRecover;
+    BulbMutiStatusSignal* signal = [BulbMutiStatusSignal signalWithStatus:status];
+    signal.identifierClassify = classify;
     return signal;
 }
 
-+ (instancetype)signalPickOffFromHungUpWithStatus:(NSString *)status
+- (instancetype)recoverFromHungUp
 {
-    BulbMutiStatusSignal* signal = [[self alloc] init];
-    [signal setStatus:status];
-    signal.hungUpBehavior = kHungUpTypePickOff;
-    return signal;
+    self.hungUpBehavior = kHungUpTypeRecover;
+    return self;
+}
+
+- (instancetype)pickOffFromHungUp
+{
+    self.hungUpBehavior = kHungUpTypePickOff;
+    return self;
 }
 
 - (void)reset
