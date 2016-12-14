@@ -13,6 +13,9 @@
 #import "BulbTestRegisterMutiStatusSignal1.h"
 #import "BulbRecorder.h"
 
+static const NSInteger kSignalOn = 0;
+static const NSInteger kSignalOff = -1;
+
 @interface BulbTextDealloc : NSObject
 
 @end
@@ -158,12 +161,12 @@
     [bulb hungUpAndFire:[BulbTestRegisterSignal signal] data:@"data1"];
     
     BulbSignal* signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
-    XCTAssert(signal.status == 1);
+    XCTAssert(signal.status == kSignalOn);
     
     [bulb hungUp:[BulbTestRegisterSignal signal].off data:nil];
     
     signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
-    XCTAssert(signal.status == 0);
+    XCTAssert(signal.status == kSignalOff);
 }
 
 - (void)testRecoverFromHungUp
@@ -175,7 +178,7 @@
     }];
     BulbSignal* signal = slot.signals.firstObject;
     XCTAssert(signal != nil);
-    XCTAssert(signal.status == 1);
+    XCTAssert(signal.status == kSignalOn);
     XCTAssert(testRegister_init_from_hungUp != nil);
     testRegister_init_from_hungUp = nil;
     
@@ -190,10 +193,10 @@
     }];
     signal = slot.signals.firstObject;
     XCTAssert(signal != nil);
-    XCTAssert(signal.status == 1);
+    XCTAssert(signal.status == kSignalOn);
     signal = slot.signals.lastObject;
     XCTAssert(signal != nil);
-    XCTAssert(signal.status == 0);
+    XCTAssert(signal.status == kSignalOff);
     
     testRegister_init_from_hungUp = nil;
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1] data:nil];

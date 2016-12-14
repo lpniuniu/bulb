@@ -9,10 +9,7 @@
 #import "BulbBoolSignal.h"
 #import "BulbRecorder+Private.h"
 
-typedef enum : NSInteger {
-    kBulbBoolSignalStatusOff,
-    kBulbBoolSignalStatusOn
-} BulbBoolSignalStatus;
+static const NSInteger kBulbBoolSignalStatusOn = 0;
 
 @implementation BulbBoolSignal
 
@@ -60,7 +57,7 @@ typedef enum : NSInteger {
 {
     self = [super init];
     if (self) {
-        self.status = kBulbBoolSignalStatusOff;
+        self.status = kBulbSignalStatusOff;
     }
     return self;
 }
@@ -73,7 +70,7 @@ typedef enum : NSInteger {
 
 - (instancetype)off
 {
-    self.status = kBulbBoolSignalStatusOff;
+    self.status = kBulbSignalStatusOff;
     return self;
 }
 

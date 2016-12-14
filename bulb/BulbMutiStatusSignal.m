@@ -47,7 +47,7 @@
 
 - (void)reset
 {
-    self.status = 0;
+    self.status = kBulbSignalStatusOff;
     [super reset];
 }
 

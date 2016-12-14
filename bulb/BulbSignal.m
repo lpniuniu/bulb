@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        _originStatus = -1;
+        _originStatus = kBulbSignalStatusNone;
     }
     return self;
 }
@@ -42,7 +42,7 @@
 {
     self.data = nil;
     self.originData = nil;
-    self.originStatus = -1;
+    self.originStatus = kBulbSignalStatusNone;
 }
 
 -(NSUInteger)hash
@@ -74,7 +74,7 @@
 
 -(void)setStatus:(NSInteger)status
 {
-    if(self.originStatus == -1) {
+    if(self.originStatus == kBulbSignalStatusNone) {
         self.originStatus = status;
     } else if (self.status) {
         self.originStatus = self.status;

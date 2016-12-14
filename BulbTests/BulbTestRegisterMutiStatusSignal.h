@@ -9,7 +9,6 @@
 #import "BulbMutiStatusSignal.h"
 
 typedef enum : NSUInteger {
-    kNone,
     kStatus1,
     kStatus2,
     kStatus3
