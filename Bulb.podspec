@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Bulb"
-  s.version          = "1.0.0"
+  s.version          = "1.0.3"
   s.summary          = "Richer, more powerful notification framework."
   s.homepage         = "https://github.com/lpniuniu/bulb"
   s.license          = 'MIT'
