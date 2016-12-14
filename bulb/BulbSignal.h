@@ -27,8 +27,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, copy) NSString* identifierClassify; // 用于将子类型号细分，可以多次注册同一类信号
 
-@property (nonatomic, copy) NSString* status;
-@property (nonatomic, copy) NSString* originStatus;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger originStatus;
 @property (nonatomic) id data;
 @property (nonatomic) id originData;
 

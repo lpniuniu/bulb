@@ -20,6 +20,15 @@
     return [NSString stringWithFormat:@"%@_%@", [self.class identifier], classify];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _originStatus = -1;
+    }
+    return self;
+}
+
 - (NSString *)identifier
 {
     if (self.identifierClassify.length > 0) {
@@ -33,7 +42,7 @@
 {
     self.data = nil;
     self.originData = nil;
-    self.originStatus = nil;
+    self.originStatus = -1;
 }
 
 -(NSUInteger)hash
@@ -50,22 +59,22 @@
         return NO;
     }
     
-    return [self.status isEqualToString:object.status];
+    return self.status == object.status;
 }
 
 - (NSString *)description
 {
     NSString* result = [self.class description];
-    result = [result stringByAppendingString:[NSString stringWithFormat:@" status:%@", self.status]];
-    result = [result stringByAppendingString:[NSString stringWithFormat:@" origin_status:%@", self.originStatus]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" status:%ld", self.status]];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" origin_status:%ld", self.originStatus]];
     result = [result stringByAppendingString:[NSString stringWithFormat:@" data:%@", self.data]];
     result = [result stringByAppendingString:[NSString stringWithFormat:@" origin_data:%@", self.originData]];
     return result;
 }
 
--(void)setStatus:(NSString *)status
+-(void)setStatus:(NSInteger)status
 {
-    if(self.originStatus == nil) {
+    if(self.originStatus == -1) {
         self.originStatus = status;
     } else if (self.status) {
         self.originStatus = self.status;

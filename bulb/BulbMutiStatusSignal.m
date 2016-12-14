@@ -18,7 +18,7 @@
     }
 }
 
-+ (instancetype)signalWithStatus:(NSString *)status
++ (instancetype)signalWithStatus:(NSInteger)status
 {
     BulbMutiStatusSignal* signal = [[self alloc] init];
     [signal setStatus:status];
@@ -26,7 +26,7 @@
     return signal;
 }
 
-+ (instancetype)signalWithStatus:(NSString *)status classify:(NSString *)classify
++ (instancetype)signalWithStatus:(NSInteger)status classify:(NSString *)classify
 {
     BulbMutiStatusSignal* signal = [BulbMutiStatusSignal signalWithStatus:status];
     signal.identifierClassify = classify;
@@ -47,21 +47,16 @@
 
 - (void)reset
 {
-    self.status = kBulbSignalStatusOff;
+    self.status = 0;
     [super reset];
 }
 
-- (void)off
-{
-    self.status = kBulbSignalStatusOff;
-}
-
-- (void)setStatus:(NSString *)status
+- (void)setStatus:(NSInteger)status
 {
     [super setStatus:status];
 }
 
-- (NSString *)status
+- (NSInteger)status
 {
     return [super status];
 }

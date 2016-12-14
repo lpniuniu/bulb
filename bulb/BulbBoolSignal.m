@@ -9,6 +9,11 @@
 #import "BulbBoolSignal.h"
 #import "BulbRecorder+Private.h"
 
+typedef enum : NSInteger {
+    kBulbBoolSignalStatusOff,
+    kBulbBoolSignalStatusOn
+} BulbBoolSignalStatus;
+
 @implementation BulbBoolSignal
 
 +(void)initialize
@@ -55,26 +60,26 @@
 {
     self = [super init];
     if (self) {
-        self.status = kBulbSignalStatusOff;
+        self.status = kBulbBoolSignalStatusOff;
     }
     return self;
 }
 
 - (instancetype)on;
 {
-    self.status = kBulbSignalStatusOn;
+    self.status = kBulbBoolSignalStatusOn;
     return self;
 }
 
 - (instancetype)off
 {
-    self.status = kBulbSignalStatusOff;
+    self.status = kBulbBoolSignalStatusOff;
     return self;
 }
 
 - (BOOL)isOn
 {
-    return self.status == kBulbSignalStatusOn?YES:NO;
+    return self.status == kBulbBoolSignalStatusOn?YES:NO;
 }
 
 - (void)reset

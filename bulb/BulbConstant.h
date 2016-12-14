@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 @class BulbSignal;
 
-extern NSString* const kBulbSignalStatusOff;
-extern NSString* const kBulbSignalStatusOn;
-
 typedef void(^BulbBlock)(id firstData, NSDictionary<NSString *, BulbSignal *>* signalIdentifier2Signal);
 typedef BOOL(^BulbHasResultBlock)(id firstData, NSDictionary<NSString *, BulbSignal *>* signalIdentifier2Signal);
 

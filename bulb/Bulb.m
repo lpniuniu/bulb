@@ -225,7 +225,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     }
     NSMutableDictionary* fireTable = [NSMutableDictionary dictionary];
     [signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [fireTable setObject:obj.status forKey:[obj identifier]];
+        [fireTable setObject:@(obj.status) forKey:[obj identifier]];
     }];
     
     BulbSlot* slot = nil;

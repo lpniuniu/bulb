@@ -91,7 +91,7 @@
     [self.fireTable enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull identifier2status, NSUInteger idx, BOOL * _Nonnull stop) {
         __block NSInteger matchCount = 0;
         [self.signals enumerateObjectsUsingBlock:^(BulbSignal * _Nonnull signal, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([[identifier2status objectForKey:[signal identifier]] isEqualToString:signal.status]) {
+            if ([identifier2status objectForKey:[signal identifier]].integerValue == signal.status) {
                 matchCount++;
             };
         }];
@@ -114,7 +114,7 @@
 - (void)resetForeverSignals
 {
     for (BulbSignal* signal in self.signals) {
-        id originStatus = signal.status;
+        NSInteger originStatus = signal.status;
         id originData = signal.data;
         [signal reset];
         signal.originStatus = originStatus;

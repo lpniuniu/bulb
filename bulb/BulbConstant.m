@@ -7,6 +7,3 @@
 //
 
 #import "BulbConstant.h"
-
-NSString* const kBulbSignalStatusOff =  @"bulb_signal_off";
-NSString* const kBulbSignalStatusOn = @"bulb_signal_on";

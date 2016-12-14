@@ -14,7 +14,6 @@
 		0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B1F311D5C5D7200EA6F5C /* BulbConstant.m */; };
 		0B50F69D1DCF14990044739C /* BulbOnceSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B50F69C1DCF14990044739C /* BulbOnceSlot.m */; };
 		0B50F6A01DD017060044739C /* BulbRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B50F69F1DD017060044739C /* BulbRecorder.m */; };
-		0BA0D5731DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */; };
 		0BB5E2951DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */; };
 		0BB92AC81D5DB8680011D2E6 /* BulbSlotFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AC71D5DB8680011D2E6 /* BulbSlotFactory.m */; };
 		0BB92AD61D5EDF9E0011D2E6 /* BulbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */; };
@@ -22,6 +21,7 @@
 		0BC43A0B1DC8977C00E5EEBF /* BulbSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A0A1DC8977C00E5EEBF /* BulbSignal.m */; };
 		0BC43A0E1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A0D1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m */; };
 		0BC43A111DCA3F9800E5EEBF /* BulbBoolSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC43A101DCA3F9800E5EEBF /* BulbBoolSignal.m */; };
+		0BD8F3551E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD8F3541E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.m */; };
 		0BEAB7B11DDD85EC00B289D8 /* BulbHungUpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEAB7B01DDD85EC00B289D8 /* BulbHungUpList.m */; };
 		0BEE6D451DC19CB30033D006 /* BulbWeakDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEE6D441DC19CB30033D006 /* BulbWeakDataWrapper.m */; };
 /* End PBXBuildFile section */
@@ -64,8 +64,6 @@
 		0B50F69E1DD017060044739C /* BulbRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbRecorder.h; sourceTree = "<group>"; };
 		0B50F69F1DD017060044739C /* BulbRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbRecorder.m; sourceTree = "<group>"; };
 		0B50F6AA1DD01C960044739C /* BulbRecorder+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BulbRecorder+Private.h"; sourceTree = "<group>"; };
-		0BA0D5711DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal1.h; sourceTree = "<group>"; };
-		0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal1.m; sourceTree = "<group>"; };
 		0BB5E2931DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal.h; sourceTree = "<group>"; };
 		0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal.m; sourceTree = "<group>"; };
 		0BB92AC61D5DB8680011D2E6 /* BulbSlotFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbSlotFactory.h; sourceTree = "<group>"; };
@@ -79,6 +77,8 @@
 		0BC43A0D1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbMutiStatusSignal.m; sourceTree = "<group>"; };
 		0BC43A0F1DCA3F9800E5EEBF /* BulbBoolSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbBoolSignal.h; sourceTree = "<group>"; };
 		0BC43A101DCA3F9800E5EEBF /* BulbBoolSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbBoolSignal.m; sourceTree = "<group>"; };
+		0BD8F3531E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbTestRegisterMutiStatusSignal1.h; sourceTree = "<group>"; };
+		0BD8F3541E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbTestRegisterMutiStatusSignal1.m; sourceTree = "<group>"; };
 		0BEAB7AF1DDD85EC00B289D8 /* BulbHungUpList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbHungUpList.h; sourceTree = "<group>"; };
 		0BEAB7B01DDD85EC00B289D8 /* BulbHungUpList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulbHungUpList.m; sourceTree = "<group>"; };
 		0BEE6D431DC19CB30033D006 /* BulbWeakDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulbWeakDataWrapper.h; sourceTree = "<group>"; };
@@ -155,14 +155,14 @@
 		0BB92AD41D5EDF9E0011D2E6 /* bulbTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */,
-				0BB92AD71D5EDF9E0011D2E6 /* Info.plist */,
-				0B1A69F31DCB80F70027A8BD /* BulbTestRegisterSignal.h */,
-				0B1A69F41DCB80F70027A8BD /* BulbTestRegisterSignal.m */,
 				0BB5E2931DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.h */,
 				0BB5E2941DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m */,
-				0BA0D5711DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.h */,
-				0BA0D5721DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m */,
+				0BD8F3531E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.h */,
+				0BD8F3541E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.m */,
+				0B1A69F31DCB80F70027A8BD /* BulbTestRegisterSignal.h */,
+				0B1A69F41DCB80F70027A8BD /* BulbTestRegisterSignal.m */,
+				0BB92AD51D5EDF9E0011D2E6 /* BulbTests.m */,
+				0BB92AD71D5EDF9E0011D2E6 /* Info.plist */,
 			);
 			name = bulbTests;
 			path = BulbTests;
@@ -212,7 +212,7 @@
 		0B2B1F161D5C5A7A00EA6F5C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = niuniu;
 				TargetAttributes = {
 					0B2B1F1D1D5C5A7A00EA6F5C = {
@@ -263,10 +263,10 @@
 				0B2B1F321D5C5D7200EA6F5C /* BulbConstant.m in Sources */,
 				0B1A69F51DCB80F70027A8BD /* BulbTestRegisterSignal.m in Sources */,
 				0BB5E2951DCB910400BC3903 /* BulbTestRegisterMutiStatusSignal.m in Sources */,
-				0BA0D5731DCC237B00BC941F /* BulbTestRegisterMutiStatusSignal1.m in Sources */,
 				0B2B1F2C1D5C5AFB00EA6F5C /* BulbSlot.m in Sources */,
 				0BC43A0B1DC8977C00E5EEBF /* BulbSignal.m in Sources */,
 				0B2B1F241D5C5A7A00EA6F5C /* Bulb.m in Sources */,
+				0BD8F3551E01452F005C73B4 /* BulbTestRegisterMutiStatusSignal1.m in Sources */,
 				0BB92AC81D5DB8680011D2E6 /* BulbSlotFactory.m in Sources */,
 				0B50F69D1DCF14990044739C /* BulbOnceSlot.m in Sources */,
 				0BC43A0E1DC8A5AF00E5EEBF /* BulbMutiStatusSignal.m in Sources */,
@@ -306,8 +306,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -350,8 +352,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
