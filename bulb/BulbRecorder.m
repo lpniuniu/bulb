@@ -60,7 +60,7 @@
 {
     NSArray* callStack = [[NSThread callStackSymbols] subarrayWithRange:NSMakeRange(2, 7)];
     dispatch_sync(self.bulbRecorderDispatchQueue, ^{
-        NSString* result = [NSString stringWithFormat:@"%@ Bulb[%@] ✍️ register signals %@", [NSDate date], bulb.name, signals];
+        NSString* result = [NSString stringWithFormat:@"Bulb [%@] [R] %@", bulb.name, signals];
         // record call stack 5
         result = [result stringByAppendingString:[NSString stringWithFormat:@", call stack %@", callStack]];
         [self.signalsRegisterRecord addObject:result];
@@ -73,7 +73,7 @@
 {
     NSArray* callStack = [[NSThread callStackSymbols] subarrayWithRange:NSMakeRange(2, 7)];
     dispatch_sync(self.bulbRecorderDispatchQueue, ^{
-        NSString* result = [NSString stringWithFormat:@"%@ Bulb[%@] 🔥 fire signals %@", [NSDate date], bulb.name, signal];
+        NSString* result = [NSString stringWithFormat:@"Bulb [%@] [F] %@", bulb.name, signal];
         // record call stack 5
         result = [result stringByAppendingString:[NSString stringWithFormat:@", call stack %@", callStack]];
         [self.signalsFireRecord addObject:result];
