@@ -60,7 +60,10 @@
 {
     NSArray* callStack = [[NSThread callStackSymbols] subarrayWithRange:NSMakeRange(2, 7)];
     dispatch_sync(self.bulbRecorderDispatchQueue, ^{
-        NSString* result = [NSString stringWithFormat:@"Bulb [%@] [R] %@", bulb.name, signals];
+        NSString* result = [NSString stringWithFormat:@"Bulb [%@] [R] ", bulb.name];
+        for (id signal in signals) {
+            result = [result stringByAppendingString:[signal description]];
+        }
         // record call stack 5
         result = [result stringByAppendingString:[NSString stringWithFormat:@", call stack %@", callStack]];
         [self.signalsRegisterRecord addObject:result];
