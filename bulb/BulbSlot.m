@@ -43,7 +43,7 @@
                 firstData = unwrapperData;
             }
             // 创建新信号给外部，不影响内部信号
-            BulbSignal* outSignal = [BulbBoolSignal signal];
+            BulbSignal* outSignal = [BulbBoolSignal signalDefault];
             outSignal.status = signal.status;
             outSignal.originStatus = signal.originStatus;
             outSignal.data =  unwrapperData;

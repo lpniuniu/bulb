@@ -40,16 +40,16 @@ static const NSInteger kSignalOff = -1;
 - (void)testRegister {
 
     __block id testRegister_signal_fire;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_signal_fire = @"testRegister_signal_fire";
         NSLog(@"testRegister_signal data %@", firstData);
         XCTAssert([firstData isEqualToString:@"data"]);
     }];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert([testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
     // once test
     testRegister_signal_fire = nil;
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert(testRegister_signal_fire == nil);
     
     // nest register
@@ -88,13 +88,13 @@ static const NSInteger kSignalOff = -1;
     
     // three 信号
     testRegister_signal1_and_signal2_fire = nil;
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal], [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1],[BulbTestRegisterMutiStatusSignal1 signalWithStatus:kStatus2]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalDefault], [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1],[BulbTestRegisterMutiStatusSignal1 signalWithStatus:kStatus2]] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_signal1_and_signal2_fire = @"signal1 and signal2 fire";
         NSLog(@"testRegister signal1 and signal2 fire, %@", signalIdentifier2Signal);
         XCTAssert(signalIdentifier2Signal.count == 3);
         XCTAssert([firstData isEqualToString:@"data"]);
     }];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert(testRegister_signal1_and_signal2_fire == nil);
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1] data:@"data1"];
     XCTAssert(testRegister_signal1_and_signal2_fire == nil);
@@ -105,13 +105,13 @@ static const NSInteger kSignalOff = -1;
 - (void)testRegisterForeverBlock
 {
     __block NSInteger testRegister_signal_forever_fire_times = 0;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_signal_forever_fire_times++;
         return YES;
     }];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert(testRegister_signal_forever_fire_times == 3);
     
     __block NSInteger testRegister_signal1_and_signal2_fire_count = 0;
@@ -141,16 +141,16 @@ static const NSInteger kSignalOff = -1;
 - (void)testRegisterForeverBlockCancel
 {
     __block NSInteger testRegister_signal_forever_fire_times = 0;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_signal_forever_fire_times++;
         if (testRegister_signal_forever_fire_times == 2) {
             return NO;
         }
         return YES;
     }];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert(testRegister_signal_forever_fire_times == 2);
 }
 
@@ -158,12 +158,12 @@ static const NSInteger kSignalOff = -1;
 - (void)testHungUpList
 {
     Bulb* bulb = [Bulb bulbWithName:@"testHungUpList"];
-    [bulb hungUpAndFire:[BulbTestRegisterSignal signal] data:@"data1"];
+    [bulb hungUpAndFire:[BulbTestRegisterSignal signalDefault] data:@"data1"];
     
     BulbSignal* signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert(signal.status == kSignalOn);
     
-    [bulb hungUp:[BulbTestRegisterSignal signal].off data:nil];
+    [bulb hungUp:[BulbTestRegisterSignal signalDefault].off data:nil];
     
     signal = [bulb getSignalFromHungUpList:[BulbTestRegisterSignal identifier]];
     XCTAssert(signal.status == kSignalOff);
@@ -171,9 +171,9 @@ static const NSInteger kSignalOff = -1;
 
 - (void)testRecoverFromHungUp
 {
-    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signal] data:nil];
+    [[Bulb bulbGlobal] hungUp:[BulbTestRegisterSignal signalDefault] data:nil];
     __block id testRegister_init_from_hungUp = nil;
-    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal].recoverFromHungUp block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    BulbSlot* slot = [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault].recoverFromHungUp block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_init_from_hungUp = @"not null";
     }];
     BulbSignal* signal = slot.signals.firstObject;
@@ -184,7 +184,7 @@ static const NSInteger kSignalOff = -1;
     
     
     // forever
-    slot = [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal].recoverFromHungUp, [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1]] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    slot = [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalDefault].recoverFromHungUp, [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1]] foreverblock:^BOOL(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_init_from_hungUp = @"not null";
         if ([firstData isEqualToString:@"cancel"]) {
             return NO;
@@ -206,7 +206,7 @@ static const NSInteger kSignalOff = -1;
     XCTAssert(testRegister_init_from_hungUp != nil);
     
     // pick off
-    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterSignal signal]];
+    [[Bulb bulbGlobal] pickOff:[BulbTestRegisterSignal signalDefault]];
     testRegister_init_from_hungUp = nil;
     
     // not work because pick off
@@ -214,16 +214,16 @@ static const NSInteger kSignalOff = -1;
     XCTAssert(testRegister_init_from_hungUp == nil);
     
     // re fire can work again
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"cancel"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"cancel"];
     XCTAssert(testRegister_init_from_hungUp != nil);
     
     // after pick off register is not work immediately
     testRegister_init_from_hungUp = nil;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal].recoverFromHungUp block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault].recoverFromHungUp block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_init_from_hungUp = @"not null";
     }];
     XCTAssert(testRegister_init_from_hungUp == nil);
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:nil];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:nil];
     XCTAssert(testRegister_init_from_hungUp != nil);
     
     // muti signals
@@ -254,14 +254,14 @@ static const NSInteger kSignalOff = -1;
 
 - (void)testWeakDataWrapper
 {
-    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signal], [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1]] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignals:@[[BulbTestRegisterSignal signalDefault], [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1]] block:^(id firstData, NSDictionary<NSString *, BulbSignal *> *signalIdentifier2Signal) {
         NSLog(@"noti exe ! %@", firstData);
         XCTAssert(firstData == nil);
     }];
     
     @autoreleasepool {
         BulbTextDealloc* a = [[BulbTextDealloc alloc] init];
-        [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:[BulbWeakDataWrapper wrap:a]];
+        [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:[BulbWeakDataWrapper wrap:a]];
     }
     [[Bulb bulbGlobal] fire:[BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1] data:@"data"];
 }
@@ -275,7 +275,7 @@ static const NSInteger kSignalOff = -1;
 - (void)testFilter
 {
     __block id testRegister_signal_fire = nil;
-    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signal] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
+    [[Bulb bulbGlobal] registerSignal:[BulbTestRegisterSignal signalDefault] block:^(id firstData, NSDictionary<NSString *,id> *signalIdentifier2Signal) {
         testRegister_signal_fire = @"testRegister_signal_fire";
         NSLog(@"testRegister_signal data %@", firstData);
     } filterBlock:^BOOL(BulbSignal *signal) {
@@ -284,16 +284,16 @@ static const NSInteger kSignalOff = -1;
         }
         return NO;
     }];
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data"];
     XCTAssert(![testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
-    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signal] data:@"data1"];
+    [[Bulb bulbGlobal] fire:[BulbTestRegisterSignal signalDefault] data:@"data1"];
     XCTAssert([testRegister_signal_fire isEqualToString:@"testRegister_signal_fire"]);
 }
 
 - (void)testRecorder
 {
 #ifdef BULB_RECORDER
-    [BulbTestRegisterSignal signal];
+    [BulbTestRegisterSignal signalDefault];
     [BulbTestRegisterMutiStatusSignal signalWithStatus:kStatus1];
     [BulbTestRegisterMutiStatusSignal1 signalWithStatus:kStatus2];
     
