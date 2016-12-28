@@ -13,7 +13,7 @@
  */
 @interface BulbBoolSignal : BulbSignal
 
-+ (instancetype)signal;
++ (instancetype)signalDefault;
 + (instancetype)signalWithClassify:(NSString *)classify;
 // 链式初始化
 - (instancetype)on;

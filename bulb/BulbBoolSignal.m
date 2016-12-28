@@ -20,7 +20,7 @@ static const NSInteger kBulbBoolSignalStatusOn = 0;
     }
 }
 
-+ (instancetype)signal
++ (instancetype)signalDefault
 {
     BulbBoolSignal* signal = [[self alloc] init];
     [signal on];
@@ -30,7 +30,7 @@ static const NSInteger kBulbBoolSignalStatusOn = 0;
 
 + (instancetype)signalWithClassify:(NSString *)classify
 {
-    BulbBoolSignal* signal = [BulbBoolSignal signal];
+    BulbBoolSignal* signal = [BulbBoolSignal signalDefault];
     signal.identifierClassify = classify;
     return signal;
 }
