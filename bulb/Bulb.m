@@ -254,4 +254,11 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     return self.hungUpList.description;
 }
 
+- (void)unRegister:(BulbSlot *)slot
+{
+    dispatch_sync(self.bulbDispatchQueue, ^{
+        [self.slots removeObject:slot];
+    });
+}
+
 @end

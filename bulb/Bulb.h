@@ -79,4 +79,9 @@
  */
 - (NSString *)hungUpListDescription;
 
+/*!
+ *  @brief 移除一个注册好的slot
+ */
+- (void)unRegister:(BulbSlot *)slot;
+
 @end

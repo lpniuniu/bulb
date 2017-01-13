@@ -353,4 +353,28 @@ static const NSInteger kSignalOff = -1;
     
 }
 
+- (void)testUnRegister
+{
+    __block NSInteger test_signal_un_register = 0;
+    Bulb* bulb = [Bulb bulbWithName:@"un register"];
+    id slot = [bulb registerSignal:[BulbTestRegisterSignal signalDefault] block:^BOOL(id firstData, NSDictionary<NSString *,BulbSignal *> *signalIdentifier2Signal) {
+        test_signal_un_register++;
+        return YES;
+    }];
+    
+    [bulb fire:[BulbTestRegisterSignal signalDefault] data:nil];
+    
+    XCTAssert(test_signal_un_register == 1);
+    
+    [bulb fire:[BulbTestRegisterSignal signalDefault] data:nil];
+    
+    XCTAssert(test_signal_un_register == 2);
+    
+    [bulb unRegister:slot];
+    
+    [bulb fire:[BulbTestRegisterSignal signalDefault] data:nil];
+    
+    XCTAssert(test_signal_un_register == 2);
+}
+
 @end
