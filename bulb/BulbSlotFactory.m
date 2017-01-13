@@ -11,16 +11,9 @@
 
 @implementation BulbSlotFactory
 
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbHasResultBlock)block filterBlock:(BulbFilterBlock)filterBlock
 {
-    BulbOnceSlot* slot = [[BulbOnceSlot alloc] initWithSignals:signals block:block fireTable:@[identifier2status]];
-    slot.filterBlock = filterBlock;
-    return slot;
-}
-
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status foreverBlock:(BulbHasResultBlock)foreverBlock filterBlock:(BulbFilterBlock)filterBlock
-{
-    BulbSlot* slot = [[BulbSlot alloc] initWithSignals:signals block:foreverBlock fireTable:@[identifier2status]];
+    BulbSlot* slot = [[BulbSlot alloc] initWithSignals:signals block:block fireTable:@[identifier2status]];
     slot.filterBlock = filterBlock;
     return slot;
 }

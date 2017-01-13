@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BulbSlot.h"
-#import "BulbOnceSlot.h"
 #import "BulbSignal.h"
 
 /*!
@@ -16,14 +15,6 @@
  */
 @interface BulbSlotFactory : NSObject
 
-/*
- *  构造BulbOnceSlot
- */
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock;
-
-/*
- *  构造标准的BulbSlot
- */
-+ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status foreverBlock:(BulbHasResultBlock)foreverBlock filterBlock:(BulbFilterBlock)filterBlock;
++ (BulbSlot *)buildWithSignals:(NSArray<BulbSignal *> *)signals fireTable:(NSDictionary *)identifier2status block:(BulbHasResultBlock)block filterBlock:(BulbFilterBlock)filterBlock;
 
 @end

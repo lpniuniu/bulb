@@ -7,7 +7,6 @@
 //
 
 #import "Bulb.h"
-#import "BulbOnceSlot.h"
 #import "BulbSlotFactory.h"
 #import "BulbHungUpList.h"
 #import "BulbWeakDataWrapper.h"
@@ -176,47 +175,22 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
     });
 }
 
-- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbBlock)block
+- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbHasResultBlock)block
 {
     return [self registerSignals:@[signal] block:block];
 }
 
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbHasResultBlock)block
 {
-    return [self registerSignals:signals block:block foreverblock:nil filterBlock:nil];
+    return [self registerSignals:signals block:block filterBlock:nil];
 }
 
-- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock
+- (BulbSlot *)registerSignal:(BulbSignal *)signal block:(BulbHasResultBlock)block filterBlock:(BulbFilterBlock)filterBlock
 {
     return [self registerSignals:@[signal] block:block filterBlock:filterBlock];
 }
 
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block filterBlock:(BulbFilterBlock)filterBlock
-{
-    return [self registerSignals:signals block:block foreverblock:nil filterBlock:filterBlock];
-}
-
-- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock
-{
-    return [self registerSignals:@[signal] foreverblock:foreverblock];
-}
-
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock
-{
-    return [self registerSignals:signals block:nil foreverblock:foreverblock filterBlock:nil];
-}
-
-- (BulbSlot *)registerSignal:(BulbSignal *)signal foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
-{
-    return [self registerSignals:@[signal] foreverblock:foreverblock filterBlock:filterBlock];
-}
-
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
-{
-    return [self registerSignals:signals block:nil foreverblock:foreverblock filterBlock:filterBlock];
-}
-
-- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbBlock)block foreverblock:(BulbHasResultBlock)foreverblock filterBlock:(BulbFilterBlock)filterBlock
+- (BulbSlot *)registerSignals:(NSArray<BulbSignal *> *)signals block:(BulbHasResultBlock)block filterBlock:(BulbFilterBlock)filterBlock
 {
     [[BulbRecorder sharedInstance] addSignalsRegisterRecord:self signals:signals];
     
@@ -228,12 +202,7 @@ static dispatch_queue_t bulbName2bulbDispatchQueue = nil;
         [fireTable setObject:@(obj.status) forKey:[obj identifier]];
     }];
     
-    BulbSlot* slot = nil;
-    if (foreverblock) {
-        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable foreverBlock:foreverblock filterBlock:filterBlock];
-    } else {
-        slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block filterBlock:filterBlock];
-    }
+    BulbSlot* slot = [BulbSlotFactory buildWithSignals:signals fireTable:fireTable block:block filterBlock:filterBlock];
     [slot resetSignals];
     [self handleFromHungUpList:slot];
     

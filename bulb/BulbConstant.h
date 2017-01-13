@@ -14,7 +14,6 @@ typedef enum : NSInteger {
     kBulbSignalStatusOff = -1
 } BulbSignalInternalStatus;
 
-typedef void(^BulbBlock)(id firstData, NSDictionary<NSString *, BulbSignal *>* signalIdentifier2Signal);
 typedef BOOL(^BulbHasResultBlock)(id firstData, NSDictionary<NSString *, BulbSignal *>* signalIdentifier2Signal);
 
 typedef BOOL(^BulbFilterBlock)(BulbSignal* signal);
