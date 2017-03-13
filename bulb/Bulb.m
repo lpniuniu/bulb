@@ -61,7 +61,7 @@
     }
     NSMutableArray* deleteSlots = [NSMutableArray array];
     NSMutableArray* appendSlots = [NSMutableArray array];
-    [bulb.slots enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[bulb.slots copy] enumerateObjectsUsingBlock:^(BulbSlot * _Nonnull slot, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([slot hasSignal:signalIdentifier]) {
             [slot fireStatusWithSignalIdentifier:signalIdentifier status:status data:data];
             if (slot.fireCount > 0) {
