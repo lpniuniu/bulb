@@ -86,6 +86,12 @@
     [self addSignalIdentifierToHistory:signal];
 }
 
++ (void)remove:(NSString *)signalIdentifier
+{
+    BulbSignal* signal = [[BulbSignal alloc] initWithSignalIdentifier:signalIdentifier];
+    [self removeSignalIdentifierToHistory:signal];
+}
+
 + (void)addSignalIdentifierToHistory:(BulbSignal *)signal
 {
     BulbSignal* removeSignal = [self getSignalFromHistory:signal.identifier];
@@ -96,6 +102,13 @@
         signal.status = kBulbSignalStatusOn;
     }
     [bulb.history.signals addObject:signal];
+}
+
++ (void)removeSignalIdentifierToHistory:(BulbSignal *)signal
+{
+    BulbSignal* removeSignal = [self getSignalFromHistory:signal.identifier];
+    Bulb* bulb = [self sharedInstance];
+    [bulb.history.signals removeObject:removeSignal];
 }
 
 + (void)regiseterSignal:(NSString *)signalIdentifier block:(BulbBlock)block

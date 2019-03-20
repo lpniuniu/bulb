@@ -95,6 +95,11 @@
  */
 + (void)save:(NSString *)signalIdentifier status:(NSString *)status data:(id)data;
 
+/**
+ @brief 从历史记录中移除信号
+ */
++ (void)remove:(NSString *)signalIdentifier;
+
 /*!
  *  @brief 获取某信号的状态
  *
